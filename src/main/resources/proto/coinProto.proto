@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+option java_package = "com.szymon.websocket.generated";
+option java_outer_classname = "CoinGenerated";
+
+message CoinProto {
+  int32 position_x = 1;
+  int32 position_y = 2;
+}
