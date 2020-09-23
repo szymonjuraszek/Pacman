@@ -61,7 +61,7 @@ public class MonsterService implements IMovement<Monster> {
 
                 while (true) {
                     try {
-                        Thread.sleep(20 + idMonster*2);
+                        Thread.sleep(23 + idMonster*2);
                         move(monster);
                     } catch (InterruptedException e) {
                         logger.error("Przerwano watek potwora");
