@@ -21,9 +21,9 @@ public class MeasurementWriter {
     private final List<Measurement> measurements = new LinkedList<>();
 
     public synchronized void addMeasurement(Measurement measurement) {
-//        if(measurements.size() > 10000) {
-//            measurements.remove(0);
-//        }
+        if(measurements.size() > 5000) {
+            measurements.remove(0);
+        }
         measurements.add(measurement);
     }
 
