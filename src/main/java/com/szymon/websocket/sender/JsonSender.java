@@ -24,17 +24,21 @@ public class JsonSender implements ISender {
     }
 
     @Override
-    public void sendWithTimestamp(String destination, GameObject gameObject, HeaderStatus status,long requestTimestamp) {
+    public void sendWithTimestamp(String destination, GameObject gameObject, HeaderStatus status,
+                                  long requestTimestamp,int contentLength) {
         this.template.convertAndSend(destination, gameObject, Map.of(
                 "requestTimestamp", requestTimestamp,
+                "contentLength", contentLength,
                 "status", status
         ));
     }
 
     @Override
-    public void sendToUser(String destination, GameObject gameObject, HeaderStatus status, String userSession, long requestTimestamp) {
+    public void sendToUser(String destination, GameObject gameObject, HeaderStatus status,
+                           String userSession, long requestTimestamp, int contentLength) {
         this.template.convertAndSendToUser(userSession, destination, gameObject, Map.of(
                 "requestTimestamp", requestTimestamp,
+                "contentLength", contentLength,
                 "status", status
         ));
     }

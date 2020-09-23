@@ -36,17 +36,17 @@ public class BinaryController {
     }
 
     @MessageMapping("/send/position/custom/binary")
-    public void updatePositionForPlayerCustomBinary(@Payload byte[] data, Principal user, @Header("requestTimestamp") Long requestTimestamp) {
-        makeMove(binaryConverter.convert(data), requestTimestamp, user.getName());
+    public void updatePositionForPlayerCustomBinary(@Payload byte[] data, Principal user, @Header("requestTimestamp") Long requestTimestamp, @Header("content-length") Integer contentLength) {
+        makeMove(binaryConverter.convert(data), requestTimestamp, user.getName(),contentLength);
     }
 
     @SneakyThrows
     @MessageMapping("/send/position/protobuf")
-    public void updatePositionForPlayerProtobuf(@Payload byte[] data, Principal user, @Header("requestTimestamp") Long requestTimestamp) {
-        makeMove(Converter.create().toDomain(Player.class, PlayerGenerated.PlayerProto.parseFrom(data)), requestTimestamp, user.getName());
+    public void updatePositionForPlayerProtobuf(@Payload byte[] data, Principal user, @Header("requestTimestamp") Long requestTimestamp, @Header("content-length") Integer contentLength) {
+        makeMove(Converter.create().toDomain(Player.class, PlayerGenerated.PlayerProto.parseFrom(data)), requestTimestamp, user.getName(),contentLength);
     }
 
-    private void makeMove(Player player, long requestTimestamp, String userName) {
+    private void makeMove(Player player, long requestTimestamp, String userName, int contentLength) {
 //        System.out.println(("Request time: " + measurement.getRequestTimeInMillis() + " milliseconds"));
 
         Optional<PlayerWithOperation> playerWithOperation = playerService.move(player);
@@ -58,12 +58,12 @@ public class BinaryController {
                     break;
                 }
                 case UPDATE: {
-                    this.spriteSender.sendWithTimestamp("/pacman/update/player", playerWithOperation.get().getPlayer(), HeaderStatus.OK, requestTimestamp);
+                    this.spriteSender.sendWithTimestamp("/pacman/update/player", playerWithOperation.get().getPlayer(), HeaderStatus.OK, requestTimestamp,contentLength);
                     break;
                 }
             }
         } else {
-            this.spriteSender.sendToUser("/queue/player", player, HeaderStatus.UPDATE, userName, requestTimestamp);
+            this.spriteSender.sendToUser("/queue/player", player, HeaderStatus.UPDATE, userName, requestTimestamp,contentLength);
         }
     }
 }

@@ -3,6 +3,7 @@ package com.szymon.websocket.model.sprite;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.szymon.generated.PlayerGenerated;
 import com.szymon.websocket.converter.StringDirectionConverter;
+import com.szymon.websocket.dao.AdditionalObject;
 import com.szymon.websocket.dao.GameObject;
 import lombok.Data;
 import net.badata.protobuf.converter.Converter;
@@ -18,7 +19,7 @@ public class Player extends GameObject {
     @JsonIgnore
     private final StringBuilder stringBuilder = new StringBuilder(20);
 
-//    private AdditionalObject[] additionalData;
+    private AdditionalObject[] someData;
 
     @ProtoField
     private String nickname;
