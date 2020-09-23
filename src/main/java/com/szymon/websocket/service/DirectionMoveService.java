@@ -30,9 +30,9 @@ public class DirectionMoveService {
         int y = monster.getPositionY() - GameConstants.STEP_Y;
 
 //        Zabezpiecznie przed zapetleniem przydatne podczas ustawienia ze potwory nie zabijaja
-        if(counter > 10) {
+        if (counter > 10) {
             monster.setPreviousDirection(Direction.NONE);
-            return new int[]{monster.getPositionX(),monster.getPositionY()};
+            return new int[]{monster.getPositionX(), monster.getPositionY()};
         }
 
         if (Direction.getOppositeDirection(monster.getPreviousDirection()) != Direction.BOT) {
@@ -52,31 +52,29 @@ public class DirectionMoveService {
             }
         }
 
-        return turnLeft(player, monster, shortestDistance, false,++counter);
+        return turnLeft(player, monster, shortestDistance, false, ++counter);
     }
 
     private int[] turnLeft(Player player, Monster monster, int shortestDistance, boolean flag, int counter) {
         int x = monster.getPositionX() - GameConstants.STEP_X;
         int y = monster.getPositionY();
 
-        if (Direction.getOppositeDirection(monster.getPreviousDirection()) != Direction.RIGHT) {
-            int futureLeft = (int) Math.abs(Math.pow(player.getPositionX() - x, 2)
-                    + Math.pow(player.getPositionY() - y, 2));
+        int futureLeft = (int) Math.abs(Math.pow(player.getPositionX() - x, 2)
+                + Math.pow(player.getPositionY() - y, 2));
 
-            if ((futureLeft < shortestDistance) || flag) {
-                if (mapCollisionService.check(x, y)) {
-                    monster.setPreviousDirection(Direction.RIGHT);
-                    return new int[]{x, y};
-                } else {
-                    if (Direction.getOppositeDirection(monster.getPreviousDirection()) == Direction.TOP) {
-                        return theSameStep(monster);
-                    }
-                    return turnBot(player, monster, shortestDistance, false,++counter);
+        if ((futureLeft < shortestDistance) || flag) {
+            if (mapCollisionService.check(x, y)) {
+                monster.setPreviousDirection(Direction.RIGHT);
+                return new int[]{x, y};
+            } else {
+                if (Direction.getOppositeDirection(monster.getPreviousDirection()) == Direction.TOP) {
+                    return theSameStep(monster);
                 }
+                return turnBot(player, monster, shortestDistance, false, ++counter);
             }
         }
 
-        return turnBot(player, monster, shortestDistance, false,++counter);
+        return turnBot(player, monster, shortestDistance, false, ++counter);
     }
 
     private int[] turnBot(Player player, Monster monster, int shortestDistance, boolean flag, int counter) {
@@ -95,12 +93,12 @@ public class DirectionMoveService {
                     if (Direction.getOppositeDirection(monster.getPreviousDirection()) == Direction.LEFT) {
                         return theSameStep(monster);
                     }
-                    return turnRight(player, monster, shortestDistance, true,++counter);
+                    return turnRight(player, monster, shortestDistance, true, ++counter);
                 }
             }
         }
 
-        return turnRight(player, monster, shortestDistance, false,++counter);
+        return turnRight(player, monster, shortestDistance, false, ++counter);
     }
 
     private int[] turnRight(Player player, Monster monster, int shortestDistance, boolean flag, int counter) {
@@ -119,12 +117,12 @@ public class DirectionMoveService {
                     if (Direction.getOppositeDirection(monster.getPreviousDirection()) == Direction.BOT) {
                         return theSameStep(monster);
                     }
-                    return turnTop(player, monster, shortestDistance, true,++counter);
+                    return turnTop(player, monster, shortestDistance, true, ++counter);
                 }
             }
         }
 
-        return turnTop(player, monster, shortestDistance, false,++counter);
+        return turnTop(player, monster, shortestDistance, false, ++counter);
     }
 
     //    Powoduje ze monster bedzie podazal sciezka pomimo ze nie bedzie to najkrotsza trasa
