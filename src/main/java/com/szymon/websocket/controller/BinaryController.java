@@ -3,8 +3,6 @@ package com.szymon.websocket.controller;
 import com.szymon.generated.PlayerGenerated;
 import com.szymon.websocket.dao.HeaderStatus;
 import com.szymon.websocket.dao.PlayerWithOperation;
-import com.szymon.websocket.model.measurement.Measurement;
-import com.szymon.websocket.model.measurement.writer.MeasurementWriter;
 import com.szymon.websocket.model.sprite.Player;
 import com.szymon.websocket.sender.ISender;
 import com.szymon.websocket.service.PlayerService;

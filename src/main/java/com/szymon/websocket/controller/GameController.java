@@ -63,7 +63,7 @@ public class GameController {
         this.spriteSender = spriteSender;
     }
 
-//    JSON
+    //    JSON
     @MessageMapping("/send/position")
     public void updatePositionForPlayer(Player player, Principal user, @Header("requestTimestamp") Long requestTimestamp/*, @Header("content-length") Integer contentLength*//*, Wrapper wrapper*/) {
 //        logger.info("Request time: " + measurement.getRequestTimeInMillis() + " milliseconds");

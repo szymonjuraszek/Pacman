@@ -2044,7 +2044,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         _this.requestCache = requestCache;
         _this.variable = _this.makeid(30000);
 
-        _this.setFormatter(new _format_JsonFormatter__WEBPACK_IMPORTED_MODULE_5__["JsonFormatter"]());
+        _this.setFormatter(new _format_ProtobufFormatter__WEBPACK_IMPORTED_MODULE_6__["ProtobufFormatter"]());
 
         return _this;
       }
