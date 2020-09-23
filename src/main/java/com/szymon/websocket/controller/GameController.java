@@ -45,8 +45,6 @@ public class GameController {
 
     private final CoinService coinService;
 
-    private final MeasurementWriter writer;
-
     private final ISender spriteSender;
 
     public GameController(
@@ -55,7 +53,6 @@ public class GameController {
             WebsocketSessionService websocketSessionService,
             CoinsSet coinsSet,
             CoinService coinService,
-            MeasurementWriter writer,
             ISender spriteSender
     ) {
         this.playerService = playerService;
@@ -63,31 +60,18 @@ public class GameController {
         this.websocketSessionService = websocketSessionService;
         this.coinsSet = coinsSet;
         this.coinService = coinService;
-        this.writer = writer;
         this.spriteSender = spriteSender;
     }
 
 //    JSON
     @MessageMapping("/send/position")
     public void updatePositionForPlayer(Player player, Principal user, @Header("requestTimestamp") Long requestTimestamp/*, @Header("content-length") Integer contentLength*//*, Wrapper wrapper*/) {
-        Measurement measurement = Measurement.builder()
-                .requestTimeInMillis(System.currentTimeMillis() - requestTimestamp)
-                .nickname(player.getNickname())
-                .requestTimestamp(requestTimestamp)
-                .version(player.getVersion())
-//                .size(contentLength)
-                .build();
-
-        writer.addMeasurement(measurement);
-//        System.out.println(contentLength);
-//        System.out.println("Rozmiar dodatkowych danych: " + wrapper.getAdditionalData().length);
-
 //        logger.info("Request time: " + measurement.getRequestTimeInMillis() + " milliseconds");
 //        logger.info("Player: " + player.getNickname() + "x: " + player.getPositionX() + " y: " + player.getPositionY());
 
         Optional<PlayerWithOperation> playerWithOperation = playerService.move(player);
-
 //        player.setSomeData(wrapper.getAdditionalData());
+
         if (playerWithOperation.isPresent()) {
             switch (playerWithOperation.get().getOperation()) {
                 case REMOVE: {
@@ -95,12 +79,12 @@ public class GameController {
                     break;
                 }
                 case UPDATE: {
-                    this.spriteSender.sendWithTimestamp("/pacman/update/player", playerWithOperation.get().getPlayer(), HeaderStatus.OK);
+                    this.spriteSender.sendWithTimestamp("/pacman/update/player", playerWithOperation.get().getPlayer(), HeaderStatus.OK, requestTimestamp);
                     break;
                 }
             }
         } else {
-            this.spriteSender.sendToUser("/queue/player", player, HeaderStatus.UPDATE, user.getName());
+            this.spriteSender.sendToUser("/queue/player", player, HeaderStatus.UPDATE, user.getName(), requestTimestamp);
         }
     }
 

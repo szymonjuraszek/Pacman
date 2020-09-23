@@ -130,7 +130,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     __webpack_require__.n(rsocket_core__WEBPACK_IMPORTED_MODULE_0__); // Defined data which will be saved into response file (not modify)
 
 
-    var CSV_RESPONSE_HEADERS = ['id', 'response_time_in_millis', 'response_timestamp', 'version_response']; //-----------------------   Global options for application which you can modify    -------------------------
+    var CSV_RESPONSE_HEADERS = ['id', 'response_time_in_millis', 'request_timestamp', 'version_response']; //-----------------------   Global options for application which you can modify    -------------------------
     // 1) URLS
     // URL for measurement file (request file)
     // export const HTTP_URL_DOWNLOAD = 'https://localhost:8080/report/measurement';
@@ -1426,11 +1426,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
       _createClass(MeasurementService, [{
         key: "addMeasurementResponse",
-        value: function addMeasurementResponse(id, responseTimeInMillis, responseTimestamp, version) {
+        value: function addMeasurementResponse(id, responseTimeInMillis, requestTimestamp, version) {
           // if (this.measurements.length > 1999) {
           //     this.measurements.splice(0, 1);
           // }
-          this.measurements.push(new _model_MeasurementResponse__WEBPACK_IMPORTED_MODULE_1__["MeasurementResponse"](id, responseTimeInMillis, responseTimestamp, version));
+          this.measurements.push(new _model_MeasurementResponse__WEBPACK_IMPORTED_MODULE_1__["MeasurementResponse"](id, responseTimeInMillis, requestTimestamp, version));
         }
       }, {
         key: "getResponseMeasurements",
@@ -2089,9 +2089,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             _this2.stompClient.subscribe('/pacman/update/player', function (playerToUpdate) {
               var parsedPlayer = _this2.formatter.decodePlayer(playerToUpdate);
 
-              var responseTimeInMillis = new Date().getTime() - Number(playerToUpdate.headers.timestamp); // console.error("Odpowiedz serwera " + responseTimeInMillis + " milliseconds")
+              var responseTimeInMillis = new Date().getTime() - Number(playerToUpdate.headers.requestTimestamp); // console.error("Odpowiedz serwera " + responseTimeInMillis + " milliseconds")
 
-              _this2.measurementService.addMeasurementResponse(parsedPlayer.nickname, responseTimeInMillis, playerToUpdate.headers.timestamp, parsedPlayer.version);
+              _this2.measurementService.addMeasurementResponse(parsedPlayer.nickname, responseTimeInMillis, playerToUpdate.headers.requestTimestamp, parsedPlayer.version);
 
               if (parsedPlayer.nickname === _this2.myNickname) {
                 var request = _this2.requestCache.getRequest(parsedPlayer.version);
@@ -2129,9 +2129,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             _this2.stompClient.subscribe('/user/queue/player', function (playerToUpdate) {
               var parsedPlayer = _this2.formatter.decodePlayer(playerToUpdate);
 
-              var responseTimeInMillis = new Date().getTime() - Number(playerToUpdate.headers.timestamp);
+              var responseTimeInMillis = new Date().getTime() - Number(playerToUpdate.headers.requestTimestamp);
 
-              _this2.measurementService.addMeasurementResponse(parsedPlayer.nickname, responseTimeInMillis, playerToUpdate.headers.timestamp, parsedPlayer.version);
+              _this2.measurementService.addMeasurementResponse(parsedPlayer.nickname, responseTimeInMillis, playerToUpdate.headers.requestTimestamp, parsedPlayer.version);
 
               var request = _this2.requestCache.getCorrectedPosition(parsedPlayer.version);
 
@@ -2857,12 +2857,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var MeasurementResponse =
     /*#__PURE__*/
     function () {
-      function MeasurementResponse(id, response_time_in_millis, response_timestamp, version_response) {
+      function MeasurementResponse(id, response_time_in_millis, request_timestamp, version_response) {
         _classCallCheck(this, MeasurementResponse);
 
         this._id = id;
         this._response_time_in_millis = response_time_in_millis;
-        this._response_timestamp = response_timestamp;
+        this._request_timestamp = request_timestamp;
         this._version_response = version_response;
       }
 
@@ -2875,12 +2875,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           this._response_time_in_millis = value;
         }
       }, {
-        key: "response_timestamp",
+        key: "request_timestamp",
         get: function get() {
-          return this._response_timestamp;
+          return this._request_timestamp;
         },
         set: function set(value) {
-          this._response_timestamp = value;
+          this._request_timestamp = value;
         }
       }, {
         key: "version_response",
@@ -3329,8 +3329,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           this.downloadButton = this.add.image(this.game.canvas.width - 208, 48, 'download-button');
           this.downloadButton.setInteractive();
           this.downloadButton.on('pointerup', function () {
-            _this7.downloadService.downloadRequestMeasurements();
-
+            // this.downloadService.downloadRequestMeasurements();
             _this7.downloadService.downloadResponseMeasurements();
           }); // Dodanie kolizji dla elementow warstwy background o id od 150 do 250 (te id znajduja sie w tileset ktory sklada sie na te warstwe)
 

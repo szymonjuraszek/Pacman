@@ -25,19 +25,15 @@ public class BinaryController {
 
     private final BinaryConverter binaryConverter;
 
-    private final MeasurementWriter writer;
-
     private final ISender spriteSender;
 
     public BinaryController(
             PlayerService playerService,
             BinaryConverter binaryConverter,
-            MeasurementWriter writer,
             ISender spriteSender
     ) {
         this.playerService = playerService;
         this.binaryConverter = binaryConverter;
-        this.writer = writer;
         this.spriteSender = spriteSender;
     }
 
@@ -53,17 +49,7 @@ public class BinaryController {
     }
 
     private void makeMove(Player player, long requestTimestamp, String userName) {
-        Measurement measurement = Measurement.builder()
-                .requestTimeInMillis(System.currentTimeMillis() - requestTimestamp)
-                .nickname(player.getNickname())
-                .requestTimestamp(requestTimestamp)
-                .version(player.getVersion())
-                .build();
-
-//        System.out.println(requestTimestamp);
-//        System.out.println(player);
 //        System.out.println(("Request time: " + measurement.getRequestTimeInMillis() + " milliseconds"));
-        writer.addMeasurement(measurement);
 
         Optional<PlayerWithOperation> playerWithOperation = playerService.move(player);
 
@@ -74,12 +60,12 @@ public class BinaryController {
                     break;
                 }
                 case UPDATE: {
-                    this.spriteSender.sendWithTimestamp("/pacman/update/player", playerWithOperation.get().getPlayer(), HeaderStatus.OK);
+                    this.spriteSender.sendWithTimestamp("/pacman/update/player", playerWithOperation.get().getPlayer(), HeaderStatus.OK, requestTimestamp);
                     break;
                 }
             }
         } else {
-            this.spriteSender.sendToUser("/queue/player", player, HeaderStatus.UPDATE, userName);
+            this.spriteSender.sendToUser("/queue/player", player, HeaderStatus.UPDATE, userName, requestTimestamp);
         }
     }
 }

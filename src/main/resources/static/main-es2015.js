@@ -45,7 +45,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // Defined data which will be saved into response file (not modify)
-const CSV_RESPONSE_HEADERS = ['id', 'response_time_in_millis', 'response_timestamp', 'version_response'];
+const CSV_RESPONSE_HEADERS = ['id', 'response_time_in_millis', 'request_timestamp', 'version_response'];
 //-----------------------   Global options for application which you can modify    -------------------------
 // 1) URLS
 // URL for measurement file (request file)
@@ -1083,11 +1083,11 @@ class MeasurementService {
     constructor() {
         this.measurements = new Array();
     }
-    addMeasurementResponse(id, responseTimeInMillis, responseTimestamp, version) {
+    addMeasurementResponse(id, responseTimeInMillis, requestTimestamp, version) {
         // if (this.measurements.length > 1999) {
         //     this.measurements.splice(0, 1);
         // }
-        this.measurements.push(new _model_MeasurementResponse__WEBPACK_IMPORTED_MODULE_1__["MeasurementResponse"](id, responseTimeInMillis, responseTimestamp, version));
+        this.measurements.push(new _model_MeasurementResponse__WEBPACK_IMPORTED_MODULE_1__["MeasurementResponse"](id, responseTimeInMillis, requestTimestamp, version));
     }
     getResponseMeasurements() {
         return this.measurements;
@@ -1434,9 +1434,9 @@ class WebsocketService extends _Communicator__WEBPACK_IMPORTED_MODULE_2__["Commu
             });
             this.stompClient.subscribe('/pacman/update/player', (playerToUpdate) => {
                 const parsedPlayer = this.formatter.decodePlayer(playerToUpdate);
-                const responseTimeInMillis = new Date().getTime() - Number(playerToUpdate.headers.timestamp);
+                const responseTimeInMillis = new Date().getTime() - Number(playerToUpdate.headers.requestTimestamp);
                 // console.error("Odpowiedz serwera " + responseTimeInMillis + " milliseconds")
-                this.measurementService.addMeasurementResponse(parsedPlayer.nickname, responseTimeInMillis, playerToUpdate.headers.timestamp, parsedPlayer.version);
+                this.measurementService.addMeasurementResponse(parsedPlayer.nickname, responseTimeInMillis, playerToUpdate.headers.requestTimestamp, parsedPlayer.version);
                 if (parsedPlayer.nickname === this.myNickname) {
                     const request = this.requestCache.getRequest(parsedPlayer.version);
                     this.updateScore.next(parsedPlayer.score);
@@ -1464,8 +1464,8 @@ class WebsocketService extends _Communicator__WEBPACK_IMPORTED_MODULE_2__["Commu
             });
             this.stompClient.subscribe('/user/queue/player', (playerToUpdate) => {
                 const parsedPlayer = this.formatter.decodePlayer(playerToUpdate);
-                const responseTimeInMillis = new Date().getTime() - Number(playerToUpdate.headers.timestamp);
-                this.measurementService.addMeasurementResponse(parsedPlayer.nickname, responseTimeInMillis, playerToUpdate.headers.timestamp, parsedPlayer.version);
+                const responseTimeInMillis = new Date().getTime() - Number(playerToUpdate.headers.requestTimestamp);
+                this.measurementService.addMeasurementResponse(parsedPlayer.nickname, responseTimeInMillis, playerToUpdate.headers.requestTimestamp, parsedPlayer.version);
                 const request = this.requestCache.getCorrectedPosition(parsedPlayer.version);
                 if (request !== null) {
                     parsedPlayer.positionX = request.x;
@@ -1849,10 +1849,10 @@ HttpService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjec
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MeasurementResponse", function() { return MeasurementResponse; });
 class MeasurementResponse {
-    constructor(id, response_time_in_millis, response_timestamp, version_response) {
+    constructor(id, response_time_in_millis, request_timestamp, version_response) {
         this._id = id;
         this._response_time_in_millis = response_time_in_millis;
-        this._response_timestamp = response_timestamp;
+        this._request_timestamp = request_timestamp;
         this._version_response = version_response;
     }
     get response_time_in_millis() {
@@ -1861,11 +1861,11 @@ class MeasurementResponse {
     set response_time_in_millis(value) {
         this._response_time_in_millis = value;
     }
-    get response_timestamp() {
-        return this._response_timestamp;
+    get request_timestamp() {
+        return this._request_timestamp;
     }
-    set response_timestamp(value) {
-        this._response_timestamp = value;
+    set request_timestamp(value) {
+        this._request_timestamp = value;
     }
     get version_response() {
         return this._version_response;
@@ -2136,7 +2136,7 @@ class MainSceneComponent extends phaser__WEBPACK_IMPORTED_MODULE_1___default.a.S
         this.downloadButton = this.add.image(this.game.canvas.width - 208, 48, 'download-button');
         this.downloadButton.setInteractive();
         this.downloadButton.on('pointerup', () => {
-            this.downloadService.downloadRequestMeasurements();
+            // this.downloadService.downloadRequestMeasurements();
             this.downloadService.downloadResponseMeasurements();
         });
         // Dodanie kolizji dla elementow warstwy background o id od 150 do 250 (te id znajduja sie w tileset ktory sklada sie na te warstwe)

@@ -23,13 +23,19 @@ public class ProtobufSender implements ISender {
     }
 
     @Override
-    public void sendWithTimestamp(String destination, GameObject gameObject, HeaderStatus status) {
-        this.template.convertAndSend(destination, gameObject.encodeDataByProtobuf(), Map.of("timestamp", System.currentTimeMillis(), "status", status));
+    public void sendWithTimestamp(String destination, GameObject gameObject, HeaderStatus status, long requestTimestamp) {
+        this.template.convertAndSend(destination, gameObject.encodeDataByProtobuf(), Map.of(
+                "requestTimestamp", requestTimestamp,
+                "status", status
+        ));
     }
 
     @Override
-    public void sendToUser(String destination, GameObject gameObject, HeaderStatus status, String userSession) {
-        this.template.convertAndSendToUser(userSession, destination, gameObject.encodeDataByProtobuf(), Map.of("timestamp", System.currentTimeMillis(), "status", status));
+    public void sendToUser(String destination, GameObject gameObject, HeaderStatus status, String userSession, long requestTimestamp) {
+        this.template.convertAndSendToUser(userSession, destination, gameObject.encodeDataByProtobuf(), Map.of(
+                "requestTimestamp", requestTimestamp,
+                "status", status
+        ));
     }
 
     @Override
