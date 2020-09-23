@@ -1404,7 +1404,7 @@ class WebsocketService extends _Communicator__WEBPACK_IMPORTED_MODULE_2__["Commu
         this.measurementService = measurementService;
         this.requestCache = requestCache;
         this.variable = this.makeid(30000);
-        this.setFormatter(new _format_ProtobufFormatter__WEBPACK_IMPORTED_MODULE_6__["ProtobufFormatter"]());
+        this.setFormatter(new _format_JsonFormatter__WEBPACK_IMPORTED_MODULE_5__["JsonFormatter"]());
     }
     initializeConnection() {
         // const ws = new SockJS(this.serverUrl);
