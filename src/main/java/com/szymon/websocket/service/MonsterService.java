@@ -14,11 +14,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import static com.szymon.websocket.service.DirectionMoveService.resetPreviousDirection;
 
 @Service
 public class MonsterService implements IMovement<Monster> {
@@ -85,14 +88,14 @@ public class MonsterService implements IMovement<Monster> {
         monster.setPositionX(position[0]);
         monster.setPositionY(position[1]);
 
-//        Optional<Player> playerToRemove = spriteCollisionService.getPlayerWhoCollideWithMonster(position[0], position[1]);
-//
-//        if (playerToRemove.isPresent()) {
-//            resetPreviousDirection();
-//            logger.info("Monster wpada na Gracza i go zabija");
-//            Game.getGame().getPlayers().remove(playerToRemove.get());
-//            this.spriteSender.send(Destination.REMOVE_PLAYER, playerToRemove.get());
-//        }
+        Optional<Player> playerToRemove = spriteCollisionService.getPlayerWhoCollideWithMonster(position[0], position[1]);
+
+        if (playerToRemove.isPresent()) {
+            resetPreviousDirection();
+            logger.info("Monster wpada na Gracza i go zabija");
+            Game.getGame().getPlayers().remove(playerToRemove.get());
+            this.spriteSender.send(Destination.REMOVE_PLAYER, playerToRemove.get());
+        }
 
         if (Game.getGame().getPlayers().size() != 0) {
             synchronized (Game.getGame().getMonsters()) {
