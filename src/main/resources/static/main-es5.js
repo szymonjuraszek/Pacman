@@ -1556,7 +1556,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             console.error(request);
 
             if (request.id > id) {
-              return;
+              return null;
             }
           }
 

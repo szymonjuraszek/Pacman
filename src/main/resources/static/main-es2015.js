@@ -1154,7 +1154,7 @@ class RequestCacheService {
             const request = this.requests.front;
             console.error(request);
             if (request.id > id) {
-                return;
+                return null;
             }
         }
         while (this.requests.length > 0) {
