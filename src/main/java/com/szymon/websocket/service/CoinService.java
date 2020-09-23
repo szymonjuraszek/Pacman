@@ -20,17 +20,18 @@ public class CoinService {
         this.coinSender = coinSender;
     }
 
-    synchronized public void collectCoin(Player player) {
+    synchronized public boolean collectCoin(Player player) {
         Coin coinToCollect = new Coin((int) Math.floor(player.getPositionX() >> 5), (int) Math.floor((player.getPositionY() + 16) >> 5));
 
         if (coinsSet.getCoins().remove(coinToCollect)) {
-            player.incrementScore();
             if (coinsSet.getCoins().isEmpty()) {
                 refreshCoinsOnMap(coinToCollect);
             } else {
                 this.coinSender.send(Destination.GET_COIN, new Coin(coinToCollect.getPositionX(), coinToCollect.getPositionY()));
             }
+            return true;
         }
+        return false;
     }
 
     private void refreshCoinsOnMap(Coin coinToCollect) {

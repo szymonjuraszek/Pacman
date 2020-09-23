@@ -45,15 +45,22 @@ public class PlayerService {
 //            } else
 //                if (spriteCollisionService.checkCollisionWithPlayers(player.getPositionX(), player.getPositionY())) {
             synchronized (Game.getGame().getPlayers()) {
-                if (Game.getGame().getPlayers().remove(player)) {
-                    this.coinService.collectCoin(player);
-                    Game.getGame().getPlayers().add(player);
-                    return Optional.of(new PlayerWithOperation(player, Operation.UPDATE));
-                }
-            }
-//            }
-        }
+                boolean getCoin = this.coinService.collectCoin(player);
+                Optional<Player> playerInGame = Game.getGame().getPlayers().stream().filter((object) -> object.getNickname().equals(player.getNickname())).findAny();
 
+                if (playerInGame.isPresent()) {
+                    if (getCoin) {
+                        playerInGame.get().incrementScore();
+                    }
+                    player.setScore(playerInGame.get().getScore());
+                    Game.getGame().getPlayers().remove(player);
+                    Game.getGame().getPlayers().add(player);
+                }
+
+                return Optional.of(new PlayerWithOperation(player, Operation.UPDATE));
+//                }
+            }
+        }
         return Optional.empty();
     }
 }
