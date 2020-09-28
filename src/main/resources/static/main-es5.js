@@ -61,7 +61,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     !*** ./global-config.ts ***!
     \**************************/
 
-  /*! exports provided: CSV_RESPONSE_HEADERS, HTTP_URL_DOWNLOAD, HTTP_URL_MAIN, WEBSOCKET_URL_MAIN, RSOCKET_URL_MAIN, SERIALIZER_DATA, SERIALIZER_METADATA, DATA_MIME_TYPE */
+  /*! exports provided: CSV_RESPONSE_HEADERS, HTTP_URL_MAIN, WEBSOCKET_URL_MAIN, RSOCKET_URL_MAIN, SERIALIZER_DATA, SERIALIZER_METADATA, DATA_MIME_TYPE */
 
   /***/
   function globalConfigTs(module, __webpack_exports__, __webpack_require__) {
@@ -73,12 +73,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     __webpack_require__.d(__webpack_exports__, "CSV_RESPONSE_HEADERS", function () {
       return CSV_RESPONSE_HEADERS;
-    });
-    /* harmony export (binding) */
-
-
-    __webpack_require__.d(__webpack_exports__, "HTTP_URL_DOWNLOAD", function () {
-      return HTTP_URL_DOWNLOAD;
     });
     /* harmony export (binding) */
 
@@ -130,21 +124,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     __webpack_require__.n(rsocket_core__WEBPACK_IMPORTED_MODULE_0__); // Defined data which will be saved into response file (not modify)
 
 
-    var CSV_RESPONSE_HEADERS = ['id', 'response_time_in_millis', 'request_timestamp', 'version_response']; //-----------------------   Global options for application which you can modify    -------------------------
+    var CSV_RESPONSE_HEADERS = ['id', 'response_time_in_millis', 'request_timestamp', 'version_response', 'size']; //-----------------------   Global options for application which you can modify    -------------------------
     // 1) URLS
-    // URL for measurement file (request file)
-    // export const HTTP_URL_DOWNLOAD = 'https://localhost:8080/report/measurement';
+    // domain for server (http2)
 
-    var HTTP_URL_DOWNLOAD = 'https://pacman-websocket.herokuapp.com/report/measurement'; // domain for server (http2)
-    // export const HTTP_URL_MAIN = 'https://localhost:8080';
+    var HTTP_URL_MAIN = 'https://localhost:8080'; // export const HTTP_URL_MAIN = 'https://http2-pacman.herokuapp.com';
+    // websocket(stomp) URL for connection
 
-    var HTTP_URL_MAIN = 'https://http2-pacman.herokuapp.com'; // websocket(stomp) URL for connection
-    // export const WEBSOCKET_URL_MAIN = 'ws://localhost:8080/socket';
+    var WEBSOCKET_URL_MAIN = 'ws://localhost:8080/socket'; // export const WEBSOCKET_URL_MAIN = 'wss://pacman-websocket.herokuapp.com/socket';
+    // rsocket(websocket) URL for connection
 
-    var WEBSOCKET_URL_MAIN = 'wss://pacman-websocket.herokuapp.com/socket'; // rsocket(websocket) URL for connection
-
-    var RSOCKET_URL_MAIN = 'ws://localhost:8080/rsocket'; // export const RSOCKET_URL_MAIN =  'wss://pacman-rsocket.herokuapp.com/rsocket';
-    // 3) Serializer for RSocket
+    var RSOCKET_URL_MAIN = 'ws://localhost:8080/rsocket'; // 3) Serializer for RSocket
 
     var SERIALIZER_DATA = rsocket_core__WEBPACK_IMPORTED_MODULE_0__["JsonSerializer"];
     var SERIALIZER_METADATA = rsocket_core__WEBPACK_IMPORTED_MODULE_0__["IdentitySerializer"];
@@ -1301,43 +1291,37 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _http_http_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
-    /*! ./http/http.service */
-    "./src/app/http/http.service.ts");
-    /* harmony import */
-
-
-    var _app_routing_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+    var _app_routing_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
     /*! ./app-routing.module */
     "./src/app/app-routing.module.ts");
     /* harmony import */
 
 
-    var angular_oauth2_oidc__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+    var angular_oauth2_oidc__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
     /*! angular-oauth2-oidc */
     "./node_modules/angular-oauth2-oidc/__ivy_ngcc__/fesm2015/angular-oauth2-oidc.js");
     /* harmony import */
 
 
-    var _home_home_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+    var _home_home_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
     /*! ./home/home.component */
     "./src/app/home/home.component.ts");
     /* harmony import */
 
 
-    var _angular_forms__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+    var _angular_forms__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
     /*! @angular/forms */
     "./node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js");
     /* harmony import */
 
 
-    var _angular_common__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+    var _angular_common__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
     /*! @angular/common */
     "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
     /* harmony import */
 
 
-    var _angular_router__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
+    var _angular_router__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
     /*! @angular/router */
     "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
 
@@ -1353,14 +1337,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       factory: function AppModule_Factory(t) {
         return new (t || AppModule)();
       },
-      providers: [_communication_websocket_websocket_service__WEBPACK_IMPORTED_MODULE_5__["WebsocketService"], _http_http_service__WEBPACK_IMPORTED_MODULE_7__["HttpService"]],
-      imports: [[_angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HttpClientModule"], _app_routing_module__WEBPACK_IMPORTED_MODULE_8__["AppRoutingModule"], angular_oauth2_oidc__WEBPACK_IMPORTED_MODULE_9__["OAuthModule"].forRoot(), _angular_forms__WEBPACK_IMPORTED_MODULE_11__["FormsModule"]]]
+      providers: [_communication_websocket_websocket_service__WEBPACK_IMPORTED_MODULE_5__["WebsocketService"]],
+      imports: [[_angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HttpClientModule"], _app_routing_module__WEBPACK_IMPORTED_MODULE_7__["AppRoutingModule"], angular_oauth2_oidc__WEBPACK_IMPORTED_MODULE_8__["OAuthModule"].forRoot(), _angular_forms__WEBPACK_IMPORTED_MODULE_10__["FormsModule"]]]
     });
 
     (function () {
       (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵsetNgModuleScope"](AppModule, {
-        declarations: [_app_component__WEBPACK_IMPORTED_MODULE_2__["AppComponent"], _game_game_component__WEBPACK_IMPORTED_MODULE_3__["GameComponent"], _scenes_main_scene_main_scene_component__WEBPACK_IMPORTED_MODULE_4__["MainSceneComponent"], _home_home_component__WEBPACK_IMPORTED_MODULE_10__["HomeComponent"]],
-        imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HttpClientModule"], _app_routing_module__WEBPACK_IMPORTED_MODULE_8__["AppRoutingModule"], angular_oauth2_oidc__WEBPACK_IMPORTED_MODULE_9__["OAuthModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["FormsModule"]]
+        declarations: [_app_component__WEBPACK_IMPORTED_MODULE_2__["AppComponent"], _game_game_component__WEBPACK_IMPORTED_MODULE_3__["GameComponent"], _scenes_main_scene_main_scene_component__WEBPACK_IMPORTED_MODULE_4__["MainSceneComponent"], _home_home_component__WEBPACK_IMPORTED_MODULE_9__["HomeComponent"]],
+        imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HttpClientModule"], _app_routing_module__WEBPACK_IMPORTED_MODULE_7__["AppRoutingModule"], angular_oauth2_oidc__WEBPACK_IMPORTED_MODULE_8__["OAuthModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["FormsModule"]]
       });
     })();
     /*@__PURE__*/
@@ -1370,15 +1354,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵsetClassMetadata"](AppModule, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"],
         args: [{
-          declarations: [_app_component__WEBPACK_IMPORTED_MODULE_2__["AppComponent"], _game_game_component__WEBPACK_IMPORTED_MODULE_3__["GameComponent"], _scenes_main_scene_main_scene_component__WEBPACK_IMPORTED_MODULE_4__["MainSceneComponent"], _home_home_component__WEBPACK_IMPORTED_MODULE_10__["HomeComponent"]],
-          imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HttpClientModule"], _app_routing_module__WEBPACK_IMPORTED_MODULE_8__["AppRoutingModule"], angular_oauth2_oidc__WEBPACK_IMPORTED_MODULE_9__["OAuthModule"].forRoot(), _angular_forms__WEBPACK_IMPORTED_MODULE_11__["FormsModule"]],
-          providers: [_communication_websocket_websocket_service__WEBPACK_IMPORTED_MODULE_5__["WebsocketService"], _http_http_service__WEBPACK_IMPORTED_MODULE_7__["HttpService"]],
+          declarations: [_app_component__WEBPACK_IMPORTED_MODULE_2__["AppComponent"], _game_game_component__WEBPACK_IMPORTED_MODULE_3__["GameComponent"], _scenes_main_scene_main_scene_component__WEBPACK_IMPORTED_MODULE_4__["MainSceneComponent"], _home_home_component__WEBPACK_IMPORTED_MODULE_9__["HomeComponent"]],
+          imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HttpClientModule"], _app_routing_module__WEBPACK_IMPORTED_MODULE_7__["AppRoutingModule"], angular_oauth2_oidc__WEBPACK_IMPORTED_MODULE_8__["OAuthModule"].forRoot(), _angular_forms__WEBPACK_IMPORTED_MODULE_10__["FormsModule"]],
+          providers: [_communication_websocket_websocket_service__WEBPACK_IMPORTED_MODULE_5__["WebsocketService"]],
           bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_2__["AppComponent"]]
         }]
       }], null, null);
     })();
 
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵsetComponentScope"](_scenes_main_scene_main_scene_component__WEBPACK_IMPORTED_MODULE_4__["MainSceneComponent"], [_angular_common__WEBPACK_IMPORTED_MODULE_12__["NgClass"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["NgComponentOutlet"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["NgForOf"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["NgIf"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["NgTemplateOutlet"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["NgStyle"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["NgSwitch"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["NgSwitchCase"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["NgSwitchDefault"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["NgPlural"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["NgPluralCase"], _angular_router__WEBPACK_IMPORTED_MODULE_13__["RouterOutlet"], _angular_router__WEBPACK_IMPORTED_MODULE_13__["RouterLink"], _angular_router__WEBPACK_IMPORTED_MODULE_13__["RouterLinkWithHref"], _angular_router__WEBPACK_IMPORTED_MODULE_13__["RouterLinkActive"], _angular_router__WEBPACK_IMPORTED_MODULE_13__["ɵangular_packages_router_router_l"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["NgSelectOption"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["ɵangular_packages_forms_forms_x"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["NumberValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["RangeValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["CheckboxControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["SelectControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["SelectMultipleControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["RadioControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["RequiredValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["MinLengthValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["MaxLengthValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["PatternValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["CheckboxRequiredValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["EmailValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["NgModel"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["NgModelGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["NgForm"], _app_component__WEBPACK_IMPORTED_MODULE_2__["AppComponent"], _game_game_component__WEBPACK_IMPORTED_MODULE_3__["GameComponent"], _scenes_main_scene_main_scene_component__WEBPACK_IMPORTED_MODULE_4__["MainSceneComponent"], _home_home_component__WEBPACK_IMPORTED_MODULE_10__["HomeComponent"]], [_angular_common__WEBPACK_IMPORTED_MODULE_12__["AsyncPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["UpperCasePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["LowerCasePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["JsonPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["SlicePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["DecimalPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["PercentPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["TitleCasePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["CurrencyPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["DatePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["I18nPluralPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["I18nSelectPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["KeyValuePipe"]]);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵsetComponentScope"](_scenes_main_scene_main_scene_component__WEBPACK_IMPORTED_MODULE_4__["MainSceneComponent"], [_angular_common__WEBPACK_IMPORTED_MODULE_11__["NgClass"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgComponentOutlet"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgForOf"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgIf"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgTemplateOutlet"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgStyle"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgSwitch"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgSwitchCase"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgSwitchDefault"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgPlural"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgPluralCase"], _angular_router__WEBPACK_IMPORTED_MODULE_12__["RouterOutlet"], _angular_router__WEBPACK_IMPORTED_MODULE_12__["RouterLink"], _angular_router__WEBPACK_IMPORTED_MODULE_12__["RouterLinkWithHref"], _angular_router__WEBPACK_IMPORTED_MODULE_12__["RouterLinkActive"], _angular_router__WEBPACK_IMPORTED_MODULE_12__["ɵangular_packages_router_router_l"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["NgSelectOption"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["ɵangular_packages_forms_forms_x"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["NumberValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["RangeValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["CheckboxControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["SelectControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["SelectMultipleControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["RadioControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["RequiredValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["MinLengthValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["MaxLengthValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["PatternValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["CheckboxRequiredValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["EmailValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["NgModel"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["NgModelGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["NgForm"], _app_component__WEBPACK_IMPORTED_MODULE_2__["AppComponent"], _game_game_component__WEBPACK_IMPORTED_MODULE_3__["GameComponent"], _scenes_main_scene_main_scene_component__WEBPACK_IMPORTED_MODULE_4__["MainSceneComponent"], _home_home_component__WEBPACK_IMPORTED_MODULE_9__["HomeComponent"]], [_angular_common__WEBPACK_IMPORTED_MODULE_11__["AsyncPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["UpperCasePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["LowerCasePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["JsonPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["SlicePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["DecimalPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["PercentPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["TitleCasePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["CurrencyPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["DatePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["I18nPluralPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["I18nSelectPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["KeyValuePipe"]]);
     /***/
 
   },
@@ -1426,11 +1410,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
       _createClass(MeasurementService, [{
         key: "addMeasurementResponse",
-        value: function addMeasurementResponse(id, responseTimeInMillis, requestTimestamp, version) {
+        value: function addMeasurementResponse(id, responseTimeInMillis, requestTimestamp, version, size) {
           // if (this.measurements.length > 1999) {
           //     this.measurements.splice(0, 1);
           // }
-          this.measurements.push(new _model_MeasurementResponse__WEBPACK_IMPORTED_MODULE_1__["MeasurementResponse"](id, responseTimeInMillis, requestTimestamp, version));
+          this.measurements.push(new _model_MeasurementResponse__WEBPACK_IMPORTED_MODULE_1__["MeasurementResponse"](id, responseTimeInMillis, requestTimestamp, version, size));
         }
       }, {
         key: "getResponseMeasurements",
@@ -1942,6 +1926,36 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   },
 
   /***/
+  "./src/app/communication/simulation/data/AdditionalObject.ts":
+  /*!*******************************************************************!*\
+    !*** ./src/app/communication/simulation/data/AdditionalObject.ts ***!
+    \*******************************************************************/
+
+  /*! exports provided: AdditionalObject */
+
+  /***/
+  function srcAppCommunicationSimulationDataAdditionalObjectTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "AdditionalObject", function () {
+      return AdditionalObject;
+    });
+
+    var AdditionalObject = function AdditionalObject(number, text) {
+      _classCallCheck(this, AdditionalObject);
+
+      this.number = number;
+      this.text = text;
+    };
+    /***/
+
+  },
+
+  /***/
   "./src/app/communication/websocket/websocket.service.ts":
   /*!**************************************************************!*\
     !*** ./src/app/communication/websocket/websocket.service.ts ***!
@@ -2091,7 +2105,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
               var responseTimeInMillis = new Date().getTime() - Number(playerToUpdate.headers.requestTimestamp); // console.error("Odpowiedz serwera " + responseTimeInMillis + " milliseconds")
 
-              _this2.measurementService.addMeasurementResponse(parsedPlayer.nickname, responseTimeInMillis, playerToUpdate.headers.requestTimestamp, parsedPlayer.version);
+              _this2.measurementService.addMeasurementResponse(parsedPlayer.nickname, responseTimeInMillis, playerToUpdate.headers.requestTimestamp, parsedPlayer.version, playerToUpdate.headers.contentLength);
 
               if (parsedPlayer.nickname === _this2.myNickname) {
                 var request = _this2.requestCache.getRequest(parsedPlayer.version);
@@ -2109,7 +2123,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             _this2.stompClient.subscribe('/pacman/update/monster', function (monster) {
               var monsterParsed = _this2.formatter.decodeMonster(monster);
 
-              _this2.measurementService.addMeasurementResponse(monsterParsed.id, new Date().getTime() - Number(monster.headers.timestamp), monster.headers.timestamp, 0);
+              _this2.measurementService.addMeasurementResponse(monsterParsed.id, 0, 0, 0, 0);
 
               _this2.monsterToUpdate.next(monsterParsed);
             });
@@ -2131,7 +2145,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
               var responseTimeInMillis = new Date().getTime() - Number(playerToUpdate.headers.requestTimestamp);
 
-              _this2.measurementService.addMeasurementResponse(parsedPlayer.nickname, responseTimeInMillis, playerToUpdate.headers.requestTimestamp, parsedPlayer.version);
+              _this2.measurementService.addMeasurementResponse(parsedPlayer.nickname, responseTimeInMillis, playerToUpdate.headers.requestTimestamp, parsedPlayer.version, playerToUpdate.headers.contentLength);
 
               var request = _this2.requestCache.getCorrectedPosition(parsedPlayer.version);
 
@@ -2312,68 +2326,21 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var _cache_measurement_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
     /*! ../cache/measurement.service */
     "./src/app/cache/measurement.service.ts");
-    /* harmony import */
-
-
-    var _http_http_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
-    /*! ../http/http.service */
-    "./src/app/http/http.service.ts");
 
     var DownloadService =
     /*#__PURE__*/
     function () {
-      function DownloadService(cacheMeasurement, httpService) {
+      function DownloadService(cacheMeasurement) {
         _classCallCheck(this, DownloadService);
 
         this.cacheMeasurement = cacheMeasurement;
-        this.httpService = httpService;
         this.RESPONSE_FILE = "response_measurement.csv";
-        this.REQUEST_FILE = "request_measurement.csv";
       }
 
       _createClass(DownloadService, [{
-        key: "downloadRequestMeasurements",
-        value: function downloadRequestMeasurements() {
-          var _this3 = this;
-
-          if (this._rsocketObject) {
-            this._rsocketObject.requestResponse({
-              metadata: String.fromCharCode('/report/measurement'.length) + '/report/measurement'
-            }).subscribe({
-              onComplete: function onComplete(payload) {
-                _this3.downloadRequestFile(payload.data.data);
-              },
-              onError: function onError(error) {
-                console.log('got error with requestResponse');
-                console.error(error);
-              },
-              onSubscribe: function onSubscribe(cancel) {}
-            });
-          } else {
-            this.httpService.downloadMeasurements().subscribe(function (data) {
-              _this3.downloadRequestFile(data.body);
-            });
-          }
-        }
-      }, {
         key: "downloadResponseMeasurements",
         value: function downloadResponseMeasurements() {
           this.downloadResponseFile(this.cacheMeasurement.getResponseMeasurements());
-        }
-      }, {
-        key: "downloadRequestFile",
-        value: function downloadRequestFile(data) {
-          var blob = new Blob([data], {
-            type: 'text/csv'
-          });
-          var url = window.URL.createObjectURL(blob);
-          var anchor = document.createElement('a');
-          anchor.download = this.REQUEST_FILE; // here you can specify file name
-
-          anchor.href = url;
-          document.body.appendChild(anchor);
-          anchor.click();
-          document.body.removeChild(anchor);
         }
       }, {
         key: "downloadResponseFile",
@@ -2398,18 +2365,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             type: 'text/csv'
           }), this.RESPONSE_FILE);
         }
-      }, {
-        key: "rsocketObject",
-        set: function set(value) {
-          this._rsocketObject = value;
-        }
       }]);
 
       return DownloadService;
     }();
 
     DownloadService.ɵfac = function DownloadService_Factory(t) {
-      return new (t || DownloadService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_cache_measurement_service__WEBPACK_IMPORTED_MODULE_3__["MeasurementService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_http_http_service__WEBPACK_IMPORTED_MODULE_4__["HttpService"]));
+      return new (t || DownloadService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_cache_measurement_service__WEBPACK_IMPORTED_MODULE_3__["MeasurementService"]));
     };
 
     DownloadService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({
@@ -2428,8 +2390,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }], function () {
         return [{
           type: _cache_measurement_service__WEBPACK_IMPORTED_MODULE_3__["MeasurementService"]
-        }, {
-          type: _http_http_service__WEBPACK_IMPORTED_MODULE_4__["HttpService"]
         }];
       }, null);
     })();
@@ -2494,7 +2454,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           width: 1600,
           scale: {
             mode: phaser__WEBPACK_IMPORTED_MODULE_1___default.a.Scale.FIT,
-            autoCenter: phaser__WEBPACK_IMPORTED_MODULE_1___default.a.Scale.CENTER_BOTH
+            autoCenter: phaser__WEBPACK_IMPORTED_MODULE_1___default.a.Scale.CENTER_HORIZONTALLY
           },
           scene: [],
           parent: 'gameContainer',
@@ -2749,92 +2709,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   },
 
   /***/
-  "./src/app/http/http.service.ts":
-  /*!**************************************!*\
-    !*** ./src/app/http/http.service.ts ***!
-    \**************************************/
-
-  /*! exports provided: HttpService */
-
-  /***/
-  function srcAppHttpHttpServiceTs(module, __webpack_exports__, __webpack_require__) {
-    "use strict";
-
-    __webpack_require__.r(__webpack_exports__);
-    /* harmony export (binding) */
-
-
-    __webpack_require__.d(__webpack_exports__, "HttpService", function () {
-      return HttpService;
-    });
-    /* harmony import */
-
-
-    var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
-    /*! @angular/core */
-    "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
-    /* harmony import */
-
-
-    var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-    /*! @angular/common/http */
-    "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
-    /* harmony import */
-
-
-    var _global_config__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-    /*! ../../../global-config */
-    "./global-config.ts");
-
-    var HttpService =
-    /*#__PURE__*/
-    function () {
-      function HttpService(httpClient) {
-        _classCallCheck(this, HttpService);
-
-        this.httpClient = httpClient;
-      }
-
-      _createClass(HttpService, [{
-        key: "downloadMeasurements",
-        value: function downloadMeasurements() {
-          var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]();
-          headers = headers.append('Accept', 'text/csv; charset=utf-8');
-          return this.httpClient.get(_global_config__WEBPACK_IMPORTED_MODULE_2__["HTTP_URL_DOWNLOAD"], {
-            headers: headers,
-            observe: 'response',
-            responseType: 'text'
-          });
-        }
-      }]);
-
-      return HttpService;
-    }();
-
-    HttpService.ɵfac = function HttpService_Factory(t) {
-      return new (t || HttpService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]));
-    };
-
-    HttpService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({
-      token: HttpService,
-      factory: HttpService.ɵfac
-    });
-    /*@__PURE__*/
-
-    (function () {
-      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](HttpService, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"]
-      }], function () {
-        return [{
-          type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]
-        }];
-      }, null);
-    })();
-    /***/
-
-  },
-
-  /***/
   "./src/app/model/MeasurementResponse.ts":
   /*!**********************************************!*\
     !*** ./src/app/model/MeasurementResponse.ts ***!
@@ -2857,13 +2731,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var MeasurementResponse =
     /*#__PURE__*/
     function () {
-      function MeasurementResponse(id, response_time_in_millis, request_timestamp, version_response) {
+      function MeasurementResponse(id, response_time_in_millis, request_timestamp, version_response, size) {
         _classCallCheck(this, MeasurementResponse);
 
         this._id = id;
         this._response_time_in_millis = response_time_in_millis;
         this._request_timestamp = request_timestamp;
         this._version_response = version_response;
+        this._size = size;
       }
 
       _createClass(MeasurementResponse, [{
@@ -2897,6 +2772,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         },
         set: function set(value) {
           this._id = value;
+        }
+      }, {
+        key: "size",
+        get: function get() {
+          return this._size;
+        },
+        set: function set(value) {
+          this._size = value;
         }
       }]);
 
@@ -2946,20 +2829,20 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       var _super2 = _createSuper(Player);
 
       function Player(scene, x, y, texture, score) {
-        var _this4;
+        var _this3;
 
         _classCallCheck(this, Player);
 
-        _this4 = _super2.call(this, scene, x, y, texture); // Dodanie gracza do sceny (zeby w ogole byl widoczny)
+        _this3 = _super2.call(this, scene, x, y, texture); // Dodanie gracza do sceny (zeby w ogole byl widoczny)
 
-        scene.add.existing(_assertThisInitialized(_this4)); // Dodanie gracza do fizyki co pozwala na ustawianie interakcji
+        scene.add.existing(_assertThisInitialized(_this3)); // Dodanie gracza do fizyki co pozwala na ustawianie interakcji
 
-        scene.physics.add.existing(_assertThisInitialized(_this4)); // Dodanie kolidera na graczu oraz warstwie
+        scene.physics.add.existing(_assertThisInitialized(_this3)); // Dodanie kolidera na graczu oraz warstwie
 
-        scene.physics.add.collider(_assertThisInitialized(_this4), scene.backgroundLayer); // scene.anims.play('myUp');
+        scene.physics.add.collider(_assertThisInitialized(_this3), scene.backgroundLayer); // scene.anims.play('myUp');
 
-        _this4._score = score;
-        return _this4;
+        _this3._score = score;
+        return _this3;
       }
 
       _createClass(Player, [{
@@ -3142,25 +3025,31 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _environments_environment__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+    var _communication_simulation_data_AdditionalObject__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+    /*! ../../communication/simulation/data/AdditionalObject */
+    "./src/app/communication/simulation/data/AdditionalObject.ts");
+    /* harmony import */
+
+
+    var _environments_environment__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
     /*! ../../../environments/environment */
     "./src/environments/environment.ts");
     /* harmony import */
 
 
-    var _angular_router__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+    var _angular_router__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
     /*! @angular/router */
     "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
     /* harmony import */
 
 
-    var _downloader_download_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+    var _downloader_download_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
     /*! ../../downloader/download.service */
     "./src/app/downloader/download.service.ts");
     /* harmony import */
 
 
-    var _cache_request_cache_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+    var _cache_request_cache_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
     /*! ../../cache/request-cache.service */
     "./src/app/cache/request-cache.service.ts");
 
@@ -3171,52 +3060,52 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
       var _super3 = _createSuper(MainSceneComponent);
 
-      function MainSceneComponent(websocketService, router, elementRef, downloadService, requestCache) {
-        var _this5;
+      function MainSceneComponent(websocketService, router, renderer, downloadService, requestCache) {
+        var _this4;
 
         _classCallCheck(this, MainSceneComponent);
 
-        _this5 = _super3.call(this, {
+        _this4 = _super3.call(this, {
           key: 'main'
         });
-        _this5.websocketService = websocketService;
-        _this5.router = router;
-        _this5.elementRef = elementRef;
-        _this5.downloadService = downloadService;
-        _this5.requestCache = requestCache; // Additional data for testing changing data size
+        _this4.websocketService = websocketService;
+        _this4.router = router;
+        _this4.renderer = renderer;
+        _this4.downloadService = downloadService;
+        _this4.requestCache = requestCache; // Additional data for testing changing data size
 
-        _this5.additionalData = _this5.randomString(50, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
-        _this5.arrayWithAdditionalData = new Array(20); // Game objects
+        _this4.additionalData = _this4.randomString(50, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+        _this4.arrayWithAdditionalData = new Array(20); // Game objects
 
-        _this5.players = new Map();
-        _this5.monsters = new Map();
-        _this5.rank = new Array(); // Sending objects
+        _this4.players = new Map();
+        _this4.monsters = new Map();
+        _this4.rank = new Array(); // Sending objects
 
-        _this5.startSendingPlayerPosition = false;
-        _this5.counterRequest = 0;
-        _this5.scoreRanking = new Map();
+        _this4.startSendingPlayerPosition = false;
+        _this4.counterRequest = 0;
+        _this4.scoreRanking = new Map();
 
-        if (_this5.router.getCurrentNavigation().extras.state) {
-          _this5.myPlayerName = _this5.router.getCurrentNavigation().extras.state.nick;
-          _this5.websocketService.myNickname = _this5.myPlayerName;
+        if (_this4.router.getCurrentNavigation().extras.state) {
+          _this4.myPlayerName = _this4.router.getCurrentNavigation().extras.state.nick;
+          _this4.websocketService.myNickname = _this4.myPlayerName;
         } else {
-          _this5.router.navigate(['home']);
+          _this4.router.navigate(['home']);
         }
 
-        return _this5;
+        return _this4;
       }
 
       _createClass(MainSceneComponent, [{
         key: "startGame",
         value: function startGame() {
-          var _this6 = this;
+          var _this5 = this;
 
           this.websocketService.initializeConnection(); // const tab = (data as any).default;
           //
-          // for (let i = 0; i < this.arrayWithAdditionalData.length; i++) {
-          //     this.arrayWithAdditionalData[i] = new AdditionalObject(5555, this.additionalData);
-          // }
-          // setTimeout(() => {
+
+          for (var i = 0; i < this.arrayWithAdditionalData.length; i++) {
+            this.arrayWithAdditionalData[i] = new _communication_simulation_data_AdditionalObject__WEBPACK_IMPORTED_MODULE_8__["AdditionalObject"](5555, this.additionalData);
+          } // setTimeout(() => {
           //         for (let i = 0; i < tab.length; i++) {
           //             this.simulationConnection[i] = new WebsocketSimulationConnection(tab[i].nickname);
           //             this.simulationConnection[i].initializeConnection(tab[i],4000 + 500 * i);
@@ -3224,9 +3113,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           //     }, 5000
           // )
 
+
           this.stateSubscription = this.websocketService.getState().subscribe(function (state) {
             if (state === _communication_SocketClientState__WEBPACK_IMPORTED_MODULE_6__["SocketClientState"].CONNECTED) {
-              _this6.ifJoinToGameSubscription = _this6.websocketService.getIfJoinGame().subscribe(function (currentCoinPosition) {
+              _this5.ifJoinToGameSubscription = _this5.websocketService.getIfJoinGame().subscribe(function (currentCoinPosition) {
                 if (currentCoinPosition.length > 0) {
                   var _iterator = _createForOfIteratorHelper(currentCoinPosition),
                       _step;
@@ -3235,7 +3125,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     for (_iterator.s(); !(_step = _iterator.n()).done;) {
                       var coinPosition = _step.value;
 
-                      _this6.coins.create(coinPosition.positionX * 32 + 16, coinPosition.positionY * 32 - 16, "coin", null, true, true);
+                      _this5.coins.create(coinPosition.positionX * 32 + 16, coinPosition.positionY * 32 - 16, "coin", null, true, true);
                     }
                   } catch (err) {
                     _iterator.e(err);
@@ -3243,13 +3133,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     _iterator.f();
                   }
 
-                  _this6.websocketService.addPlayer(_this6.myPlayerName);
+                  _this5.websocketService.addPlayer(_this5.myPlayerName);
                 } else if (currentCoinPosition.length === 0) {
                   document.getElementsByTagName('canvas').item(0).remove();
 
-                  _this6.router.navigate(['home'], {
+                  _this5.router.navigate(['home'], {
                     state: {
-                      nick: _this6.myPlayerName
+                      nick: _this5.myPlayerName
                     }
                   });
 
@@ -3257,13 +3147,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 }
               });
 
-              _this6.websocketService.joinToGame(_this6.myPlayerName);
+              _this5.websocketService.joinToGame(_this5.myPlayerName);
 
               console.error('Nawiazalem polaczenie websocket i dodalem uzytkownika!');
             } else if (state === _communication_SocketClientState__WEBPACK_IMPORTED_MODULE_6__["SocketClientState"].ERROR) {
               console.error('Brak polaczenia websocket z serwerem');
 
-              _this6.cleanAndBackToHomePage();
+              _this5.cleanAndBackToHomePage();
             } else {
               console.error('Probuje nawiazac polaczenie!');
             }
@@ -3272,24 +3162,24 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "create",
         value: function create() {
-          var _this7 = this;
+          var _this6 = this;
 
           this.startGame();
           var updateTop3 = Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["interval"])(1000);
           this.subscriptionUpdateTop3 = updateTop3.subscribe(function () {
-            _this7.checkRanking();
+            _this6.checkRanking();
           }); // Jeszcze trzeba zaimplementowac
 
           this.coinToGetSubscription = this.websocketService.getCoinToGet().subscribe(function (coinToCollect) {});
           this.updateScoreSubscription = this.websocketService.getUpdateScore().subscribe(function (myScore) {
-            _this7.players.get(_this7.myPlayerName).score = myScore;
+            _this6.players.get(_this6.myPlayerName).score = myScore;
 
-            _this7.yourScore.setText(_this7.myPlayerName + " score: " + myScore);
+            _this6.yourScore.setText(_this6.myPlayerName + " score: " + myScore);
           }); // Jeszcze trzeba zaimplementowac
 
           this.refreshCoinsSubscription = this.websocketService.getRefreshCoins().subscribe(function () {
-            _this7.coinLayer.forEach(function (object) {
-              var obj = _this7.coins.create(object.x + 16, object.y - 16, "coin");
+            _this6.coinLayer.forEach(function (object) {
+              var obj = _this6.coins.create(object.x + 16, object.y - 16, "coin");
 
               obj.setScale(object.width / 32, object.height / 32);
               obj.body.width = object.width;
@@ -3324,13 +3214,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           this.exitButton = this.add.image(this.game.canvas.width - 48, 48, 'exit-button');
           this.exitButton.setInteractive();
           this.exitButton.on('pointerup', function () {
-            _this7.switchScene();
+            _this6.switchScene();
           });
           this.downloadButton = this.add.image(this.game.canvas.width - 208, 48, 'download-button');
           this.downloadButton.setInteractive();
           this.downloadButton.on('pointerup', function () {
             // this.downloadService.downloadRequestMeasurements();
-            _this7.downloadService.downloadResponseMeasurements();
+            _this6.downloadService.downloadResponseMeasurements();
           }); // Dodanie kolizji dla elementow warstwy background o id od 150 do 250 (te id znajduja sie w tileset ktory sklada sie na te warstwe)
 
           this._backgroundLayer.setCollisionBetween(140, 250);
@@ -3395,19 +3285,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "managePlayersInGame",
         value: function managePlayersInGame() {
-          var _this8 = this;
+          var _this7 = this;
 
           this.playersToAddSubscription = this.websocketService.getPlayersToAdd().subscribe(function (playersToAdd) {
             playersToAdd.sort(function (a, b) {
               return b.score - a.score;
             });
-            _this8.rank.length = 4;
+            _this7.rank.length = 4;
 
-            _this8.scoreNumber1.setText("NO_ONE");
+            _this7.scoreNumber1.setText("NO_ONE");
 
-            _this8.scoreNumber2.setText("NO_ONE");
+            _this7.scoreNumber2.setText("NO_ONE");
 
-            _this8.scoreNumber3.setText("NO_ONE");
+            _this7.scoreNumber3.setText("NO_ONE");
 
             var counter = 0;
 
@@ -3420,36 +3310,36 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 counter++;
 
                 if (counter < 4) {
-                  _this8.rank[counter - 1] = player;
+                  _this7.rank[counter - 1] = player;
 
-                  _this8.setScoreText(counter, player);
+                  _this7.setScoreText(counter, player);
                 }
 
-                if (!_this8.players.has(player.nickname)) {
-                  if (player.nickname !== _this8.myPlayerName) {
-                    _this8.players.set(player.nickname, new _model_Player__WEBPACK_IMPORTED_MODULE_2__["Player"](_this8, player.positionX, player.positionY, 'other-player', player.score));
+                if (!_this7.players.has(player.nickname)) {
+                  if (player.nickname !== _this7.myPlayerName) {
+                    _this7.players.set(player.nickname, new _model_Player__WEBPACK_IMPORTED_MODULE_2__["Player"](_this7, player.positionX, player.positionY, 'other-player', player.score));
 
                     console.error('Dodaje gracza ' + player.nickname);
 
-                    _this8.players.get(player.nickname).anims.play('enemyAnim');
+                    _this7.players.get(player.nickname).anims.play('enemyAnim');
                   } else {
-                    _this8.players.set(player.nickname, new _model_Player__WEBPACK_IMPORTED_MODULE_2__["Player"](_this8, player.positionX, player.positionY, 'my-player', player.score));
+                    _this7.players.set(player.nickname, new _model_Player__WEBPACK_IMPORTED_MODULE_2__["Player"](_this7, player.positionX, player.positionY, 'my-player', player.score));
 
-                    _this8.startSendingPlayerPosition = true;
-                    _this8.yourScore = _this8.add.text(32, 32, _this8.myPlayerName + " score: " + player.score, {
+                    _this7.startSendingPlayerPosition = true;
+                    _this7.yourScore = _this7.add.text(32, 32, _this7.myPlayerName + " score: " + player.score, {
                       font: "30px Arial",
                       fill: "#ff0044",
                       align: "center"
                     }); // Uruchomienie animacji wczesniej przygotowanej
 
-                    _this8.players.get(player.nickname).anims.play('myAnim');
+                    _this7.players.get(player.nickname).anims.play('myAnim');
 
-                    _this8.requestCache.lastCorrectRequest = new _model_Request__WEBPACK_IMPORTED_MODULE_7__["Request"](0, player.positionX, player.positionY);
+                    _this7.requestCache.lastCorrectRequest = new _model_Request__WEBPACK_IMPORTED_MODULE_7__["Request"](0, player.positionX, player.positionY);
 
-                    _this8.sendPlayerPosition();
+                    _this7.sendPlayerPosition();
                   }
 
-                  _this8.physics.add.overlap(_this8.players.get(player.nickname), _this8.coins, _this8.collectCoin, null, _this8);
+                  _this7.physics.add.overlap(_this7.players.get(player.nickname), _this7.coins, _this7.collectCoin, null, _this7);
                 }
               }
             } catch (err) {
@@ -3459,24 +3349,24 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             }
           });
           this.playerToRemoveSubscription = this.websocketService.getPlayerToRemove().subscribe(function (playerToRemove) {
-            _this8.rank = _this8.rank.filter(function (item) {
+            _this7.rank = _this7.rank.filter(function (item) {
               return item.nickname !== playerToRemove.nickname;
             });
             console.error("Po srpawdzeniu rankingu");
 
-            if (playerToRemove.nickname === _this8.myPlayerName) {
-              _this8.cleanAndBackToHomePage();
+            if (playerToRemove.nickname === _this7.myPlayerName) {
+              _this7.cleanAndBackToHomePage();
             }
 
-            _this8.players.get(playerToRemove.nickname).destroy(true);
+            _this7.players.get(playerToRemove.nickname).destroy(true);
 
-            _this8.players["delete"](playerToRemove.nickname);
+            _this7.players["delete"](playerToRemove.nickname);
           });
           this.playerToUpdateSubscription = this.websocketService.getPlayerToUpdate().subscribe(function (player) {
-            var currentPlayer = _this8.players.get(player.nickname);
+            var currentPlayer = _this7.players.get(player.nickname);
 
             if (currentPlayer) {
-              _this8.changeAnimationFrameForOtherPlayers(player, currentPlayer);
+              _this7.changeAnimationFrameForOtherPlayers(player, currentPlayer);
 
               currentPlayer.x = player.positionX;
               currentPlayer.y = player.positionY;
@@ -3489,7 +3379,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "sendPlayerPosition",
         value: function sendPlayerPosition() {
-          var _this9 = this;
+          var _this8 = this;
 
           var player = this.players.get(this.myPlayerName); // this.lastAngle = player.angle;
           //
@@ -3515,37 +3405,37 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
           this.lastX = player.x;
           this.lastY = player.y;
-          this.lastAngle = player.angle; // const dataProvider = interval(1000);
-          // const subscriptionDataProvider = dataProvider.subscribe(()=> {
-          //     for(let i =0;i<10;i++) {
-          //         this.arrayWithAdditionalData.push(new AdditionalObject(5555,this.additionalData));
-          //     }
-          //     if(this.arrayWithAdditionalData.length > 400) {
-          //         subscriptionDataProvider.unsubscribe();
-          //         this.subscription7.unsubscribe();
-          //     }
-          // });
+          this.lastAngle = player.angle;
+          var dataProvider = Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["interval"])(1000);
+          var subscriptionDataProvider = dataProvider.subscribe(function () {
+            for (var i = 0; i < 10; i++) {
+              _this8.arrayWithAdditionalData.push(new _communication_simulation_data_AdditionalObject__WEBPACK_IMPORTED_MODULE_8__["AdditionalObject"](5555, _this8.additionalData));
+            }
 
+            if (_this8.arrayWithAdditionalData.length > 300) {
+              subscriptionDataProvider.unsubscribe();
+            }
+          });
           this.positionSender = Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["interval"])(20);
           this.positionSenderSubscription = this.positionSender.subscribe(function () {
-            var player = _this9.players.get(_this9.myPlayerName);
+            var player = _this8.players.get(_this8.myPlayerName);
 
-            if (_this9.lastX !== player.x || _this9.lastY !== player.y || _this9.lastAngle !== player.angle) {
-              _this9.lastX = player.x;
-              _this9.lastY = player.y;
-              _this9.lastAngle = player.angle;
+            if (_this8.lastX !== player.x || _this8.lastY !== player.y || _this8.lastAngle !== player.angle) {
+              _this8.lastX = player.x;
+              _this8.lastY = player.y;
+              _this8.lastAngle = player.angle;
 
-              _this9.requestCache.addRequest(++_this9.counterRequest, player.x, player.y);
+              _this8.requestCache.addRequest(++_this8.counterRequest, player.x, player.y);
 
-              _this9.websocketService.sendPosition({
-                "nickname": _this9.myPlayerName,
+              _this8.websocketService.sendPosition({
+                "nickname": _this8.myPlayerName,
                 "positionX": player.x,
                 "positionY": player.y,
                 "score": player.score,
-                "stepDirection": _this9.getDirection(),
-                "version": _this9.counterRequest,
-                "requestTimestamp": new Date().getTime() // "additionalData": this.arrayWithAdditionalData
-
+                "stepDirection": _this8.getDirection(),
+                "version": _this8.counterRequest,
+                "requestTimestamp": new Date().getTime(),
+                "additionalData": _this8.arrayWithAdditionalData
               });
             }
           });
@@ -3607,7 +3497,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "checkRanking",
         value: function checkRanking() {
-          var _this10 = this;
+          var _this9 = this;
 
           var playersArray = new Array();
           this.players.forEach(function (value, key) {
@@ -3619,7 +3509,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           });
           var counter = 1;
           playersArray.forEach(function (element) {
-            _this10.setScoreText(counter, element);
+            _this9.setScoreText(counter, element);
 
             counter++;
 
@@ -3648,16 +3538,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "manageMonstersInGame",
         value: function manageMonstersInGame() {
-          var _this11 = this;
+          var _this10 = this;
 
           this.monsterToUpdateSubscription = this.websocketService.getMonsterToUpdate().subscribe(function (monsterToUpdate) {
-            if (_this11.monsters.has(monsterToUpdate.id)) {
-              _this11.monsters.get(monsterToUpdate.id).x = monsterToUpdate.positionX;
-              _this11.monsters.get(monsterToUpdate.id).y = monsterToUpdate.positionY;
+            if (_this10.monsters.has(monsterToUpdate.id)) {
+              _this10.monsters.get(monsterToUpdate.id).x = monsterToUpdate.positionX;
+              _this10.monsters.get(monsterToUpdate.id).y = monsterToUpdate.positionY;
             } else {
-              _this11.monsters.set(monsterToUpdate.id, _this11.physics.add.sprite(monsterToUpdate.positionX, monsterToUpdate.positionY, 'monster'));
+              _this10.monsters.set(monsterToUpdate.id, _this10.physics.add.sprite(monsterToUpdate.positionX, monsterToUpdate.positionY, 'monster'));
 
-              _this11.monsters.get(monsterToUpdate.id).anims.play('animation');
+              _this10.monsters.get(monsterToUpdate.id).anims.play('animation');
             }
           });
         } ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -3696,16 +3586,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             // }
           }
 
-          if (this.game != null) {
+          if (this.game) {
             this.game.destroy(true);
             this.game.scene.remove('main');
           }
 
-          if (document.getElementsByTagName('canvas').item(0) != null) {
+          if (document.getElementsByTagName('canvas')) {
+            console.error(this.renderer);
             document.getElementsByTagName('canvas').item(0).remove();
           }
-
-          this.elementRef.nativeElement.remove();
         }
       }, {
         key: "createAnimationsBySpriteKey",
@@ -3776,7 +3665,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }(phaser__WEBPACK_IMPORTED_MODULE_1___default.a.Scene);
 
     MainSceneComponent.ɵfac = function MainSceneComponent_Factory(t) {
-      return new (t || MainSceneComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_communication_Communicator__WEBPACK_IMPORTED_MODULE_4__["Communicator"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_9__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_downloader_download_service__WEBPACK_IMPORTED_MODULE_10__["DownloadService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_cache_request_cache_service__WEBPACK_IMPORTED_MODULE_11__["RequestCacheService"]));
+      return new (t || MainSceneComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_communication_Communicator__WEBPACK_IMPORTED_MODULE_4__["Communicator"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_10__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_downloader_download_service__WEBPACK_IMPORTED_MODULE_11__["DownloadService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_cache_request_cache_service__WEBPACK_IMPORTED_MODULE_12__["RequestCacheService"]));
     };
 
     MainSceneComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -3784,7 +3673,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       selectors: [["app-main-scene"]],
       features: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵProvidersFeature"]([{
         provide: _communication_Communicator__WEBPACK_IMPORTED_MODULE_4__["Communicator"],
-        useClass: _environments_environment__WEBPACK_IMPORTED_MODULE_8__["environment"].serviceToCommunication
+        useClass: _environments_environment__WEBPACK_IMPORTED_MODULE_9__["environment"].serviceToCommunication
       }]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵInheritDefinitionFeature"]],
       decls: 1,
       vars: 0,
@@ -3793,7 +3682,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](0, "app-game");
         }
       },
-      styles: ["#mainScene[_ngcontent-%COMP%] {\r\n  margin-left: 500px;\r\n  padding-left: 40px;\r\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2NlbmVzL21haW4tc2NlbmUvbWFpbi1zY2VuZS5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0Usa0JBQWtCO0VBQ2xCLGtCQUFrQjtBQUNwQiIsImZpbGUiOiJzcmMvYXBwL3NjZW5lcy9tYWluLXNjZW5lL21haW4tc2NlbmUuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIiNtYWluU2NlbmUge1xyXG4gIG1hcmdpbi1sZWZ0OiA1MDBweDtcclxuICBwYWRkaW5nLWxlZnQ6IDQwcHg7XHJcbn1cclxuIl19 */"]
+      styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NjZW5lcy9tYWluLXNjZW5lL21haW4tc2NlbmUuY29tcG9uZW50LmNzcyJ9 */"]
     });
     MainSceneComponent.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({
       token: MainSceneComponent,
@@ -3809,7 +3698,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           selector: 'app-main-scene',
           providers: [{
             provide: _communication_Communicator__WEBPACK_IMPORTED_MODULE_4__["Communicator"],
-            useClass: _environments_environment__WEBPACK_IMPORTED_MODULE_8__["environment"].serviceToCommunication
+            useClass: _environments_environment__WEBPACK_IMPORTED_MODULE_9__["environment"].serviceToCommunication
           }],
           templateUrl: './main-scene.component.html',
           styleUrls: ['./main-scene.component.css']
@@ -3823,13 +3712,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         return [{
           type: _communication_Communicator__WEBPACK_IMPORTED_MODULE_4__["Communicator"]
         }, {
-          type: _angular_router__WEBPACK_IMPORTED_MODULE_9__["Router"]
+          type: _angular_router__WEBPACK_IMPORTED_MODULE_10__["Router"]
         }, {
-          type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"]
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"]
         }, {
-          type: _downloader_download_service__WEBPACK_IMPORTED_MODULE_10__["DownloadService"]
+          type: _downloader_download_service__WEBPACK_IMPORTED_MODULE_11__["DownloadService"]
         }, {
-          type: _cache_request_cache_service__WEBPACK_IMPORTED_MODULE_11__["RequestCacheService"]
+          type: _cache_request_cache_service__WEBPACK_IMPORTED_MODULE_12__["RequestCacheService"]
         }];
       }, null);
     })();
@@ -3865,8 +3754,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     var environment = {
       production: false,
-      serviceToCommunication: _app_communication_websocket_websocket_service__WEBPACK_IMPORTED_MODULE_0__["WebsocketService"],
-      download_measurement_rsocket: false
+      serviceToCommunication: _app_communication_websocket_websocket_service__WEBPACK_IMPORTED_MODULE_0__["WebsocketService"]
     };
     /***/
   },

@@ -27,13 +27,12 @@ webpackEmptyAsyncContext.id = "./$$_lazy_route_resource lazy recursive";
 /*!**************************!*\
   !*** ./global-config.ts ***!
   \**************************/
-/*! exports provided: CSV_RESPONSE_HEADERS, HTTP_URL_DOWNLOAD, HTTP_URL_MAIN, WEBSOCKET_URL_MAIN, RSOCKET_URL_MAIN, SERIALIZER_DATA, SERIALIZER_METADATA, DATA_MIME_TYPE */
+/*! exports provided: CSV_RESPONSE_HEADERS, HTTP_URL_MAIN, WEBSOCKET_URL_MAIN, RSOCKET_URL_MAIN, SERIALIZER_DATA, SERIALIZER_METADATA, DATA_MIME_TYPE */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CSV_RESPONSE_HEADERS", function() { return CSV_RESPONSE_HEADERS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_URL_DOWNLOAD", function() { return HTTP_URL_DOWNLOAD; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_URL_MAIN", function() { return HTTP_URL_MAIN; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WEBSOCKET_URL_MAIN", function() { return WEBSOCKET_URL_MAIN; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RSOCKET_URL_MAIN", function() { return RSOCKET_URL_MAIN; });
@@ -45,21 +44,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // Defined data which will be saved into response file (not modify)
-const CSV_RESPONSE_HEADERS = ['id', 'response_time_in_millis', 'request_timestamp', 'version_response'];
+const CSV_RESPONSE_HEADERS = ['id', 'response_time_in_millis', 'request_timestamp', 'version_response', 'size'];
 //-----------------------   Global options for application which you can modify    -------------------------
 // 1) URLS
-// URL for measurement file (request file)
-// export const HTTP_URL_DOWNLOAD = 'https://localhost:8080/report/measurement';
-const HTTP_URL_DOWNLOAD = 'https://pacman-websocket.herokuapp.com/report/measurement';
 // domain for server (http2)
-// export const HTTP_URL_MAIN = 'https://localhost:8080';
-const HTTP_URL_MAIN = 'https://http2-pacman.herokuapp.com';
+const HTTP_URL_MAIN = 'https://localhost:8080';
+// export const HTTP_URL_MAIN = 'https://http2-pacman.herokuapp.com';
 // websocket(stomp) URL for connection
-// export const WEBSOCKET_URL_MAIN = 'ws://localhost:8080/socket';
-const WEBSOCKET_URL_MAIN = 'wss://pacman-websocket.herokuapp.com/socket';
+const WEBSOCKET_URL_MAIN = 'ws://localhost:8080/socket';
+// export const WEBSOCKET_URL_MAIN = 'wss://pacman-websocket.herokuapp.com/socket';
 // rsocket(websocket) URL for connection
 const RSOCKET_URL_MAIN = 'ws://localhost:8080/rsocket';
-// export const RSOCKET_URL_MAIN =  'wss://pacman-rsocket.herokuapp.com/rsocket';
 // 3) Serializer for RSocket
 const SERIALIZER_DATA = rsocket_core__WEBPACK_IMPORTED_MODULE_0__["JsonSerializer"];
 const SERIALIZER_METADATA = rsocket_core__WEBPACK_IMPORTED_MODULE_0__["IdentitySerializer"];
@@ -996,14 +991,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _scenes_main_scene_main_scene_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./scenes/main-scene/main-scene.component */ "./src/app/scenes/main-scene/main-scene.component.ts");
 /* harmony import */ var _communication_websocket_websocket_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./communication/websocket/websocket.service */ "./src/app/communication/websocket/websocket.service.ts");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
-/* harmony import */ var _http_http_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./http/http.service */ "./src/app/http/http.service.ts");
-/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
-/* harmony import */ var angular_oauth2_oidc__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! angular-oauth2-oidc */ "./node_modules/angular-oauth2-oidc/__ivy_ngcc__/fesm2015/angular-oauth2-oidc.js");
-/* harmony import */ var _home_home_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./home/home.component */ "./src/app/home/home.component.ts");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
-
+/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
+/* harmony import */ var angular_oauth2_oidc__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! angular-oauth2-oidc */ "./node_modules/angular-oauth2-oidc/__ivy_ngcc__/fesm2015/angular-oauth2-oidc.js");
+/* harmony import */ var _home_home_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./home/home.component */ "./src/app/home/home.component.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
 
 
 
@@ -1023,19 +1016,19 @@ __webpack_require__.r(__webpack_exports__);
 class AppModule {
 }
 AppModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineNgModule"]({ type: AppModule, bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_2__["AppComponent"]] });
-AppModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjector"]({ factory: function AppModule_Factory(t) { return new (t || AppModule)(); }, providers: [_communication_websocket_websocket_service__WEBPACK_IMPORTED_MODULE_5__["WebsocketService"], _http_http_service__WEBPACK_IMPORTED_MODULE_7__["HttpService"]], imports: [[
+AppModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjector"]({ factory: function AppModule_Factory(t) { return new (t || AppModule)(); }, providers: [_communication_websocket_websocket_service__WEBPACK_IMPORTED_MODULE_5__["WebsocketService"]], imports: [[
             _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
             _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HttpClientModule"],
-            _app_routing_module__WEBPACK_IMPORTED_MODULE_8__["AppRoutingModule"],
-            angular_oauth2_oidc__WEBPACK_IMPORTED_MODULE_9__["OAuthModule"].forRoot(),
-            _angular_forms__WEBPACK_IMPORTED_MODULE_11__["FormsModule"]
+            _app_routing_module__WEBPACK_IMPORTED_MODULE_7__["AppRoutingModule"],
+            angular_oauth2_oidc__WEBPACK_IMPORTED_MODULE_8__["OAuthModule"].forRoot(),
+            _angular_forms__WEBPACK_IMPORTED_MODULE_10__["FormsModule"]
         ]] });
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵsetNgModuleScope"](AppModule, { declarations: [_app_component__WEBPACK_IMPORTED_MODULE_2__["AppComponent"],
         _game_game_component__WEBPACK_IMPORTED_MODULE_3__["GameComponent"],
         _scenes_main_scene_main_scene_component__WEBPACK_IMPORTED_MODULE_4__["MainSceneComponent"],
-        _home_home_component__WEBPACK_IMPORTED_MODULE_10__["HomeComponent"]], imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
+        _home_home_component__WEBPACK_IMPORTED_MODULE_9__["HomeComponent"]], imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
         _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HttpClientModule"],
-        _app_routing_module__WEBPACK_IMPORTED_MODULE_8__["AppRoutingModule"], angular_oauth2_oidc__WEBPACK_IMPORTED_MODULE_9__["OAuthModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["FormsModule"]] }); })();
+        _app_routing_module__WEBPACK_IMPORTED_MODULE_7__["AppRoutingModule"], angular_oauth2_oidc__WEBPACK_IMPORTED_MODULE_8__["OAuthModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["FormsModule"]] }); })();
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵsetClassMetadata"](AppModule, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"],
         args: [{
@@ -1043,23 +1036,23 @@ AppModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjector
                     _app_component__WEBPACK_IMPORTED_MODULE_2__["AppComponent"],
                     _game_game_component__WEBPACK_IMPORTED_MODULE_3__["GameComponent"],
                     _scenes_main_scene_main_scene_component__WEBPACK_IMPORTED_MODULE_4__["MainSceneComponent"],
-                    _home_home_component__WEBPACK_IMPORTED_MODULE_10__["HomeComponent"]
+                    _home_home_component__WEBPACK_IMPORTED_MODULE_9__["HomeComponent"]
                 ],
                 imports: [
                     _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
                     _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HttpClientModule"],
-                    _app_routing_module__WEBPACK_IMPORTED_MODULE_8__["AppRoutingModule"],
-                    angular_oauth2_oidc__WEBPACK_IMPORTED_MODULE_9__["OAuthModule"].forRoot(),
-                    _angular_forms__WEBPACK_IMPORTED_MODULE_11__["FormsModule"]
+                    _app_routing_module__WEBPACK_IMPORTED_MODULE_7__["AppRoutingModule"],
+                    angular_oauth2_oidc__WEBPACK_IMPORTED_MODULE_8__["OAuthModule"].forRoot(),
+                    _angular_forms__WEBPACK_IMPORTED_MODULE_10__["FormsModule"]
                 ],
-                providers: [_communication_websocket_websocket_service__WEBPACK_IMPORTED_MODULE_5__["WebsocketService"], _http_http_service__WEBPACK_IMPORTED_MODULE_7__["HttpService"]],
+                providers: [_communication_websocket_websocket_service__WEBPACK_IMPORTED_MODULE_5__["WebsocketService"]],
                 bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_2__["AppComponent"]]
             }]
     }], null, null); })();
-_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵsetComponentScope"](_scenes_main_scene_main_scene_component__WEBPACK_IMPORTED_MODULE_4__["MainSceneComponent"], [_angular_common__WEBPACK_IMPORTED_MODULE_12__["NgClass"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["NgComponentOutlet"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["NgForOf"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["NgIf"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["NgTemplateOutlet"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["NgStyle"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["NgSwitch"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["NgSwitchCase"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["NgSwitchDefault"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["NgPlural"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["NgPluralCase"], _angular_router__WEBPACK_IMPORTED_MODULE_13__["RouterOutlet"], _angular_router__WEBPACK_IMPORTED_MODULE_13__["RouterLink"], _angular_router__WEBPACK_IMPORTED_MODULE_13__["RouterLinkWithHref"], _angular_router__WEBPACK_IMPORTED_MODULE_13__["RouterLinkActive"], _angular_router__WEBPACK_IMPORTED_MODULE_13__["ɵangular_packages_router_router_l"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["NgSelectOption"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["ɵangular_packages_forms_forms_x"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["NumberValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["RangeValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["CheckboxControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["SelectControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["SelectMultipleControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["RadioControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["RequiredValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["MinLengthValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["MaxLengthValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["PatternValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["CheckboxRequiredValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["EmailValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["NgModel"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["NgModelGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["NgForm"], _app_component__WEBPACK_IMPORTED_MODULE_2__["AppComponent"],
+_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵsetComponentScope"](_scenes_main_scene_main_scene_component__WEBPACK_IMPORTED_MODULE_4__["MainSceneComponent"], [_angular_common__WEBPACK_IMPORTED_MODULE_11__["NgClass"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgComponentOutlet"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgForOf"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgIf"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgTemplateOutlet"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgStyle"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgSwitch"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgSwitchCase"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgSwitchDefault"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgPlural"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgPluralCase"], _angular_router__WEBPACK_IMPORTED_MODULE_12__["RouterOutlet"], _angular_router__WEBPACK_IMPORTED_MODULE_12__["RouterLink"], _angular_router__WEBPACK_IMPORTED_MODULE_12__["RouterLinkWithHref"], _angular_router__WEBPACK_IMPORTED_MODULE_12__["RouterLinkActive"], _angular_router__WEBPACK_IMPORTED_MODULE_12__["ɵangular_packages_router_router_l"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["NgSelectOption"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["ɵangular_packages_forms_forms_x"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["NumberValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["RangeValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["CheckboxControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["SelectControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["SelectMultipleControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["RadioControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["RequiredValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["MinLengthValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["MaxLengthValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["PatternValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["CheckboxRequiredValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["EmailValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["NgModel"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["NgModelGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["NgForm"], _app_component__WEBPACK_IMPORTED_MODULE_2__["AppComponent"],
     _game_game_component__WEBPACK_IMPORTED_MODULE_3__["GameComponent"],
     _scenes_main_scene_main_scene_component__WEBPACK_IMPORTED_MODULE_4__["MainSceneComponent"],
-    _home_home_component__WEBPACK_IMPORTED_MODULE_10__["HomeComponent"]], [_angular_common__WEBPACK_IMPORTED_MODULE_12__["AsyncPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["UpperCasePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["LowerCasePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["JsonPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["SlicePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["DecimalPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["PercentPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["TitleCasePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["CurrencyPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["DatePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["I18nPluralPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["I18nSelectPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["KeyValuePipe"]]);
+    _home_home_component__WEBPACK_IMPORTED_MODULE_9__["HomeComponent"]], [_angular_common__WEBPACK_IMPORTED_MODULE_11__["AsyncPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["UpperCasePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["LowerCasePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["JsonPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["SlicePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["DecimalPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["PercentPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["TitleCasePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["CurrencyPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["DatePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["I18nPluralPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["I18nSelectPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["KeyValuePipe"]]);
 
 
 /***/ }),
@@ -1083,11 +1076,11 @@ class MeasurementService {
     constructor() {
         this.measurements = new Array();
     }
-    addMeasurementResponse(id, responseTimeInMillis, requestTimestamp, version) {
+    addMeasurementResponse(id, responseTimeInMillis, requestTimestamp, version, size) {
         // if (this.measurements.length > 1999) {
         //     this.measurements.splice(0, 1);
         // }
-        this.measurements.push(new _model_MeasurementResponse__WEBPACK_IMPORTED_MODULE_1__["MeasurementResponse"](id, responseTimeInMillis, requestTimestamp, version));
+        this.measurements.push(new _model_MeasurementResponse__WEBPACK_IMPORTED_MODULE_1__["MeasurementResponse"](id, responseTimeInMillis, requestTimestamp, version, size));
     }
     getResponseMeasurements() {
         return this.measurements;
@@ -1366,6 +1359,26 @@ class ProtobufFormatter {
 
 /***/ }),
 
+/***/ "./src/app/communication/simulation/data/AdditionalObject.ts":
+/*!*******************************************************************!*\
+  !*** ./src/app/communication/simulation/data/AdditionalObject.ts ***!
+  \*******************************************************************/
+/*! exports provided: AdditionalObject */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AdditionalObject", function() { return AdditionalObject; });
+class AdditionalObject {
+    constructor(number, text) {
+        this.number = number;
+        this.text = text;
+    }
+}
+
+
+/***/ }),
+
 /***/ "./src/app/communication/websocket/websocket.service.ts":
 /*!**************************************************************!*\
   !*** ./src/app/communication/websocket/websocket.service.ts ***!
@@ -1436,7 +1449,7 @@ class WebsocketService extends _Communicator__WEBPACK_IMPORTED_MODULE_2__["Commu
                 const parsedPlayer = this.formatter.decodePlayer(playerToUpdate);
                 const responseTimeInMillis = new Date().getTime() - Number(playerToUpdate.headers.requestTimestamp);
                 // console.error("Odpowiedz serwera " + responseTimeInMillis + " milliseconds")
-                this.measurementService.addMeasurementResponse(parsedPlayer.nickname, responseTimeInMillis, playerToUpdate.headers.requestTimestamp, parsedPlayer.version);
+                this.measurementService.addMeasurementResponse(parsedPlayer.nickname, responseTimeInMillis, playerToUpdate.headers.requestTimestamp, parsedPlayer.version, playerToUpdate.headers.contentLength);
                 if (parsedPlayer.nickname === this.myNickname) {
                     const request = this.requestCache.getRequest(parsedPlayer.version);
                     this.updateScore.next(parsedPlayer.score);
@@ -1450,7 +1463,7 @@ class WebsocketService extends _Communicator__WEBPACK_IMPORTED_MODULE_2__["Commu
             });
             this.stompClient.subscribe('/pacman/update/monster', (monster) => {
                 const monsterParsed = this.formatter.decodeMonster(monster);
-                this.measurementService.addMeasurementResponse(monsterParsed.id, new Date().getTime() - Number(monster.headers.timestamp), monster.headers.timestamp, 0);
+                this.measurementService.addMeasurementResponse(monsterParsed.id, 0, 0, 0, 0);
                 this.monsterToUpdate.next(monsterParsed);
             });
             this.stompClient.subscribe('/pacman/refresh/coins', () => {
@@ -1465,7 +1478,7 @@ class WebsocketService extends _Communicator__WEBPACK_IMPORTED_MODULE_2__["Commu
             this.stompClient.subscribe('/user/queue/player', (playerToUpdate) => {
                 const parsedPlayer = this.formatter.decodePlayer(playerToUpdate);
                 const responseTimeInMillis = new Date().getTime() - Number(playerToUpdate.headers.requestTimestamp);
-                this.measurementService.addMeasurementResponse(parsedPlayer.nickname, responseTimeInMillis, playerToUpdate.headers.requestTimestamp, parsedPlayer.version);
+                this.measurementService.addMeasurementResponse(parsedPlayer.nickname, responseTimeInMillis, playerToUpdate.headers.requestTimestamp, parsedPlayer.version, playerToUpdate.headers.contentLength);
                 const request = this.requestCache.getCorrectedPosition(parsedPlayer.version);
                 if (request !== null) {
                     parsedPlayer.positionX = request.x;
@@ -1573,58 +1586,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var file_saver__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(file_saver__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _global_config__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../global-config */ "./global-config.ts");
 /* harmony import */ var _cache_measurement_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../cache/measurement.service */ "./src/app/cache/measurement.service.ts");
-/* harmony import */ var _http_http_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../http/http.service */ "./src/app/http/http.service.ts");
-
 
 
 
 
 
 class DownloadService {
-    constructor(cacheMeasurement, httpService) {
+    constructor(cacheMeasurement) {
         this.cacheMeasurement = cacheMeasurement;
-        this.httpService = httpService;
         this.RESPONSE_FILE = "response_measurement.csv";
-        this.REQUEST_FILE = "request_measurement.csv";
-    }
-    set rsocketObject(value) {
-        this._rsocketObject = value;
-    }
-    downloadRequestMeasurements() {
-        if (this._rsocketObject) {
-            this._rsocketObject
-                .requestResponse({
-                metadata: String.fromCharCode('/report/measurement'.length) + '/report/measurement',
-            }).subscribe({
-                onComplete: payload => {
-                    this.downloadRequestFile(payload.data.data);
-                },
-                onError: error => {
-                    console.log('got error with requestResponse');
-                    console.error(error);
-                },
-                onSubscribe: cancel => {
-                }
-            });
-        }
-        else {
-            this.httpService.downloadMeasurements().subscribe((data) => {
-                this.downloadRequestFile(data.body);
-            });
-        }
     }
     downloadResponseMeasurements() {
         this.downloadResponseFile(this.cacheMeasurement.getResponseMeasurements());
-    }
-    downloadRequestFile(data) {
-        const blob = new Blob([data], { type: 'text/csv' });
-        const url = window.URL.createObjectURL(blob);
-        const anchor = document.createElement('a');
-        anchor.download = this.REQUEST_FILE; // here you can specify file name
-        anchor.href = url;
-        document.body.appendChild(anchor);
-        anchor.click();
-        document.body.removeChild(anchor);
     }
     downloadResponseFile(data) {
         const replacer = (key, value) => value === null ? '' : value; // specify how you want to handle null values here
@@ -1636,14 +1609,14 @@ class DownloadService {
         Object(file_saver__WEBPACK_IMPORTED_MODULE_1__["saveAs"])(new Blob([csvArray], { type: 'text/csv' }), this.RESPONSE_FILE);
     }
 }
-DownloadService.ɵfac = function DownloadService_Factory(t) { return new (t || DownloadService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_cache_measurement_service__WEBPACK_IMPORTED_MODULE_3__["MeasurementService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_http_http_service__WEBPACK_IMPORTED_MODULE_4__["HttpService"])); };
+DownloadService.ɵfac = function DownloadService_Factory(t) { return new (t || DownloadService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_cache_measurement_service__WEBPACK_IMPORTED_MODULE_3__["MeasurementService"])); };
 DownloadService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: DownloadService, factory: DownloadService.ɵfac, providedIn: 'root' });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](DownloadService, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"],
         args: [{
                 providedIn: 'root'
             }]
-    }], function () { return [{ type: _cache_measurement_service__WEBPACK_IMPORTED_MODULE_3__["MeasurementService"] }, { type: _http_http_service__WEBPACK_IMPORTED_MODULE_4__["HttpService"] }]; }, null); })();
+    }], function () { return [{ type: _cache_measurement_service__WEBPACK_IMPORTED_MODULE_3__["MeasurementService"] }]; }, null); })();
 
 
 /***/ }),
@@ -1675,7 +1648,7 @@ class GameComponent {
             width: 1600,
             scale: {
                 mode: phaser__WEBPACK_IMPORTED_MODULE_1___default.a.Scale.FIT,
-                autoCenter: phaser__WEBPACK_IMPORTED_MODULE_1___default.a.Scale.CENTER_BOTH
+                autoCenter: phaser__WEBPACK_IMPORTED_MODULE_1___default.a.Scale.CENTER_HORIZONTALLY
             },
             scene: [],
             parent: 'gameContainer',
@@ -1706,7 +1679,7 @@ GameComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComp
         args: [{
                 selector: 'app-game',
                 templateUrl: './game.component.html',
-                styleUrls: ['./game.component.css']
+                styleUrls: ['./game.component.css'],
             }]
     }], function () { return [{ type: _scenes_main_scene_main_scene_component__WEBPACK_IMPORTED_MODULE_2__["MainSceneComponent"] }]; }, null); })();
 
@@ -1797,47 +1770,6 @@ HomeComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComp
 
 /***/ }),
 
-/***/ "./src/app/http/http.service.ts":
-/*!**************************************!*\
-  !*** ./src/app/http/http.service.ts ***!
-  \**************************************/
-/*! exports provided: HttpService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HttpService", function() { return HttpService; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
-/* harmony import */ var _global_config__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../global-config */ "./global-config.ts");
-
-
-
-
-
-class HttpService {
-    constructor(httpClient) {
-        this.httpClient = httpClient;
-    }
-    downloadMeasurements() {
-        let headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]();
-        headers = headers.append('Accept', 'text/csv; charset=utf-8');
-        return this.httpClient.get(_global_config__WEBPACK_IMPORTED_MODULE_2__["HTTP_URL_DOWNLOAD"], {
-            headers: headers,
-            observe: 'response',
-            responseType: 'text'
-        });
-    }
-}
-HttpService.ɵfac = function HttpService_Factory(t) { return new (t || HttpService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"])); };
-HttpService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: HttpService, factory: HttpService.ɵfac });
-/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](HttpService, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"]
-    }], function () { return [{ type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"] }]; }, null); })();
-
-
-/***/ }),
-
 /***/ "./src/app/model/MeasurementResponse.ts":
 /*!**********************************************!*\
   !*** ./src/app/model/MeasurementResponse.ts ***!
@@ -1849,11 +1781,12 @@ HttpService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjec
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MeasurementResponse", function() { return MeasurementResponse; });
 class MeasurementResponse {
-    constructor(id, response_time_in_millis, request_timestamp, version_response) {
+    constructor(id, response_time_in_millis, request_timestamp, version_response, size) {
         this._id = id;
         this._response_time_in_millis = response_time_in_millis;
         this._request_timestamp = request_timestamp;
         this._version_response = version_response;
+        this._size = size;
     }
     get response_time_in_millis() {
         return this._response_time_in_millis;
@@ -1878,6 +1811,12 @@ class MeasurementResponse {
     }
     set id(value) {
         this._id = value;
+    }
+    get size() {
+        return this._size;
+    }
+    set size(value) {
+        this._size = value;
     }
 }
 
@@ -1997,10 +1936,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _communication_Direction__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../communication/Direction */ "./src/app/communication/Direction.ts");
 /* harmony import */ var _communication_SocketClientState__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../communication/SocketClientState */ "./src/app/communication/SocketClientState.ts");
 /* harmony import */ var _model_Request__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../model/Request */ "./src/app/model/Request.ts");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../environments/environment */ "./src/environments/environment.ts");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
-/* harmony import */ var _downloader_download_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../downloader/download.service */ "./src/app/downloader/download.service.ts");
-/* harmony import */ var _cache_request_cache_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../cache/request-cache.service */ "./src/app/cache/request-cache.service.ts");
+/* harmony import */ var _communication_simulation_data_AdditionalObject__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../communication/simulation/data/AdditionalObject */ "./src/app/communication/simulation/data/AdditionalObject.ts");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
+/* harmony import */ var _downloader_download_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../downloader/download.service */ "./src/app/downloader/download.service.ts");
+/* harmony import */ var _cache_request_cache_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../cache/request-cache.service */ "./src/app/cache/request-cache.service.ts");
+
 
 
 
@@ -2016,11 +1957,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class MainSceneComponent extends phaser__WEBPACK_IMPORTED_MODULE_1___default.a.Scene {
-    constructor(websocketService, router, elementRef, downloadService, requestCache) {
+    constructor(websocketService, router, renderer, downloadService, requestCache) {
         super({ key: 'main' });
         this.websocketService = websocketService;
         this.router = router;
-        this.elementRef = elementRef;
+        this.renderer = renderer;
         this.downloadService = downloadService;
         this.requestCache = requestCache;
         // Additional data for testing changing data size
@@ -2046,9 +1987,9 @@ class MainSceneComponent extends phaser__WEBPACK_IMPORTED_MODULE_1___default.a.S
         this.websocketService.initializeConnection();
         // const tab = (data as any).default;
         //
-        // for (let i = 0; i < this.arrayWithAdditionalData.length; i++) {
-        //     this.arrayWithAdditionalData[i] = new AdditionalObject(5555, this.additionalData);
-        // }
+        for (let i = 0; i < this.arrayWithAdditionalData.length; i++) {
+            this.arrayWithAdditionalData[i] = new _communication_simulation_data_AdditionalObject__WEBPACK_IMPORTED_MODULE_8__["AdditionalObject"](5555, this.additionalData);
+        }
         // setTimeout(() => {
         //         for (let i = 0; i < tab.length; i++) {
         //             this.simulationConnection[i] = new WebsocketSimulationConnection(tab[i].nickname);
@@ -2268,16 +2209,15 @@ class MainSceneComponent extends phaser__WEBPACK_IMPORTED_MODULE_1___default.a.S
         this.lastX = player.x;
         this.lastY = player.y;
         this.lastAngle = player.angle;
-        // const dataProvider = interval(1000);
-        // const subscriptionDataProvider = dataProvider.subscribe(()=> {
-        //     for(let i =0;i<10;i++) {
-        //         this.arrayWithAdditionalData.push(new AdditionalObject(5555,this.additionalData));
-        //     }
-        //     if(this.arrayWithAdditionalData.length > 400) {
-        //         subscriptionDataProvider.unsubscribe();
-        //         this.subscription7.unsubscribe();
-        //     }
-        // });
+        const dataProvider = Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["interval"])(1000);
+        const subscriptionDataProvider = dataProvider.subscribe(() => {
+            for (let i = 0; i < 10; i++) {
+                this.arrayWithAdditionalData.push(new _communication_simulation_data_AdditionalObject__WEBPACK_IMPORTED_MODULE_8__["AdditionalObject"](5555, this.additionalData));
+            }
+            if (this.arrayWithAdditionalData.length > 300) {
+                subscriptionDataProvider.unsubscribe();
+            }
+        });
         this.positionSender = Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["interval"])(20);
         this.positionSenderSubscription = this.positionSender.subscribe(() => {
             const player = this.players.get(this.myPlayerName);
@@ -2295,8 +2235,8 @@ class MainSceneComponent extends phaser__WEBPACK_IMPORTED_MODULE_1___default.a.S
                     "score": player.score,
                     "stepDirection": this.getDirection(),
                     "version": this.counterRequest,
-                    "requestTimestamp": new Date().getTime()
-                    // "additionalData": this.arrayWithAdditionalData
+                    "requestTimestamp": new Date().getTime(),
+                    "additionalData": this.arrayWithAdditionalData
                 });
             }
         });
@@ -2422,14 +2362,14 @@ class MainSceneComponent extends phaser__WEBPACK_IMPORTED_MODULE_1___default.a.S
             //     this.simulationConnection[i].disconnect();
             // }
         }
-        if (this.game != null) {
+        if (this.game) {
             this.game.destroy(true);
             this.game.scene.remove('main');
         }
-        if (document.getElementsByTagName('canvas').item(0) != null) {
+        if (document.getElementsByTagName('canvas')) {
+            console.error(this.renderer);
             document.getElementsByTagName('canvas').item(0).remove();
         }
-        this.elementRef.nativeElement.remove();
     }
     createAnimationsBySpriteKey(figureKey, animKey) {
         this.anims.create({
@@ -2475,15 +2415,15 @@ class MainSceneComponent extends phaser__WEBPACK_IMPORTED_MODULE_1___default.a.S
         return this._backgroundLayer;
     }
 }
-MainSceneComponent.ɵfac = function MainSceneComponent_Factory(t) { return new (t || MainSceneComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_communication_Communicator__WEBPACK_IMPORTED_MODULE_4__["Communicator"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_9__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_downloader_download_service__WEBPACK_IMPORTED_MODULE_10__["DownloadService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_cache_request_cache_service__WEBPACK_IMPORTED_MODULE_11__["RequestCacheService"])); };
+MainSceneComponent.ɵfac = function MainSceneComponent_Factory(t) { return new (t || MainSceneComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_communication_Communicator__WEBPACK_IMPORTED_MODULE_4__["Communicator"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_10__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_downloader_download_service__WEBPACK_IMPORTED_MODULE_11__["DownloadService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_cache_request_cache_service__WEBPACK_IMPORTED_MODULE_12__["RequestCacheService"])); };
 MainSceneComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: MainSceneComponent, selectors: [["app-main-scene"]], features: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵProvidersFeature"]([
             {
                 provide: _communication_Communicator__WEBPACK_IMPORTED_MODULE_4__["Communicator"],
-                useClass: _environments_environment__WEBPACK_IMPORTED_MODULE_8__["environment"].serviceToCommunication
+                useClass: _environments_environment__WEBPACK_IMPORTED_MODULE_9__["environment"].serviceToCommunication
             }
         ]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵInheritDefinitionFeature"]], decls: 1, vars: 0, template: function MainSceneComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](0, "app-game");
-    } }, styles: ["#mainScene[_ngcontent-%COMP%] {\r\n  margin-left: 500px;\r\n  padding-left: 40px;\r\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2NlbmVzL21haW4tc2NlbmUvbWFpbi1zY2VuZS5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0Usa0JBQWtCO0VBQ2xCLGtCQUFrQjtBQUNwQiIsImZpbGUiOiJzcmMvYXBwL3NjZW5lcy9tYWluLXNjZW5lL21haW4tc2NlbmUuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIiNtYWluU2NlbmUge1xyXG4gIG1hcmdpbi1sZWZ0OiA1MDBweDtcclxuICBwYWRkaW5nLWxlZnQ6IDQwcHg7XHJcbn1cclxuIl19 */"] });
+    } }, styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NjZW5lcy9tYWluLXNjZW5lL21haW4tc2NlbmUuY29tcG9uZW50LmNzcyJ9 */"] });
 MainSceneComponent.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: MainSceneComponent, factory: MainSceneComponent.ɵfac, providedIn: 'root' });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](MainSceneComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
@@ -2492,7 +2432,7 @@ MainSceneComponent.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefi
                 providers: [
                     {
                         provide: _communication_Communicator__WEBPACK_IMPORTED_MODULE_4__["Communicator"],
-                        useClass: _environments_environment__WEBPACK_IMPORTED_MODULE_8__["environment"].serviceToCommunication
+                        useClass: _environments_environment__WEBPACK_IMPORTED_MODULE_9__["environment"].serviceToCommunication
                     }
                 ],
                 templateUrl: './main-scene.component.html',
@@ -2503,7 +2443,7 @@ MainSceneComponent.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefi
         args: [{
                 providedIn: 'root',
             }]
-    }], function () { return [{ type: _communication_Communicator__WEBPACK_IMPORTED_MODULE_4__["Communicator"] }, { type: _angular_router__WEBPACK_IMPORTED_MODULE_9__["Router"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] }, { type: _downloader_download_service__WEBPACK_IMPORTED_MODULE_10__["DownloadService"] }, { type: _cache_request_cache_service__WEBPACK_IMPORTED_MODULE_11__["RequestCacheService"] }]; }, null); })();
+    }], function () { return [{ type: _communication_Communicator__WEBPACK_IMPORTED_MODULE_4__["Communicator"] }, { type: _angular_router__WEBPACK_IMPORTED_MODULE_10__["Router"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"] }, { type: _downloader_download_service__WEBPACK_IMPORTED_MODULE_11__["DownloadService"] }, { type: _cache_request_cache_service__WEBPACK_IMPORTED_MODULE_12__["RequestCacheService"] }]; }, null); })();
 
 
 /***/ }),
@@ -2522,8 +2462,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const environment = {
     production: false,
-    serviceToCommunication: _app_communication_websocket_websocket_service__WEBPACK_IMPORTED_MODULE_0__["WebsocketService"],
-    download_measurement_rsocket: false
+    serviceToCommunication: _app_communication_websocket_websocket_service__WEBPACK_IMPORTED_MODULE_0__["WebsocketService"]
 };
 
 
