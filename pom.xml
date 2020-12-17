@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.szymon</groupId>
-    <artifactId>websocket</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>websocket</name>
+    <artifactId>rsocket-size-50</artifactId>
+    <version>1</version>
+    <name>rsocket</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -36,18 +36,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.google.protobuf</groupId>
-            <artifactId>protobuf-java</artifactId>
-            <version>3.13.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.github.BAData</groupId>
-            <artifactId>protobuf-converter</artifactId>
-            <version>1.1.5</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
@@ -58,8 +46,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
-
 
         <dependency>
             <groupId>com.opencsv</groupId>
@@ -72,29 +58,13 @@
             <artifactId>json-simple</artifactId>
             <version>1.1.1</version>
         </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-        </dependency>
-
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
+            <artifactId>spring-boot-starter-rsocket</artifactId>
+            <version>2.3.4.RELEASE</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-
-
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-websocket</artifactId>
-        </dependency>
     </dependencies>
 
     <build>
