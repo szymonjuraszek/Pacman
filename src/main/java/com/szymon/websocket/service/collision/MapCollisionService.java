@@ -51,12 +51,9 @@ public class MapCollisionService {
                 .get((x + RANGE) / GameConstants.FRAME_X)) {
             return false;
         }
-        if (mapCollisionBoard.getBoard()
+        return !mapCollisionBoard.getBoard()
                 .get((y + RANGE) / GameConstants.FRAME_Y)
-                .get((x - RANGE) / GameConstants.FRAME_X)) {
-            return false;
-        }
-        return true;
+                .get((x - RANGE) / GameConstants.FRAME_X);
     }
 
     public boolean checkPositionForPlayer(Player player) {
@@ -64,7 +61,7 @@ public class MapCollisionService {
         int y = player.getPositionY();
 
         switch (player.getStepDirection()) {
-            case VERTICAL: {
+            case VER: {
                 if (x % 32 == 16) {
                     return check(x, y);
                 } else {
@@ -81,7 +78,7 @@ public class MapCollisionService {
                     return true;
                 }
             }
-            case HORIZON: {
+            case HOR: {
                 if (y % 32 == 16) {
                     return check(x, y);
                 } else {

@@ -27,15 +27,13 @@ webpackEmptyAsyncContext.id = "./$$_lazy_route_resource lazy recursive";
 /*!**************************!*\
   !*** ./global-config.ts ***!
   \**************************/
-/*! exports provided: CSV_RESPONSE_HEADERS, HTTP_URL_MAIN, WEBSOCKET_URL_MAIN, RSOCKET_URL_MAIN, SERIALIZER_DATA, SERIALIZER_METADATA, DATA_MIME_TYPE */
+/*! exports provided: CSV_RESPONSE_HEADERS_PLAYER, CSV_RESPONSE_HEADERS_MONSTER, SERIALIZER_DATA, SERIALIZER_METADATA, DATA_MIME_TYPE */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CSV_RESPONSE_HEADERS", function() { return CSV_RESPONSE_HEADERS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_URL_MAIN", function() { return HTTP_URL_MAIN; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WEBSOCKET_URL_MAIN", function() { return WEBSOCKET_URL_MAIN; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RSOCKET_URL_MAIN", function() { return RSOCKET_URL_MAIN; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CSV_RESPONSE_HEADERS_PLAYER", function() { return CSV_RESPONSE_HEADERS_PLAYER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CSV_RESPONSE_HEADERS_MONSTER", function() { return CSV_RESPONSE_HEADERS_MONSTER; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SERIALIZER_DATA", function() { return SERIALIZER_DATA; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SERIALIZER_METADATA", function() { return SERIALIZER_METADATA; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DATA_MIME_TYPE", function() { return DATA_MIME_TYPE; });
@@ -43,19 +41,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rsocket_core__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(rsocket_core__WEBPACK_IMPORTED_MODULE_0__);
 
 
-// Defined data which will be saved into response file (not modify)
-const CSV_RESPONSE_HEADERS = ['id', 'response_time_in_millis', 'request_timestamp', 'version_response', 'size'];
-//-----------------------   Global options for application which you can modify    -------------------------
-// 1) URLS
-// domain for server (http2)
-const HTTP_URL_MAIN = 'https://localhost:8080';
-// export const HTTP_URL_MAIN = 'https://http2-pacman.herokuapp.com';
-// websocket(stomp) URL for connection
-const WEBSOCKET_URL_MAIN = 'ws://localhost:8080/socket';
-// export const WEBSOCKET_URL_MAIN = 'wss://pacman-websocket.herokuapp.com/socket';
-// rsocket(websocket) URL for connection
-const RSOCKET_URL_MAIN = 'ws://localhost:8080/rsocket';
-// 3) Serializer for RSocket
+// Defined data which will be saved into response file for player (not modify)
+const CSV_RESPONSE_HEADERS_PLAYER = ['id', 'response_time_in_millis',
+    'specific_second_of_communication', 'version_response', 'size', 'request_timestamp'];
+// Defined data which will be saved into response file for monster (not modify)
+const CSV_RESPONSE_HEADERS_MONSTER = ['id', 'specific_second_of_communication', 'request_timestamp', 'response_time_in_millis'];
+// 1) Serializer for RSocket
 const SERIALIZER_DATA = rsocket_core__WEBPACK_IMPORTED_MODULE_0__["JsonSerializer"];
 const SERIALIZER_METADATA = rsocket_core__WEBPACK_IMPORTED_MODULE_0__["IdentitySerializer"];
 const DATA_MIME_TYPE = 'application/json';
@@ -349,8 +340,7 @@ proto.MonsterProto.toObject = function(includeInstance, msg) {
     id: jspb.Message.getFieldWithDefault(msg, 1, 0),
     positionX: jspb.Message.getFieldWithDefault(msg, 2, 0),
     positionY: jspb.Message.getFieldWithDefault(msg, 3, 0),
-    previousDirection: jspb.Message.getFieldWithDefault(msg, 4, ""),
-    timestamp: jspb.Message.getFieldWithDefault(msg, 5, 0)
+    previousDirection: jspb.Message.getFieldWithDefault(msg, 4, "")
   };
 
   if (includeInstance) {
@@ -402,10 +392,6 @@ proto.MonsterProto.deserializeBinaryFromReader = function(msg, reader) {
     case 4:
       var value = /** @type {string} */ (reader.readString());
       msg.setPreviousDirection(value);
-      break;
-    case 5:
-      var value = /** @type {number} */ (reader.readInt32());
-      msg.setTimestamp(value);
       break;
     default:
       reader.skipField();
@@ -461,13 +447,6 @@ proto.MonsterProto.serializeBinaryToWriter = function(message, writer) {
   if (f.length > 0) {
     writer.writeString(
       4,
-      f
-    );
-  }
-  f = message.getTimestamp();
-  if (f !== 0) {
-    writer.writeInt32(
-      5,
       f
     );
   }
@@ -546,24 +525,6 @@ proto.MonsterProto.prototype.setPreviousDirection = function(value) {
 };
 
 
-/**
- * optional int32 timestamp = 5;
- * @return {number}
- */
-proto.MonsterProto.prototype.getTimestamp = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
-};
-
-
-/**
- * @param {number} value
- * @return {!proto.MonsterProto} returns this
- */
-proto.MonsterProto.prototype.setTimestamp = function(value) {
-  return jspb.Message.setProto3IntField(this, 5, value);
-};
-
-
 goog.object.extend(exports, proto);
 
 
@@ -591,6 +552,7 @@ var goog = jspb;
 var global = Function('return this')();
 
 goog.exportSymbol('proto.PlayerProto', null, global);
+goog.exportSymbol('proto.PlayerProto.AdditionalData', null, global);
 /**
  * Generated by JsPbCodeGenerator.
  * @param {Array=} opt_data Optional initial data array, typically from a
@@ -602,7 +564,7 @@ goog.exportSymbol('proto.PlayerProto', null, global);
  * @constructor
  */
 proto.PlayerProto = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.PlayerProto.repeatedFields_, null);
 };
 goog.inherits(proto.PlayerProto, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
@@ -612,6 +574,34 @@ if (goog.DEBUG && !COMPILED) {
    */
   proto.PlayerProto.displayName = 'proto.PlayerProto';
 }
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.PlayerProto.AdditionalData = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.PlayerProto.AdditionalData, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.PlayerProto.AdditionalData.displayName = 'proto.PlayerProto.AdditionalData';
+}
+
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.PlayerProto.repeatedFields_ = [7];
 
 
 
@@ -649,7 +639,9 @@ proto.PlayerProto.toObject = function(includeInstance, msg) {
     positionY: jspb.Message.getFieldWithDefault(msg, 3, 0),
     score: jspb.Message.getFieldWithDefault(msg, 4, 0),
     stepDirection: jspb.Message.getFieldWithDefault(msg, 5, ""),
-    version: jspb.Message.getFieldWithDefault(msg, 6, 0)
+    version: jspb.Message.getFieldWithDefault(msg, 6, 0),
+    additionaldataList: jspb.Message.toObjectList(msg.getAdditionaldataList(),
+    proto.PlayerProto.AdditionalData.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -709,6 +701,11 @@ proto.PlayerProto.deserializeBinaryFromReader = function(msg, reader) {
     case 6:
       var value = /** @type {number} */ (reader.readInt32());
       msg.setVersion(value);
+      break;
+    case 7:
+      var value = new proto.PlayerProto.AdditionalData;
+      reader.readMessage(value,proto.PlayerProto.AdditionalData.deserializeBinaryFromReader);
+      msg.addAdditionaldata(value);
       break;
     default:
       reader.skipField();
@@ -781,6 +778,234 @@ proto.PlayerProto.serializeBinaryToWriter = function(message, writer) {
       f
     );
   }
+  f = message.getAdditionaldataList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      7,
+      f,
+      proto.PlayerProto.AdditionalData.serializeBinaryToWriter
+    );
+  }
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.PlayerProto.AdditionalData.prototype.toObject = function(opt_includeInstance) {
+  return proto.PlayerProto.AdditionalData.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.PlayerProto.AdditionalData} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.PlayerProto.AdditionalData.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    text: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    number1: jspb.Message.getFieldWithDefault(msg, 2, 0),
+    number2: jspb.Message.getFieldWithDefault(msg, 3, 0),
+    number3: jspb.Message.getFieldWithDefault(msg, 4, 0)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.PlayerProto.AdditionalData}
+ */
+proto.PlayerProto.AdditionalData.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.PlayerProto.AdditionalData;
+  return proto.PlayerProto.AdditionalData.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.PlayerProto.AdditionalData} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.PlayerProto.AdditionalData}
+ */
+proto.PlayerProto.AdditionalData.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setText(value);
+      break;
+    case 2:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setNumber1(value);
+      break;
+    case 3:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setNumber2(value);
+      break;
+    case 4:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setNumber3(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.PlayerProto.AdditionalData.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.PlayerProto.AdditionalData.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.PlayerProto.AdditionalData} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.PlayerProto.AdditionalData.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getText();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = message.getNumber1();
+  if (f !== 0) {
+    writer.writeInt32(
+      2,
+      f
+    );
+  }
+  f = message.getNumber2();
+  if (f !== 0) {
+    writer.writeInt32(
+      3,
+      f
+    );
+  }
+  f = message.getNumber3();
+  if (f !== 0) {
+    writer.writeInt32(
+      4,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string text = 1;
+ * @return {string}
+ */
+proto.PlayerProto.AdditionalData.prototype.getText = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.PlayerProto.AdditionalData} returns this
+ */
+proto.PlayerProto.AdditionalData.prototype.setText = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional int32 number1 = 2;
+ * @return {number}
+ */
+proto.PlayerProto.AdditionalData.prototype.getNumber1 = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.PlayerProto.AdditionalData} returns this
+ */
+proto.PlayerProto.AdditionalData.prototype.setNumber1 = function(value) {
+  return jspb.Message.setProto3IntField(this, 2, value);
+};
+
+
+/**
+ * optional int32 number2 = 3;
+ * @return {number}
+ */
+proto.PlayerProto.AdditionalData.prototype.getNumber2 = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.PlayerProto.AdditionalData} returns this
+ */
+proto.PlayerProto.AdditionalData.prototype.setNumber2 = function(value) {
+  return jspb.Message.setProto3IntField(this, 3, value);
+};
+
+
+/**
+ * optional int32 number3 = 4;
+ * @return {number}
+ */
+proto.PlayerProto.AdditionalData.prototype.getNumber3 = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.PlayerProto.AdditionalData} returns this
+ */
+proto.PlayerProto.AdditionalData.prototype.setNumber3 = function(value) {
+  return jspb.Message.setProto3IntField(this, 4, value);
 };
 
 
@@ -892,6 +1117,44 @@ proto.PlayerProto.prototype.setVersion = function(value) {
 };
 
 
+/**
+ * repeated AdditionalData additionalData = 7;
+ * @return {!Array<!proto.PlayerProto.AdditionalData>}
+ */
+proto.PlayerProto.prototype.getAdditionaldataList = function() {
+  return /** @type{!Array<!proto.PlayerProto.AdditionalData>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.PlayerProto.AdditionalData, 7));
+};
+
+
+/**
+ * @param {!Array<!proto.PlayerProto.AdditionalData>} value
+ * @return {!proto.PlayerProto} returns this
+*/
+proto.PlayerProto.prototype.setAdditionaldataList = function(value) {
+  return jspb.Message.setRepeatedWrapperField(this, 7, value);
+};
+
+
+/**
+ * @param {!proto.PlayerProto.AdditionalData=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.PlayerProto.AdditionalData}
+ */
+proto.PlayerProto.prototype.addAdditionaldata = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 7, opt_value, proto.PlayerProto.AdditionalData, opt_index);
+};
+
+
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.PlayerProto} returns this
+ */
+proto.PlayerProto.prototype.clearAdditionaldataList = function() {
+  return this.setAdditionaldataList([]);
+};
+
+
 goog.object.extend(exports, proto);
 
 
@@ -909,7 +1172,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppRoutingModule", function() { return AppRoutingModule; });
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
-/* harmony import */ var _scenes_main_scene_main_scene_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./scenes/main-scene/main-scene.component */ "./src/app/scenes/main-scene/main-scene.component.ts");
+/* harmony import */ var _scene_main_scene_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./scene/main-scene.component */ "./src/app/scene/main-scene.component.ts");
 /* harmony import */ var _home_home_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./home/home.component */ "./src/app/home/home.component.ts");
 
 
@@ -919,7 +1182,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const routes = [
     { path: 'home', component: _home_home_component__WEBPACK_IMPORTED_MODULE_3__["HomeComponent"] },
-    { path: 'game', component: _scenes_main_scene_main_scene_component__WEBPACK_IMPORTED_MODULE_2__["MainSceneComponent"] },
+    { path: 'game', component: _scene_main_scene_component__WEBPACK_IMPORTED_MODULE_2__["MainSceneComponent"] },
     { path: '**', redirectTo: 'home' }
 ];
 class AppRoutingModule {
@@ -988,15 +1251,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
 /* harmony import */ var _game_game_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./game/game.component */ "./src/app/game/game.component.ts");
-/* harmony import */ var _scenes_main_scene_main_scene_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./scenes/main-scene/main-scene.component */ "./src/app/scenes/main-scene/main-scene.component.ts");
+/* harmony import */ var _scene_main_scene_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./scene/main-scene.component */ "./src/app/scene/main-scene.component.ts");
 /* harmony import */ var _communication_websocket_websocket_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./communication/websocket/websocket.service */ "./src/app/communication/websocket/websocket.service.ts");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
 /* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
-/* harmony import */ var angular_oauth2_oidc__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! angular-oauth2-oidc */ "./node_modules/angular-oauth2-oidc/__ivy_ngcc__/fesm2015/angular-oauth2-oidc.js");
-/* harmony import */ var _home_home_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./home/home.component */ "./src/app/home/home.component.ts");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js");
+/* harmony import */ var _home_home_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./home/home.component */ "./src/app/home/home.component.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js");
+/* harmony import */ var _angular_material_radio__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/material/radio */ "./node_modules/@angular/material/__ivy_ngcc__/fesm2015/radio.js");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
+/* harmony import */ var _angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/cdk/bidi */ "./node_modules/@angular/cdk/__ivy_ngcc__/fesm2015/bidi.js");
+// @ts-ignore
+
+// @ts-ignore
+
+
+
+
+
+// @ts-ignore
+
+
+
+// @ts-ignore
 
 
 
@@ -1005,14 +1282,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-
-
-
-
-
-
+// @ts-ignore
 class AppModule {
 }
 AppModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineNgModule"]({ type: AppModule, bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_2__["AppComponent"]] });
@@ -1020,39 +1290,41 @@ AppModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjector
             _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
             _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HttpClientModule"],
             _app_routing_module__WEBPACK_IMPORTED_MODULE_7__["AppRoutingModule"],
-            angular_oauth2_oidc__WEBPACK_IMPORTED_MODULE_8__["OAuthModule"].forRoot(),
-            _angular_forms__WEBPACK_IMPORTED_MODULE_10__["FormsModule"]
+            _angular_forms__WEBPACK_IMPORTED_MODULE_9__["FormsModule"],
+            _angular_material_radio__WEBPACK_IMPORTED_MODULE_10__["MatRadioModule"]
         ]] });
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵsetNgModuleScope"](AppModule, { declarations: [_app_component__WEBPACK_IMPORTED_MODULE_2__["AppComponent"],
         _game_game_component__WEBPACK_IMPORTED_MODULE_3__["GameComponent"],
-        _scenes_main_scene_main_scene_component__WEBPACK_IMPORTED_MODULE_4__["MainSceneComponent"],
-        _home_home_component__WEBPACK_IMPORTED_MODULE_9__["HomeComponent"]], imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
+        _scene_main_scene_component__WEBPACK_IMPORTED_MODULE_4__["MainSceneComponent"],
+        _home_home_component__WEBPACK_IMPORTED_MODULE_8__["HomeComponent"]], imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
         _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HttpClientModule"],
-        _app_routing_module__WEBPACK_IMPORTED_MODULE_7__["AppRoutingModule"], angular_oauth2_oidc__WEBPACK_IMPORTED_MODULE_8__["OAuthModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["FormsModule"]] }); })();
+        _app_routing_module__WEBPACK_IMPORTED_MODULE_7__["AppRoutingModule"],
+        _angular_forms__WEBPACK_IMPORTED_MODULE_9__["FormsModule"],
+        _angular_material_radio__WEBPACK_IMPORTED_MODULE_10__["MatRadioModule"]] }); })();
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵsetClassMetadata"](AppModule, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"],
         args: [{
                 declarations: [
                     _app_component__WEBPACK_IMPORTED_MODULE_2__["AppComponent"],
                     _game_game_component__WEBPACK_IMPORTED_MODULE_3__["GameComponent"],
-                    _scenes_main_scene_main_scene_component__WEBPACK_IMPORTED_MODULE_4__["MainSceneComponent"],
-                    _home_home_component__WEBPACK_IMPORTED_MODULE_9__["HomeComponent"]
+                    _scene_main_scene_component__WEBPACK_IMPORTED_MODULE_4__["MainSceneComponent"],
+                    _home_home_component__WEBPACK_IMPORTED_MODULE_8__["HomeComponent"]
                 ],
                 imports: [
                     _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
                     _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HttpClientModule"],
                     _app_routing_module__WEBPACK_IMPORTED_MODULE_7__["AppRoutingModule"],
-                    angular_oauth2_oidc__WEBPACK_IMPORTED_MODULE_8__["OAuthModule"].forRoot(),
-                    _angular_forms__WEBPACK_IMPORTED_MODULE_10__["FormsModule"]
+                    _angular_forms__WEBPACK_IMPORTED_MODULE_9__["FormsModule"],
+                    _angular_material_radio__WEBPACK_IMPORTED_MODULE_10__["MatRadioModule"]
                 ],
                 providers: [_communication_websocket_websocket_service__WEBPACK_IMPORTED_MODULE_5__["WebsocketService"]],
                 bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_2__["AppComponent"]]
             }]
     }], null, null); })();
-_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵsetComponentScope"](_scenes_main_scene_main_scene_component__WEBPACK_IMPORTED_MODULE_4__["MainSceneComponent"], [_angular_common__WEBPACK_IMPORTED_MODULE_11__["NgClass"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgComponentOutlet"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgForOf"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgIf"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgTemplateOutlet"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgStyle"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgSwitch"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgSwitchCase"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgSwitchDefault"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgPlural"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgPluralCase"], _angular_router__WEBPACK_IMPORTED_MODULE_12__["RouterOutlet"], _angular_router__WEBPACK_IMPORTED_MODULE_12__["RouterLink"], _angular_router__WEBPACK_IMPORTED_MODULE_12__["RouterLinkWithHref"], _angular_router__WEBPACK_IMPORTED_MODULE_12__["RouterLinkActive"], _angular_router__WEBPACK_IMPORTED_MODULE_12__["ɵangular_packages_router_router_l"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["NgSelectOption"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["ɵangular_packages_forms_forms_x"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["NumberValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["RangeValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["CheckboxControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["SelectControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["SelectMultipleControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["RadioControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["RequiredValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["MinLengthValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["MaxLengthValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["PatternValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["CheckboxRequiredValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["EmailValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["NgModel"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["NgModelGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["NgForm"], _app_component__WEBPACK_IMPORTED_MODULE_2__["AppComponent"],
+_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵsetComponentScope"](_scene_main_scene_component__WEBPACK_IMPORTED_MODULE_4__["MainSceneComponent"], [_angular_common__WEBPACK_IMPORTED_MODULE_11__["NgClass"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgComponentOutlet"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgForOf"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgIf"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgTemplateOutlet"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgStyle"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgSwitch"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgSwitchCase"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgSwitchDefault"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgPlural"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgPluralCase"], _angular_router__WEBPACK_IMPORTED_MODULE_12__["RouterOutlet"], _angular_router__WEBPACK_IMPORTED_MODULE_12__["RouterLink"], _angular_router__WEBPACK_IMPORTED_MODULE_12__["RouterLinkWithHref"], _angular_router__WEBPACK_IMPORTED_MODULE_12__["RouterLinkActive"], _angular_router__WEBPACK_IMPORTED_MODULE_12__["ɵangular_packages_router_router_l"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["NgSelectOption"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["ɵangular_packages_forms_forms_x"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["NumberValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["RangeValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["CheckboxControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["SelectControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["SelectMultipleControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["RadioControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["RequiredValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["MinLengthValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["MaxLengthValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["PatternValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["CheckboxRequiredValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["EmailValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["NgModel"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["NgModelGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["NgForm"], _angular_material_radio__WEBPACK_IMPORTED_MODULE_10__["MatRadioGroup"], _angular_material_radio__WEBPACK_IMPORTED_MODULE_10__["MatRadioButton"], _angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_13__["Dir"], _app_component__WEBPACK_IMPORTED_MODULE_2__["AppComponent"],
     _game_game_component__WEBPACK_IMPORTED_MODULE_3__["GameComponent"],
-    _scenes_main_scene_main_scene_component__WEBPACK_IMPORTED_MODULE_4__["MainSceneComponent"],
-    _home_home_component__WEBPACK_IMPORTED_MODULE_9__["HomeComponent"]], [_angular_common__WEBPACK_IMPORTED_MODULE_11__["AsyncPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["UpperCasePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["LowerCasePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["JsonPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["SlicePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["DecimalPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["PercentPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["TitleCasePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["CurrencyPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["DatePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["I18nPluralPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["I18nSelectPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["KeyValuePipe"]]);
+    _scene_main_scene_component__WEBPACK_IMPORTED_MODULE_4__["MainSceneComponent"],
+    _home_home_component__WEBPACK_IMPORTED_MODULE_8__["HomeComponent"]], [_angular_common__WEBPACK_IMPORTED_MODULE_11__["AsyncPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["UpperCasePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["LowerCasePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["JsonPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["SlicePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["DecimalPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["PercentPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["TitleCasePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["CurrencyPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["DatePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["I18nPluralPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["I18nSelectPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["KeyValuePipe"]]);
 
 
 /***/ }),
@@ -1069,21 +1341,38 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MeasurementService", function() { return MeasurementService; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
 /* harmony import */ var _model_MeasurementResponse__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../model/MeasurementResponse */ "./src/app/model/MeasurementResponse.ts");
+/* harmony import */ var _model_MonsterMeasurement__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../model/MonsterMeasurement */ "./src/app/model/MonsterMeasurement.ts");
+
 
 
 
 class MeasurementService {
     constructor() {
         this.measurements = new Array();
+        this.monsterMeasurements = new Array();
     }
-    addMeasurementResponse(id, responseTimeInMillis, requestTimestamp, version, size) {
-        // if (this.measurements.length > 1999) {
-        //     this.measurements.splice(0, 1);
-        // }
-        this.measurements.push(new _model_MeasurementResponse__WEBPACK_IMPORTED_MODULE_1__["MeasurementResponse"](id, responseTimeInMillis, requestTimestamp, version, size));
+    addMeasurementResponse(id, responseTimeInMillis, specificSecondOfCommunication, version, size, requestTimestamp) {
+        this.measurements.push(new _model_MeasurementResponse__WEBPACK_IMPORTED_MODULE_1__["MeasurementResponse"](id, responseTimeInMillis, specificSecondOfCommunication, version, size, requestTimestamp));
+    }
+    addMonsterMeasurement(id, requestTimestamp) {
+        if (this.monsterMeasurements.length === 0) {
+            this.firstMonsterTimestamp = requestTimestamp;
+        }
+        // this.monsterMeasurements.push(new MonsterMeasurement(id,
+        //     Math.ceil((requestTimestamp - this.firstMonsterTimestamp) / 1000),
+        //     requestTimestamp));
+    }
+    addMonsterMeasurementWithTime(id, requestTimestamp, responseTimeInMillis) {
+        if (this.monsterMeasurements.length === 0) {
+            this.firstMonsterTimestamp = requestTimestamp;
+        }
+        this.monsterMeasurements.push(new _model_MonsterMeasurement__WEBPACK_IMPORTED_MODULE_2__["MonsterMeasurement"](id, Math.ceil((requestTimestamp - this.firstMonsterTimestamp) / 1000), requestTimestamp, responseTimeInMillis));
     }
     getResponseMeasurements() {
         return this.measurements;
+    }
+    getResponseMeasurementsForMonster() {
+        return this.monsterMeasurements;
     }
 }
 MeasurementService.ɵfac = function MeasurementService_Factory(t) { return new (t || MeasurementService)(); };
@@ -1167,6 +1456,12 @@ class RequestCacheService {
     static set nickname(value) {
         this._nickname = value;
     }
+    get timeForStartCommunication() {
+        return this._timeForStartCommunication;
+    }
+    set timeForStartCommunication(value) {
+        this._timeForStartCommunication = value;
+    }
 }
 RequestCacheService.ɵfac = function RequestCacheService_Factory(t) { return new (t || RequestCacheService)(); };
 RequestCacheService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: RequestCacheService, factory: RequestCacheService.ɵfac, providedIn: 'root' });
@@ -1193,7 +1488,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
 
 class Communicator {
-    constructor(serverUrl) {
+    constructor() {
         this.playersToAdd = new rxjs__WEBPACK_IMPORTED_MODULE_0__["Subject"]();
         this.playerToRemove = new rxjs__WEBPACK_IMPORTED_MODULE_0__["Subject"]();
         this.playerToUpdate = new rxjs__WEBPACK_IMPORTED_MODULE_0__["Subject"]();
@@ -1202,7 +1497,6 @@ class Communicator {
         this.coinToGet = new rxjs__WEBPACK_IMPORTED_MODULE_0__["Subject"]();
         this.updateScore = new rxjs__WEBPACK_IMPORTED_MODULE_0__["Subject"]();
         this.refreshCoin = new rxjs__WEBPACK_IMPORTED_MODULE_0__["Subject"]();
-        this.serverUrl = serverUrl;
     }
     getState() {
         return this.state.asObservable();
@@ -1237,6 +1531,18 @@ class Communicator {
     getUpdateScore() {
         return this.updateScore.asObservable();
     }
+    get serverUrl() {
+        return this._serverUrl;
+    }
+    set serverUrl(value) {
+        this._serverUrl = value;
+    }
+    get formatter() {
+        return this._formatter;
+    }
+    set formatter(value) {
+        this._formatter = value;
+    }
 }
 
 
@@ -1254,8 +1560,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Direction", function() { return Direction; });
 var Direction;
 (function (Direction) {
-    Direction["HORIZON"] = "HORIZON";
-    Direction["VERTICAL"] = "VERTICAL";
+    Direction["HORIZON"] = "HOR";
+    Direction["VERTICAL"] = "VER";
 })(Direction || (Direction = {}));
 
 
@@ -1331,7 +1637,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+var AdditionalData = _proto_generated_proto_player_pb__WEBPACK_IMPORTED_MODULE_0__["PlayerProto"].AdditionalData;
 class ProtobufFormatter {
+    constructor() {
+        this.newData = new Array();
+    }
     decodeCoin(data) {
         return _proto_generated_proto_coin_pb__WEBPACK_IMPORTED_MODULE_1__["CoinProto"].deserializeBinary(data.binaryBody).toObject();
     }
@@ -1349,6 +1659,15 @@ class ProtobufFormatter {
         playerProto.setScore(data.score);
         playerProto.setStepDirection(data.stepDirection);
         playerProto.setVersion(data.version);
+        for (let i = this.newData.length; i < data.additionalData.length; i++) {
+            const object = new AdditionalData();
+            object.setText(data.additionalData[i].text);
+            object.setNumber1(data.additionalData[i].number1);
+            object.setNumber2(data.additionalData[i].number2);
+            object.setNumber3(data.additionalData[i].number3);
+            this.newData.push(object);
+        }
+        playerProto.setAdditionaldataList(this.newData);
         return playerProto;
     }
     prepareNicknamePayload(nickname) {
@@ -1359,19 +1678,173 @@ class ProtobufFormatter {
 
 /***/ }),
 
-/***/ "./src/app/communication/simulation/data/AdditionalObject.ts":
-/*!*******************************************************************!*\
-  !*** ./src/app/communication/simulation/data/AdditionalObject.ts ***!
-  \*******************************************************************/
-/*! exports provided: AdditionalObject */
+/***/ "./src/app/communication/http2/http2.service.ts":
+/*!******************************************************!*\
+  !*** ./src/app/communication/http2/http2.service.ts ***!
+  \******************************************************/
+/*! exports provided: Http2Service */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AdditionalObject", function() { return AdditionalObject; });
-class AdditionalObject {
-    constructor(number, text) {
-        this.number = number;
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Http2Service", function() { return Http2Service; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+/* harmony import */ var _Communicator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Communicator */ "./src/app/communication/Communicator.ts");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
+/* harmony import */ var _SocketClientState__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../SocketClientState */ "./src/app/communication/SocketClientState.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var _cache_measurement_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../cache/measurement.service */ "./src/app/cache/measurement.service.ts");
+/* harmony import */ var _cache_request_cache_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../cache/request-cache.service */ "./src/app/cache/request-cache.service.ts");
+
+
+
+
+
+
+
+
+
+class Http2Service extends _Communicator__WEBPACK_IMPORTED_MODULE_1__["Communicator"] {
+    constructor(measurementService, http, requestCache) {
+        super();
+        this.measurementService = measurementService;
+        this.http = http;
+        this.requestCache = requestCache;
+    }
+    initializeConnection() {
+        this.state = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"](_SocketClientState__WEBPACK_IMPORTED_MODULE_3__["SocketClientState"].CONNECTED);
+    }
+    disconnect() {
+        console.error('Zakonczono komunikacje z serverem');
+        if (this.eventSource.OPEN) {
+            this.eventSource.close();
+        }
+        this.http.delete(this.serverUrl + "/emitter/" + this.nickname).subscribe(value => {
+            console.error('Usunalem gracza');
+        });
+    }
+    joinToGame(nickname) {
+        this.http.get(this.serverUrl + "/player/" + nickname)
+            .subscribe((ifExist) => {
+            if (ifExist === false) {
+                this.nickname = nickname;
+                this.eventSource = new EventSource(this.serverUrl + "/emitter/" + this.nickname);
+                this.eventSource.addEventListener('/pacman/update/monster', (monsterPositionEvent) => {
+                    let monsterParsed = JSON.parse(monsterPositionEvent.data);
+                    const responseTimeInMillis = new Date().getTime() - monsterParsed.requestTimestamp;
+                    this.measurementService.addMonsterMeasurementWithTime(monsterParsed.id, monsterParsed.requestTimestamp, responseTimeInMillis);
+                    this.monsterToUpdate.next(monsterParsed);
+                });
+                this.eventSource.addEventListener('/pacman/get/coin', (coinPositionEvent) => {
+                    console.error('Zbieram coina');
+                    this.coinToGet.next(JSON.parse(coinPositionEvent.data));
+                });
+                this.eventSource.addEventListener('/pacman/refresh/coins', (updateMapEvent) => {
+                    console.error('Odswierzenie mapy');
+                    this.refreshCoin.next(JSON.parse(updateMapEvent.data));
+                });
+                this.eventSource.addEventListener('/pacman/remove/player', (playerToRemoveEvent) => {
+                    console.error('Usuwam gracza!');
+                    this.playerToRemove.next(JSON.parse(playerToRemoveEvent.data));
+                });
+                this.eventSource.addEventListener('/pacman/add/players', (playerToAddEvent) => {
+                    console.error('Dodaje gracza!');
+                    this.playersToAdd.next(JSON.parse(playerToAddEvent.data));
+                });
+                this.eventSource.addEventListener('/pacman/update/player', (playerToUpdateEvent) => {
+                    const playersWithMeasurementInfo = JSON.parse(playerToUpdateEvent.data);
+                    if (playersWithMeasurementInfo.player.nickname.match('local*') || playersWithMeasurementInfo.player.nickname === this.myNickname) {
+                        this.saveResponseTime(playersWithMeasurementInfo.player.nickname, playersWithMeasurementInfo.requestTimestamp, playersWithMeasurementInfo.player.version, playersWithMeasurementInfo.contentLength);
+                    }
+                    this.playerToUpdate.next(playersWithMeasurementInfo.player);
+                });
+                this.http.get(this.serverUrl + "/coins").subscribe((coinsPosition) => {
+                    this.ifJoinGame.next(coinsPosition);
+                });
+            }
+            else {
+                this.ifJoinGame.next(new Array(0));
+            }
+        });
+    }
+    addPlayer(nickname) {
+        const headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpHeaders"]().set('Content-Type', 'application/json');
+        this.http.post(this.serverUrl + "/players", JSON.stringify(nickname), { headers: headers, observe: "response" })
+            .subscribe((playerToAdd) => {
+            if (playerToAdd.status === 201) {
+                this.playersToAdd.next(playerToAdd.body);
+            }
+            else {
+                console.error('Nie udalo sie dodac uzytkownika');
+            }
+        });
+    }
+    sendPosition(data) {
+        this.http.put(this.serverUrl + "/player", JSON.stringify(data), {
+            headers: {
+                'Content-Type': 'application/json',
+                'requestTimestamp': new Date().getTime().toString()
+            },
+            observe: 'response'
+        }).subscribe((player) => {
+            const responseTimeInMillis = new Date().getTime() - Number(player.headers.get('requestTimestamp'));
+            console.error("Odpowiedz serwera " + responseTimeInMillis + " milliseconds");
+            if (player.body.nickname.match('local*') || player.body.nickname === this.myNickname) {
+                this.saveResponseTime(player.body.nickname, Number(player.headers.get('requestTimestamp')), player.body.version, Number(player.headers.get('contentLength')));
+            }
+            if (player.status === 202) {
+                const request = this.requestCache.getCorrectedPosition(player.body.version);
+                if (request !== null) {
+                    player.body.positionX = request.x;
+                    player.body.positionY = request.y;
+                    this.playerToUpdate.next(player.body);
+                }
+            }
+            else if (player.status === 201) {
+                const request = this.requestCache.getRequest(player.body.version);
+                this.updateScore.next(player.body.score);
+                if (request !== null && (request.x !== player.body.positionX || request.y !== player.body.positionY)) {
+                    this.playerToUpdate.next(player.body);
+                }
+            }
+            else if (player.status === 200) {
+                this.playerToRemove.next(player.body);
+            }
+        });
+    }
+    saveResponseTime(id, timestampFromServer, version, size) {
+        const responseTimeInMillis = new Date().getTime() - timestampFromServer;
+        // console.error("Odpowiedz serwera " + responseTimeInMillis + " milliseconds");
+        this.measurementService.addMeasurementResponse(id, responseTimeInMillis, Math.ceil((timestampFromServer - this.requestCache.timeForStartCommunication) / 1000), version, size, timestampFromServer);
+    }
+}
+Http2Service.ɵfac = function Http2Service_Factory(t) { return new (t || Http2Service)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_cache_measurement_service__WEBPACK_IMPORTED_MODULE_5__["MeasurementService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClient"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_cache_request_cache_service__WEBPACK_IMPORTED_MODULE_6__["RequestCacheService"])); };
+Http2Service.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: Http2Service, factory: Http2Service.ɵfac, providedIn: 'root' });
+/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](Http2Service, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"],
+        args: [{
+                providedIn: 'root'
+            }]
+    }], function () { return [{ type: _cache_measurement_service__WEBPACK_IMPORTED_MODULE_5__["MeasurementService"] }, { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClient"] }, { type: _cache_request_cache_service__WEBPACK_IMPORTED_MODULE_6__["RequestCacheService"] }]; }, null); })();
+
+
+/***/ }),
+
+/***/ "./src/app/communication/simulation/data/AdditionalData.ts":
+/*!*****************************************************************!*\
+  !*** ./src/app/communication/simulation/data/AdditionalData.ts ***!
+  \*****************************************************************/
+/*! exports provided: AdditionalData */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AdditionalData", function() { return AdditionalData; });
+class AdditionalData {
+    constructor(number1, number2, number3, text) {
+        this.number1 = number1;
+        this.number2 = number2;
+        this.number3 = number3;
         this.text = text;
     }
 }
@@ -1397,10 +1870,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _stomp_stompjs__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_stomp_stompjs__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _format_JsonFormatter__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../format/JsonFormatter */ "./src/app/communication/format/JsonFormatter.ts");
 /* harmony import */ var _format_ProtobufFormatter__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../format/ProtobufFormatter */ "./src/app/communication/format/ProtobufFormatter.ts");
-/* harmony import */ var _global_config__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../global-config */ "./global-config.ts");
-/* harmony import */ var _cache_measurement_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../cache/measurement.service */ "./src/app/cache/measurement.service.ts");
-/* harmony import */ var _cache_request_cache_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../cache/request-cache.service */ "./src/app/cache/request-cache.service.ts");
-
+/* harmony import */ var _cache_measurement_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../cache/measurement.service */ "./src/app/cache/measurement.service.ts");
+/* harmony import */ var _cache_request_cache_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../cache/request-cache.service */ "./src/app/cache/request-cache.service.ts");
 
 
 
@@ -1413,30 +1884,24 @@ __webpack_require__.r(__webpack_exports__);
 
 class WebsocketService extends _Communicator__WEBPACK_IMPORTED_MODULE_2__["Communicator"] {
     constructor(measurementService, requestCache) {
-        super(_global_config__WEBPACK_IMPORTED_MODULE_7__["WEBSOCKET_URL_MAIN"]);
+        super();
         this.measurementService = measurementService;
         this.requestCache = requestCache;
+        this.playersOnTheSameSystemTime = 'local*';
         this.variable = this.makeid(30000);
-        this.setFormatter(new _format_JsonFormatter__WEBPACK_IMPORTED_MODULE_5__["JsonFormatter"]());
     }
     initializeConnection() {
-        // const ws = new SockJS(this.serverUrl);
-        // this.stompClient = Stomp.over(ws);
         this.state = new rxjs__WEBPACK_IMPORTED_MODULE_1__["BehaviorSubject"](_SocketClientState__WEBPACK_IMPORTED_MODULE_3__["SocketClientState"].ATTEMPTING);
         this.stompClient = new _stomp_stompjs__WEBPACK_IMPORTED_MODULE_4__["Client"]({
             brokerURL: this.serverUrl,
-            debug: function (str) {
-                console.log(str);
-            },
-            // maxWebSocketChunkSize: 5000,
             splitLargeFrames: true,
-            reconnectDelay: 5000,
+            reconnectDelay: 3000,
             heartbeatIncoming: 4000,
             heartbeatOutgoing: 4000
         });
-        this.stompClient.debug = () => { };
+        this.stompClient.debug = () => {
+        };
         this.stompClient.onConnect = (frame) => {
-            console.error(frame);
             this.stompClient.subscribe('/pacman/add/players', (gameToAddPlayer) => {
                 this.playersToAdd.next(JSON.parse(gameToAddPlayer.body));
                 console.error('Zaktualizowano gre, dodano gracza');
@@ -1447,9 +1912,7 @@ class WebsocketService extends _Communicator__WEBPACK_IMPORTED_MODULE_2__["Commu
             });
             this.stompClient.subscribe('/pacman/update/player', (playerToUpdate) => {
                 const parsedPlayer = this.formatter.decodePlayer(playerToUpdate);
-                const responseTimeInMillis = new Date().getTime() - Number(playerToUpdate.headers.requestTimestamp);
-                // console.error("Odpowiedz serwera " + responseTimeInMillis + " milliseconds")
-                this.measurementService.addMeasurementResponse(parsedPlayer.nickname, responseTimeInMillis, playerToUpdate.headers.requestTimestamp, parsedPlayer.version, playerToUpdate.headers.contentLength);
+                this.saveMeasurement(parsedPlayer.nickname, parsedPlayer.version, playerToUpdate.headers.requestTimestamp, playerToUpdate.headers['content-length']);
                 if (parsedPlayer.nickname === this.myNickname) {
                     const request = this.requestCache.getRequest(parsedPlayer.version);
                     this.updateScore.next(parsedPlayer.score);
@@ -1463,7 +1926,8 @@ class WebsocketService extends _Communicator__WEBPACK_IMPORTED_MODULE_2__["Commu
             });
             this.stompClient.subscribe('/pacman/update/monster', (monster) => {
                 const monsterParsed = this.formatter.decodeMonster(monster);
-                this.measurementService.addMeasurementResponse(monsterParsed.id, 0, 0, 0, 0);
+                const responseTimeInMillis = new Date().getTime() - Number(monster.headers.requestTimestamp);
+                this.measurementService.addMonsterMeasurementWithTime(monsterParsed.id, Number(monster.headers.requestTimestamp), responseTimeInMillis);
                 this.monsterToUpdate.next(monsterParsed);
             });
             this.stompClient.subscribe('/pacman/refresh/coins', () => {
@@ -1475,10 +1939,10 @@ class WebsocketService extends _Communicator__WEBPACK_IMPORTED_MODULE_2__["Commu
             this.stompClient.subscribe('/user/queue/reply', (currentCoinPosition) => {
                 this.ifJoinGame.next(JSON.parse(currentCoinPosition.body));
             });
-            this.stompClient.subscribe('/user/queue/player', (playerToUpdate) => {
+            this.stompClient.subscribe('/user/queue/correct/player', (playerToUpdate) => {
                 const parsedPlayer = this.formatter.decodePlayer(playerToUpdate);
-                const responseTimeInMillis = new Date().getTime() - Number(playerToUpdate.headers.requestTimestamp);
-                this.measurementService.addMeasurementResponse(parsedPlayer.nickname, responseTimeInMillis, playerToUpdate.headers.requestTimestamp, parsedPlayer.version, playerToUpdate.headers.contentLength);
+                console.error(parsedPlayer);
+                this.saveMeasurement(parsedPlayer.nickname, parsedPlayer.version, playerToUpdate.headers.requestTimestamp, playerToUpdate.headers['content-length']);
                 const request = this.requestCache.getCorrectedPosition(parsedPlayer.version);
                 if (request !== null) {
                     parsedPlayer.positionX = request.x;
@@ -1493,13 +1957,27 @@ class WebsocketService extends _Communicator__WEBPACK_IMPORTED_MODULE_2__["Commu
         this.stompClient.onStompError = (frame) => {
             console.log('Broker reported error: ' + frame.headers['message']);
             console.log('Additional details: ' + frame.body);
+            this.state.next(_SocketClientState__WEBPACK_IMPORTED_MODULE_3__["SocketClientState"].ERROR);
+        };
+        this.stompClient.onWebSocketClose = (frame) => {
+            console.error(frame);
+        };
+        this.stompClient.onWebSocketError = (frame) => {
+            console.error(frame);
+            this.state.next(_SocketClientState__WEBPACK_IMPORTED_MODULE_3__["SocketClientState"].ERROR);
+            this.stompClient.deactivate();
         };
         this.stompClient.activate();
     }
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     disconnect() {
-        console.error('Disconnected');
         this.stompClient.deactivate();
+    }
+    saveMeasurement(nickname, version, requestTimestampHeader, contentLengthHeader) {
+        if (nickname.match(this.playersOnTheSameSystemTime) || nickname === this.myNickname) {
+            const responseTimeInMillis = new Date().getTime() - Number(requestTimestampHeader);
+            this.measurementService.addMeasurementResponse(nickname, responseTimeInMillis, Math.ceil((Number(requestTimestampHeader) - this.requestCache.timeForStartCommunication) / 1000), version, Number(contentLengthHeader), Number(requestTimestampHeader));
+        }
     }
     sendPosition(dataToSend) {
         const dataWithSpecificFormat = this.formatter.encode(dataToSend);
@@ -1562,11 +2040,11 @@ class WebsocketService extends _Communicator__WEBPACK_IMPORTED_MODULE_2__["Commu
         this.formatter = formatter;
     }
 }
-WebsocketService.ɵfac = function WebsocketService_Factory(t) { return new (t || WebsocketService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_cache_measurement_service__WEBPACK_IMPORTED_MODULE_8__["MeasurementService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_cache_request_cache_service__WEBPACK_IMPORTED_MODULE_9__["RequestCacheService"])); };
+WebsocketService.ɵfac = function WebsocketService_Factory(t) { return new (t || WebsocketService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_cache_measurement_service__WEBPACK_IMPORTED_MODULE_7__["MeasurementService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_cache_request_cache_service__WEBPACK_IMPORTED_MODULE_8__["RequestCacheService"])); };
 WebsocketService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: WebsocketService, factory: WebsocketService.ɵfac });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](WebsocketService, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"]
-    }], function () { return [{ type: _cache_measurement_service__WEBPACK_IMPORTED_MODULE_8__["MeasurementService"] }, { type: _cache_request_cache_service__WEBPACK_IMPORTED_MODULE_9__["RequestCacheService"] }]; }, null); })();
+    }], function () { return [{ type: _cache_measurement_service__WEBPACK_IMPORTED_MODULE_7__["MeasurementService"] }, { type: _cache_request_cache_service__WEBPACK_IMPORTED_MODULE_8__["RequestCacheService"] }]; }, null); })();
 
 
 /***/ }),
@@ -1594,19 +2072,20 @@ __webpack_require__.r(__webpack_exports__);
 class DownloadService {
     constructor(cacheMeasurement) {
         this.cacheMeasurement = cacheMeasurement;
-        this.RESPONSE_FILE = "response_measurement.csv";
+        this.RESPONSE_FILE_PLAYER = "response_measurement_player.csv";
+        this.RESPONSE_FILE_MONSTER = "response_measurement_monster.csv";
     }
     downloadResponseMeasurements() {
-        this.downloadResponseFile(this.cacheMeasurement.getResponseMeasurements());
+        this.downloadResponseFile(this.cacheMeasurement.getResponseMeasurements(), _global_config__WEBPACK_IMPORTED_MODULE_2__["CSV_RESPONSE_HEADERS_PLAYER"], this.RESPONSE_FILE_PLAYER);
+        this.downloadResponseFile(this.cacheMeasurement.getResponseMeasurementsForMonster(), _global_config__WEBPACK_IMPORTED_MODULE_2__["CSV_RESPONSE_HEADERS_MONSTER"], this.RESPONSE_FILE_MONSTER);
     }
-    downloadResponseFile(data) {
+    downloadResponseFile(data, headers, fileName) {
         const replacer = (key, value) => value === null ? '' : value; // specify how you want to handle null values here
-        let header = _global_config__WEBPACK_IMPORTED_MODULE_2__["CSV_RESPONSE_HEADERS"];
-        let csv = data.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','));
-        header = header.map(function (x) { return x.toUpperCase(); });
-        csv.unshift(header.join(','));
+        let csv = data.map(row => headers.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','));
+        headers = headers.map(function (x) { return x.toUpperCase(); });
+        csv.unshift(headers.join(','));
         let csvArray = csv.join('\r\n');
-        Object(file_saver__WEBPACK_IMPORTED_MODULE_1__["saveAs"])(new Blob([csvArray], { type: 'text/csv' }), this.RESPONSE_FILE);
+        Object(file_saver__WEBPACK_IMPORTED_MODULE_1__["saveAs"])(new Blob([csvArray], { type: 'text/csv' }), fileName);
     }
 }
 DownloadService.ɵfac = function DownloadService_Factory(t) { return new (t || DownloadService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_cache_measurement_service__WEBPACK_IMPORTED_MODULE_3__["MeasurementService"])); };
@@ -1632,9 +2111,9 @@ DownloadService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineI
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GameComponent", function() { return GameComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
-/* harmony import */ var phaser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! phaser */ "./node_modules/phaser/src/phaser.js");
+/* harmony import */ var phaser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! phaser */ "./node_modules/phaser/dist/phaser.js");
 /* harmony import */ var phaser__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(phaser__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _scenes_main_scene_main_scene_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../scenes/main-scene/main-scene.component */ "./src/app/scenes/main-scene/main-scene.component.ts");
+/* harmony import */ var _scene_main_scene_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../scene/main-scene.component */ "./src/app/scene/main-scene.component.ts");
 
 
 
@@ -1672,7 +2151,7 @@ class GameComponent {
         console.error('Completed Initialization Game Object');
     }
 }
-GameComponent.ɵfac = function GameComponent_Factory(t) { return new (t || GameComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_scenes_main_scene_main_scene_component__WEBPACK_IMPORTED_MODULE_2__["MainSceneComponent"])); };
+GameComponent.ɵfac = function GameComponent_Factory(t) { return new (t || GameComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_scene_main_scene_component__WEBPACK_IMPORTED_MODULE_2__["MainSceneComponent"])); };
 GameComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: GameComponent, selectors: [["app-game"]], decls: 0, vars: 0, template: function GameComponent_Template(rf, ctx) { }, styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2dhbWUvZ2FtZS5jb21wb25lbnQuY3NzIn0= */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](GameComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
@@ -1681,7 +2160,7 @@ GameComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComp
                 templateUrl: './game.component.html',
                 styleUrls: ['./game.component.css'],
             }]
-    }], function () { return [{ type: _scenes_main_scene_main_scene_component__WEBPACK_IMPORTED_MODULE_2__["MainSceneComponent"] }]; }, null); })();
+    }], function () { return [{ type: _scene_main_scene_component__WEBPACK_IMPORTED_MODULE_2__["MainSceneComponent"] }]; }, null); })();
 
 
 /***/ }),
@@ -1697,67 +2176,158 @@ GameComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComp
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HomeComponent", function() { return HomeComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js");
+/* harmony import */ var _angular_material_radio__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/material/radio */ "./node_modules/@angular/material/__ivy_ngcc__/fesm2015/radio.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
 
 
 
 
 
-function HomeComponent_h4_15_Template(rf, ctx) { if (rf & 1) {
+
+
+function HomeComponent_h4_38_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "h4");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } if (rf & 2) {
     const ctx_r0 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("You can't start game because other player has the same nickname: ", ctx_r0.answer, "");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("You can't start game because other player has the same nickname: '", ctx_r0.answer, "'");
+} }
+function HomeComponent_h4_39_Template(rf, ctx) { if (rf & 1) {
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "h4");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+} if (rf & 2) {
+    const ctx_r1 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](ctx_r1.message);
 } }
 class HomeComponent {
     constructor(router) {
         this.router = router;
+        this.versionName = _environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].versionName;
+        this.contentFormat = _environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].contentFormat;
+        this.vpsServer = _environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].vpsServerUrl;
+        this.localServerUrl = _environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].localServerUrl;
+        this.speed = 21;
+        this.additionalObjects = 0;
+        this.serverUrl = _environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].vpsServerUrl;
         if (this.router.getCurrentNavigation().extras.state) {
             this.answer = this.router.getCurrentNavigation().extras.state.nick;
+            this.message = this.router.getCurrentNavigation().extras.state.message;
         }
     }
     startGame(nickname) {
-        this.router.navigate(['game'], { state: { nick: nickname } });
+        this.router.navigate(['game'], {
+            state: {
+                nick: nickname,
+                speed: this.speed,
+                additionalObjects: this.additionalObjects,
+                serverUrl: this.serverUrl,
+                formatter: _environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].formatter
+            }
+        });
     }
 }
-HomeComponent.ɵfac = function HomeComponent_Factory(t) { return new (t || HomeComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"])); };
-HomeComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: HomeComponent, selectors: [["app-home"]], decls: 16, vars: 3, consts: [["id", "background"], [3, "ngModel", "ngModelChange"], [3, "disabled", "click"], [4, "ngIf"]], template: function HomeComponent_Template(rf, ctx) { if (rf & 1) {
+HomeComponent.ɵfac = function HomeComponent_Factory(t) { return new (t || HomeComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"])); };
+HomeComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: HomeComponent, selectors: [["app-home"]], decls: 40, vars: 14, consts: [["id", "container"], ["id", "settings"], [3, "ngModel", "ngModelChange"], ["aria-label", "Where to connect", 3, "ngModel", "ngModelChange"], [3, "value"], ["id", "background"], [3, "disabled", "click"], [4, "ngIf"]], template: function HomeComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "h1");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, "Welcome in multiplayer Pacman Game");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "h3");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](3, "Settings:");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](3, "br");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](4, "br");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](5, "br");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](6, "h2");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](7, "Set nickname and click 'START'");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "h5");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](5);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](8, "input", 1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ngModelChange", function HomeComponent_Template_input_ngModelChange_8_listener($event) { return ctx.nickname = $event; });
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](6, "h5");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](7);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](9, "button", 2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function HomeComponent_Template_button_click_9_listener() { return ctx.startGame(ctx.nickname); });
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](10, "Start");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](8, "h5");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](9);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](11, "br");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](12, "br");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](13, "br");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](14, "br");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](15, HomeComponent_h4_15_Template, 2, 1, "h4", 3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](10, "h5");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](11);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](12, "h5");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](13);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](14, " Sending speed (ms): ");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](15, "input", 2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ngModelChange", function HomeComponent_Template_input_ngModelChange_15_listener($event) { return ctx.speed = $event; });
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](16, " Additional objects per second: ");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](17, "input", 2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ngModelChange", function HomeComponent_Template_input_ngModelChange_17_listener($event) { return ctx.additionalObjects = $event; });
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](18, "mat-radio-group", 3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ngModelChange", function HomeComponent_Template_mat_radio_group_ngModelChange_18_listener($event) { return ctx.serverUrl = $event; });
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](19, "mat-radio-button", 4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](20, "VPS");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](21, "mat-radio-button", 4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](22, "LOCAL");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](23, "div", 5);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](24, "h1");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](25, "Welcome in multiplayer Pacman Game");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](26, "br");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](27, "br");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](28, "br");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](29, "h2");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](30, "Set nickname and click 'START'");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](31, "input", 2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ngModelChange", function HomeComponent_Template_input_ngModelChange_31_listener($event) { return ctx.nickname = $event; });
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](32, "button", 6);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function HomeComponent_Template_button_click_32_listener() { return ctx.startGame(ctx.nickname); });
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](33, "Start");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](34, "br");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](35, "br");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](36, "br");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](37, "br");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](38, HomeComponent_h4_38_Template, 2, 1, "h4", 7);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](39, HomeComponent_h4_39_Template, 2, 1, "h4", 7);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     } if (rf & 2) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](8);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("Version: ", ctx.versionName, "");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("Content Format: ", ctx.contentFormat, "");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("Sending speed: ", ctx.speed, "");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("Additional objects: ", ctx.additionalObjects, "");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("URL: ", ctx.serverUrl, "");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngModel", ctx.speed);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngModel", ctx.additionalObjects);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngModel", ctx.serverUrl);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpropertyInterpolate"]("value", ctx.vpsServer);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpropertyInterpolate"]("value", ctx.localServerUrl);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](10);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngModel", ctx.nickname);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("disabled", !ctx.nickname || ctx.nickname == "NO_ONE" || (ctx.nickname.length > 10 || ctx.nickname.length < 2));
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](6);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.answer);
-    } }, directives: [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NgModel"], _angular_common__WEBPACK_IMPORTED_MODULE_3__["NgIf"]], styles: ["#background[_ngcontent-%COMP%] {\r\n    text-align: center;\r\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvaG9tZS9ob21lLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxrQkFBa0I7QUFDdEIiLCJmaWxlIjoic3JjL2FwcC9ob21lL2hvbWUuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIiNiYWNrZ3JvdW5kIHtcclxuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcclxufVxyXG4iXX0= */"] });
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.message);
+    } }, directives: [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["NgModel"], _angular_material_radio__WEBPACK_IMPORTED_MODULE_4__["MatRadioGroup"], _angular_material_radio__WEBPACK_IMPORTED_MODULE_4__["MatRadioButton"], _angular_common__WEBPACK_IMPORTED_MODULE_5__["NgIf"]], styles: ["#container[_ngcontent-%COMP%] {\r\n    display: flex;\r\n}\r\n\r\n#background[_ngcontent-%COMP%] {\r\n    text-align: center;\r\n    flex-basis: 100rem;\r\n}\r\n\r\n#settings[_ngcontent-%COMP%] {\r\n    flex-basis: 15rem;\r\n}\r\n\r\nh4[_ngcontent-%COMP%] {\r\n    color: red;\r\n}\r\n\r\nh4[_ngcontent-%COMP%] {\r\n    color: red;\r\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvaG9tZS9ob21lLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxhQUFhO0FBQ2pCOztBQUVBO0lBQ0ksa0JBQWtCO0lBQ2xCLGtCQUFrQjtBQUN0Qjs7QUFFQTtJQUNJLGlCQUFpQjtBQUNyQjs7QUFFQTtJQUNJLFVBQVU7QUFDZDs7QUFFQTtJQUNJLFVBQVU7QUFDZCIsImZpbGUiOiJzcmMvYXBwL2hvbWUvaG9tZS5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiI2NvbnRhaW5lciB7XHJcbiAgICBkaXNwbGF5OiBmbGV4O1xyXG59XHJcblxyXG4jYmFja2dyb3VuZCB7XHJcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgICBmbGV4LWJhc2lzOiAxMDByZW07XHJcbn1cclxuXHJcbiNzZXR0aW5ncyB7XHJcbiAgICBmbGV4LWJhc2lzOiAxNXJlbTtcclxufVxyXG5cclxuaDQge1xyXG4gICAgY29sb3I6IHJlZDtcclxufVxyXG5cclxuaDQge1xyXG4gICAgY29sb3I6IHJlZDtcclxufVxyXG4iXX0= */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](HomeComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -1765,7 +2335,7 @@ HomeComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComp
                 templateUrl: './home.component.html',
                 styleUrls: ['./home.component.css']
             }]
-    }], function () { return [{ type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"] }]; }, null); })();
+    }], function () { return [{ type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] }]; }, null); })();
 
 
 /***/ }),
@@ -1781,12 +2351,13 @@ HomeComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComp
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MeasurementResponse", function() { return MeasurementResponse; });
 class MeasurementResponse {
-    constructor(id, response_time_in_millis, request_timestamp, version_response, size) {
+    constructor(id, response_time_in_millis, specific_second_of_communication, version_response, size, request_timestamp) {
         this._id = id;
         this._response_time_in_millis = response_time_in_millis;
-        this._request_timestamp = request_timestamp;
+        this._specific_second_of_communication = specific_second_of_communication;
         this._version_response = version_response;
         this._size = size;
+        this._request_timestamp = request_timestamp;
     }
     get response_time_in_millis() {
         return this._response_time_in_millis;
@@ -1794,11 +2365,11 @@ class MeasurementResponse {
     set response_time_in_millis(value) {
         this._response_time_in_millis = value;
     }
-    get request_timestamp() {
-        return this._request_timestamp;
+    get specific_second_of_communication() {
+        return this._specific_second_of_communication;
     }
-    set request_timestamp(value) {
-        this._request_timestamp = value;
+    set specific_second_of_communication(value) {
+        this._specific_second_of_communication = value;
     }
     get version_response() {
         return this._version_response;
@@ -1818,6 +2389,58 @@ class MeasurementResponse {
     set size(value) {
         this._size = value;
     }
+    get request_timestamp() {
+        return this._request_timestamp;
+    }
+    set request_timestamp(value) {
+        this._request_timestamp = value;
+    }
+}
+
+
+/***/ }),
+
+/***/ "./src/app/model/MonsterMeasurement.ts":
+/*!*********************************************!*\
+  !*** ./src/app/model/MonsterMeasurement.ts ***!
+  \*********************************************/
+/*! exports provided: MonsterMeasurement */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MonsterMeasurement", function() { return MonsterMeasurement; });
+class MonsterMeasurement {
+    constructor(id, specific_second_of_communication, request_timestamp, response_time_in_millis) {
+        this._id = id;
+        this._specific_second_of_communication = specific_second_of_communication;
+        this._request_timestamp = request_timestamp;
+        this._response_time_in_millis = response_time_in_millis;
+    }
+    get id() {
+        return this._id;
+    }
+    set id(value) {
+        this._id = value;
+    }
+    get specific_second_of_communication() {
+        return this._specific_second_of_communication;
+    }
+    set specific_second_of_communication(value) {
+        this._specific_second_of_communication = value;
+    }
+    get request_timestamp() {
+        return this._request_timestamp;
+    }
+    set request_timestamp(value) {
+        this._request_timestamp = value;
+    }
+    get response_time_in_millis() {
+        return this._response_time_in_millis;
+    }
+    set response_time_in_millis(value) {
+        this._response_time_in_millis = value;
+    }
 }
 
 
@@ -1833,11 +2456,11 @@ class MeasurementResponse {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Player", function() { return Player; });
-/* harmony import */ var phaser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! phaser */ "./node_modules/phaser/src/phaser.js");
+/* harmony import */ var phaser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! phaser */ "./node_modules/phaser/dist/phaser.js");
 /* harmony import */ var phaser__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(phaser__WEBPACK_IMPORTED_MODULE_0__);
 
 class Player extends phaser__WEBPACK_IMPORTED_MODULE_0___default.a.Physics.Arcade.Sprite {
-    constructor(scene, x, y, texture, score) {
+    constructor(scene, x, y, texture, score, version) {
         super(scene, x, y, texture);
         // Dodanie gracza do sceny (zeby w ogole byl widoczny)
         scene.add.existing(this);
@@ -1847,6 +2470,7 @@ class Player extends phaser__WEBPACK_IMPORTED_MODULE_0___default.a.Physics.Arcad
         scene.physics.add.collider(this, scene.backgroundLayer);
         // scene.anims.play('myUp');
         this._score = score;
+        this._version = version;
     }
     get score() {
         return this._score;
@@ -1917,10 +2541,10 @@ class Request {
 
 /***/ }),
 
-/***/ "./src/app/scenes/main-scene/main-scene.component.ts":
-/*!***********************************************************!*\
-  !*** ./src/app/scenes/main-scene/main-scene.component.ts ***!
-  \***********************************************************/
+/***/ "./src/app/scene/main-scene.component.ts":
+/*!***********************************************!*\
+  !*** ./src/app/scene/main-scene.component.ts ***!
+  \***********************************************/
 /*! exports provided: MainSceneComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1928,19 +2552,19 @@ class Request {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MainSceneComponent", function() { return MainSceneComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
-/* harmony import */ var phaser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! phaser */ "./node_modules/phaser/src/phaser.js");
+/* harmony import */ var phaser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! phaser */ "./node_modules/phaser/dist/phaser.js");
 /* harmony import */ var phaser__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(phaser__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _model_Player__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../model/Player */ "./src/app/model/Player.ts");
+/* harmony import */ var _model_Player__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../model/Player */ "./src/app/model/Player.ts");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
-/* harmony import */ var _communication_Communicator__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../communication/Communicator */ "./src/app/communication/Communicator.ts");
-/* harmony import */ var _communication_Direction__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../communication/Direction */ "./src/app/communication/Direction.ts");
-/* harmony import */ var _communication_SocketClientState__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../communication/SocketClientState */ "./src/app/communication/SocketClientState.ts");
-/* harmony import */ var _model_Request__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../model/Request */ "./src/app/model/Request.ts");
-/* harmony import */ var _communication_simulation_data_AdditionalObject__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../communication/simulation/data/AdditionalObject */ "./src/app/communication/simulation/data/AdditionalObject.ts");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var _communication_Communicator__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../communication/Communicator */ "./src/app/communication/Communicator.ts");
+/* harmony import */ var _communication_Direction__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../communication/Direction */ "./src/app/communication/Direction.ts");
+/* harmony import */ var _communication_SocketClientState__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../communication/SocketClientState */ "./src/app/communication/SocketClientState.ts");
+/* harmony import */ var _model_Request__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../model/Request */ "./src/app/model/Request.ts");
+/* harmony import */ var _communication_simulation_data_AdditionalData__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../communication/simulation/data/AdditionalData */ "./src/app/communication/simulation/data/AdditionalData.ts");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../environments/environment */ "./src/environments/environment.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
-/* harmony import */ var _downloader_download_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../downloader/download.service */ "./src/app/downloader/download.service.ts");
-/* harmony import */ var _cache_request_cache_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../cache/request-cache.service */ "./src/app/cache/request-cache.service.ts");
+/* harmony import */ var _downloader_download_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../downloader/download.service */ "./src/app/downloader/download.service.ts");
+/* harmony import */ var _cache_request_cache_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../cache/request-cache.service */ "./src/app/cache/request-cache.service.ts");
 
 
 
@@ -1964,9 +2588,6 @@ class MainSceneComponent extends phaser__WEBPACK_IMPORTED_MODULE_1___default.a.S
         this.renderer = renderer;
         this.downloadService = downloadService;
         this.requestCache = requestCache;
-        // Additional data for testing changing data size
-        this.additionalData = this.randomString(50, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
-        this.arrayWithAdditionalData = new Array(20);
         // Game objects
         this.players = new Map();
         this.monsters = new Map();
@@ -1977,7 +2598,12 @@ class MainSceneComponent extends phaser__WEBPACK_IMPORTED_MODULE_1___default.a.S
         this.scoreRanking = new Map();
         if (this.router.getCurrentNavigation().extras.state) {
             this.myPlayerName = this.router.getCurrentNavigation().extras.state.nick;
+            this.SENDING_SPEED = this.router.getCurrentNavigation().extras.state.speed;
             this.websocketService.myNickname = this.myPlayerName;
+            this.websocketService.serverUrl = this.router.getCurrentNavigation().extras.state.serverUrl;
+            this.websocketService.formatter = this.router.getCurrentNavigation().extras.state.formatter;
+            this.numberOfAdditionalObjectsPerSecond = Number(this.router.getCurrentNavigation().extras.state.additionalObjects);
+            this.arrayWithAdditionalData = new Array(Number(this.router.getCurrentNavigation().extras.state.additionalObjects));
         }
         else {
             this.router.navigate(['home']);
@@ -1985,18 +2611,10 @@ class MainSceneComponent extends phaser__WEBPACK_IMPORTED_MODULE_1___default.a.S
     }
     startGame() {
         this.websocketService.initializeConnection();
-        // const tab = (data as any).default;
-        //
-        for (let i = 0; i < this.arrayWithAdditionalData.length; i++) {
-            this.arrayWithAdditionalData[i] = new _communication_simulation_data_AdditionalObject__WEBPACK_IMPORTED_MODULE_8__["AdditionalObject"](5555, this.additionalData);
-        }
-        // setTimeout(() => {
-        //         for (let i = 0; i < tab.length; i++) {
-        //             this.simulationConnection[i] = new WebsocketSimulationConnection(tab[i].nickname);
-        //             this.simulationConnection[i].initializeConnection(tab[i],4000 + 500 * i);
-        //         }
-        //     }, 5000
-        // )
+        // for (let i = 0; i < this.arrayWithAdditionalData.length; i++) {
+        //     this.arrayWithAdditionalData[i] = new AdditionalData(this.getRandomInt(20000, 99999), this.getRandomInt(20000, 99999), this.getRandomInt(20000, 99999),
+        //         this.randomString(20, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'));
+        // }
         this.stateSubscription = this.websocketService.getState().subscribe(state => {
             if (state === _communication_SocketClientState__WEBPACK_IMPORTED_MODULE_6__["SocketClientState"].CONNECTED) {
                 this.ifJoinToGameSubscription = this.websocketService.getIfJoinGame().subscribe((currentCoinPosition) => {
@@ -2016,8 +2634,7 @@ class MainSceneComponent extends phaser__WEBPACK_IMPORTED_MODULE_1___default.a.S
                 console.error('Nawiazalem polaczenie websocket i dodalem uzytkownika!');
             }
             else if (state === _communication_SocketClientState__WEBPACK_IMPORTED_MODULE_6__["SocketClientState"].ERROR) {
-                console.error('Brak polaczenia websocket z serwerem');
-                this.cleanAndBackToHomePage();
+                this.notifyAboutError('Błąd: Brak połaczenia z serwerem');
             }
             else {
                 console.error('Probuje nawiazac polaczenie!');
@@ -2037,7 +2654,6 @@ class MainSceneComponent extends phaser__WEBPACK_IMPORTED_MODULE_1___default.a.S
             this.players.get(this.myPlayerName).score = myScore;
             this.yourScore.setText(this.myPlayerName + " score: " + myScore);
         });
-        // Jeszcze trzeba zaimplementowac
         this.refreshCoinsSubscription = this.websocketService.getRefreshCoins().subscribe(() => {
             this.coinLayer.forEach(object => {
                 let obj = this.coins.create(object.x + 16, object.y - 16, "coin");
@@ -2077,7 +2693,6 @@ class MainSceneComponent extends phaser__WEBPACK_IMPORTED_MODULE_1___default.a.S
         this.downloadButton = this.add.image(this.game.canvas.width - 208, 48, 'download-button');
         this.downloadButton.setInteractive();
         this.downloadButton.on('pointerup', () => {
-            // this.downloadService.downloadRequestMeasurements();
             this.downloadService.downloadResponseMeasurements();
         });
         // Dodanie kolizji dla elementow warstwy background o id od 150 do 250 (te id znajduja sie w tileset ktory sklada sie na te warstwe)
@@ -2099,8 +2714,6 @@ class MainSceneComponent extends phaser__WEBPACK_IMPORTED_MODULE_1___default.a.S
             fill: "#0022ff",
             align: "center"
         });
-        this.coins.removeCallback = function () {
-        };
         console.error('Completed Board');
     }
     preload() {
@@ -2114,7 +2727,6 @@ class MainSceneComponent extends phaser__WEBPACK_IMPORTED_MODULE_1___default.a.S
         this.load.tilemapTiledJSON('board', 'assets/main/map/board.json');
     }
     update() {
-        // console.log('PETLA GRA');
         if (this.startSendingPlayerPosition) {
             this.movePlayerManager();
         }
@@ -2141,12 +2753,12 @@ class MainSceneComponent extends phaser__WEBPACK_IMPORTED_MODULE_1___default.a.S
                 }
                 if (!this.players.has(player.nickname)) {
                     if (player.nickname !== this.myPlayerName) {
-                        this.players.set(player.nickname, new _model_Player__WEBPACK_IMPORTED_MODULE_2__["Player"](this, player.positionX, player.positionY, 'other-player', player.score));
+                        this.players.set(player.nickname, new _model_Player__WEBPACK_IMPORTED_MODULE_2__["Player"](this, player.positionX, player.positionY, 'other-player', player.score, -1));
                         console.error('Dodaje gracza ' + player.nickname);
                         this.players.get(player.nickname).anims.play('enemyAnim');
                     }
                     else {
-                        this.players.set(player.nickname, new _model_Player__WEBPACK_IMPORTED_MODULE_2__["Player"](this, player.positionX, player.positionY, 'my-player', player.score));
+                        this.players.set(player.nickname, new _model_Player__WEBPACK_IMPORTED_MODULE_2__["Player"](this, player.positionX, player.positionY, 'my-player', player.score, -1));
                         this.startSendingPlayerPosition = true;
                         this.yourScore = this.add.text(32, 32, this.myPlayerName + " score: " + player.score, {
                             font: "30px Arial",
@@ -2156,6 +2768,7 @@ class MainSceneComponent extends phaser__WEBPACK_IMPORTED_MODULE_1___default.a.S
                         // Uruchomienie animacji wczesniej przygotowanej
                         this.players.get(player.nickname).anims.play('myAnim');
                         this.requestCache.lastCorrectRequest = new _model_Request__WEBPACK_IMPORTED_MODULE_7__["Request"](0, player.positionX, player.positionY);
+                        this.requestCache.timeForStartCommunication = new Date().getTime();
                         this.sendPlayerPosition();
                     }
                     this.physics.add.overlap(this.players.get(player.nickname), this.coins, this.collectCoin, null, this);
@@ -2164,7 +2777,6 @@ class MainSceneComponent extends phaser__WEBPACK_IMPORTED_MODULE_1___default.a.S
         });
         this.playerToRemoveSubscription = this.websocketService.getPlayerToRemove().subscribe((playerToRemove) => {
             this.rank = this.rank.filter(item => item.nickname !== playerToRemove.nickname);
-            console.error("Po srpawdzeniu rankingu");
             if (playerToRemove.nickname === this.myPlayerName) {
                 this.cleanAndBackToHomePage();
             }
@@ -2175,90 +2787,60 @@ class MainSceneComponent extends phaser__WEBPACK_IMPORTED_MODULE_1___default.a.S
             let currentPlayer = this.players.get(player.nickname);
             if (currentPlayer) {
                 this.changeAnimationFrameForOtherPlayers(player, currentPlayer);
-                currentPlayer.x = player.positionX;
-                currentPlayer.y = player.positionY;
-                currentPlayer.score = player.score;
-                console.error('current player');
+                if (currentPlayer.version <= player.version) {
+                    currentPlayer.x = player.positionX;
+                    currentPlayer.y = player.positionY;
+                    currentPlayer.score = player.score;
+                    currentPlayer.version = player.version;
+                }
             }
         });
     }
-    // 50 FPS dla 20 milis
     sendPlayerPosition() {
-        const player = this.players.get(this.myPlayerName);
+        // const player = this.players.get(this.myPlayerName);
+        // this.lastX = player.x;
+        // this.lastY = player.y;
         // this.lastAngle = player.angle;
-        //
-        // this.setDeceleratingTimeout(()=> {
-        //     const player: Player = this.players.get(this.myPlayerName);
-        //     this.requestCache.addRequest(++this.counterRequest, player.x, player.y);
-        //     if(this.arrayWithAdditionalData.length < 2000) {
-        //         this.arrayWithAdditionalData.push(new AdditionalObject(5555,this.additionalData));
-        //     }
-        //
-        //     this.websocketService.sendPosition({
-        //         "nickname": this.myPlayerName,
-        //         "positionX": player.x,
-        //         "positionY": player.y,
-        //         "score": player.score,
-        //         "stepDirection": this.getDirection(),
-        //         "version": this.counterRequest,
-        //         "requestTimestamp": new Date().getTime(),
-        //         // "additionalData": this.arrayWithAdditionalData
-        //     });
-        //
-        //     }, 1, 10000);
-        this.lastX = player.x;
-        this.lastY = player.y;
-        this.lastAngle = player.angle;
-        const dataProvider = Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["interval"])(1000);
-        const subscriptionDataProvider = dataProvider.subscribe(() => {
-            for (let i = 0; i < 10; i++) {
-                this.arrayWithAdditionalData.push(new _communication_simulation_data_AdditionalObject__WEBPACK_IMPORTED_MODULE_8__["AdditionalObject"](5555, this.additionalData));
-            }
-            if (this.arrayWithAdditionalData.length > 300) {
-                subscriptionDataProvider.unsubscribe();
+        const supplier = Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["interval"])(1000);
+        supplier.subscribe(() => {
+            for (let i = 0; i < this.numberOfAdditionalObjectsPerSecond; i++) {
+                this.arrayWithAdditionalData.push(new _communication_simulation_data_AdditionalData__WEBPACK_IMPORTED_MODULE_8__["AdditionalData"](this.getRandomInt(20000, 99999), this.getRandomInt(20000, 99999), this.getRandomInt(20000, 99999), this.randomString(20, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')));
             }
         });
-        this.positionSender = Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["interval"])(20);
+        this.positionSender = Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["interval"])(this.SENDING_SPEED);
         this.positionSenderSubscription = this.positionSender.subscribe(() => {
             const player = this.players.get(this.myPlayerName);
-            if ((this.lastX !== player.x) ||
-                (this.lastY !== player.y) ||
-                (this.lastAngle !== player.angle)) {
-                this.lastX = player.x;
-                this.lastY = player.y;
-                this.lastAngle = player.angle;
-                this.requestCache.addRequest(++this.counterRequest, player.x, player.y);
-                this.websocketService.sendPosition({
-                    "nickname": this.myPlayerName,
-                    "positionX": player.x,
-                    "positionY": player.y,
-                    "score": player.score,
-                    "stepDirection": this.getDirection(),
-                    "version": this.counterRequest,
-                    "requestTimestamp": new Date().getTime(),
-                    "additionalData": this.arrayWithAdditionalData
-                });
-            }
+            // if ((this.lastX !== player.x) ||
+            //     (this.lastY !== player.y) ||
+            //     (this.lastAngle !== player.angle)) {
+            //
+            //     this.lastX = player.x;
+            //     this.lastY = player.y;
+            //     this.lastAngle = player.angle;
+            this.requestCache.addRequest(++this.counterRequest, player.x, player.y);
+            this.websocketService.sendPosition({
+                "nickname": this.myPlayerName,
+                "positionX": player.x,
+                "positionY": player.y,
+                "score": player.score,
+                "stepDirection": this.getDirection(),
+                "version": this.counterRequest,
+                "additionalData": this.arrayWithAdditionalData
+            });
+            // }
         });
     }
-    setDeceleratingTimeout(callback, factor, times) {
-        var internalCallback = function (tick, counter) {
-            return function () {
-                if (--tick >= 0) {
-                    window.setTimeout(internalCallback, (20000 - (++counter * factor)) / 1000);
-                    callback();
-                }
-            };
-        }(times, 0);
-        window.setTimeout(internalCallback, factor);
-    }
-    ;
     randomString(length, chars) {
         let result = '';
         for (let i = length; i > 0; --i) {
             result += chars[Math.floor(Math.random() * chars.length)];
         }
         return result;
+    }
+    getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min)) + min;
     }
     setScoreText(number, player) {
         switch (number) {
@@ -2329,53 +2911,11 @@ class MainSceneComponent extends phaser__WEBPACK_IMPORTED_MODULE_1___default.a.S
         });
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    switchScene() {
-        this.cleanAndBackToHomePage();
-    }
-    cleanAndBackToHomePage() {
-        this.startSendingPlayerPosition = false;
-        this.myPlayerName = '';
-        this.router.navigate(['home']);
-    }
-    ngOnDestroy() {
-        if (this.ifJoinToGameSubscription && this.stateSubscription &&
-            this.playersToAddSubscription && this.playerToRemoveSubscription &&
-            this.playerToUpdateSubscription && this.monsterToUpdateSubscription &&
-            this.positionSenderSubscription && this.coinToGetSubscription &&
-            this.updateScoreSubscription && this.refreshCoinsSubscription &&
-            this.subscriptionUpdateTop3) {
-            console.error('OnDestory');
-            this.counterRequest = 0;
-            this.ifJoinToGameSubscription.unsubscribe();
-            this.stateSubscription.unsubscribe();
-            this.playersToAddSubscription.unsubscribe();
-            this.playerToRemoveSubscription.unsubscribe();
-            this.playerToUpdateSubscription.unsubscribe();
-            this.monsterToUpdateSubscription.unsubscribe();
-            this.positionSenderSubscription.unsubscribe();
-            this.coinToGetSubscription.unsubscribe();
-            this.updateScoreSubscription.unsubscribe();
-            this.refreshCoinsSubscription.unsubscribe();
-            this.subscriptionUpdateTop3.unsubscribe();
-            this.websocketService.disconnect();
-            // for (let i = 0; i < this.simulationConnection.length; i++) {
-            //     this.simulationConnection[i].disconnect();
-            // }
-        }
-        if (this.game) {
-            this.game.destroy(true);
-            this.game.scene.remove('main');
-        }
-        if (document.getElementsByTagName('canvas')) {
-            console.error(this.renderer);
-            document.getElementsByTagName('canvas').item(0).remove();
-        }
-    }
     createAnimationsBySpriteKey(figureKey, animKey) {
         this.anims.create({
             key: animKey,
             frames: this.anims.generateFrameNumbers(figureKey, { frames: [3, 1] }),
-            frameRate: 10,
+            frameRate: 5,
             repeat: -1
         });
     }
@@ -2388,10 +2928,10 @@ class MainSceneComponent extends phaser__WEBPACK_IMPORTED_MODULE_1___default.a.S
                 currentPlayer.setAngle(270);
             }
             if (currentPlayer.y < playerToUpdate.positionY) {
-                currentPlayer.setAngle(180);
+                currentPlayer.setAngle(0);
             }
             if (currentPlayer.y > playerToUpdate.positionY) {
-                currentPlayer.setAngle(0);
+                currentPlayer.setAngle(180);
             }
         }
     }
@@ -2414,6 +2954,45 @@ class MainSceneComponent extends phaser__WEBPACK_IMPORTED_MODULE_1___default.a.S
     get backgroundLayer() {
         return this._backgroundLayer;
     }
+    ////////////////////////////////////            Cleaning operations             ////////////////////////////////////////////////
+    switchScene() {
+        this.cleanAndBackToHomePage();
+    }
+    cleanAndBackToHomePage() {
+        this.startSendingPlayerPosition = false;
+        this.myPlayerName = '';
+        this.router.navigate(['home'], {});
+    }
+    notifyAboutError(errorMessage) {
+        this.router.navigate(['home'], { state: { message: errorMessage } });
+    }
+    ngOnDestroy() {
+        if (this.ifJoinToGameSubscription && this.stateSubscription &&
+            this.playersToAddSubscription && this.playerToRemoveSubscription &&
+            this.playerToUpdateSubscription && this.monsterToUpdateSubscription &&
+            this.positionSenderSubscription && this.coinToGetSubscription &&
+            this.updateScoreSubscription && this.refreshCoinsSubscription &&
+            this.subscriptionUpdateTop3) {
+            console.error('OnDestory');
+            this.counterRequest = 0;
+            this.ifJoinToGameSubscription.unsubscribe();
+            this.stateSubscription.unsubscribe();
+            this.playersToAddSubscription.unsubscribe();
+            this.playerToRemoveSubscription.unsubscribe();
+            this.playerToUpdateSubscription.unsubscribe();
+            this.monsterToUpdateSubscription.unsubscribe();
+            this.positionSenderSubscription.unsubscribe();
+            this.coinToGetSubscription.unsubscribe();
+            this.updateScoreSubscription.unsubscribe();
+            this.refreshCoinsSubscription.unsubscribe();
+            this.subscriptionUpdateTop3.unsubscribe();
+            this.websocketService.disconnect();
+        }
+        if (this.game) {
+            this.game.destroy(true);
+            this.game.scene.remove('main');
+        }
+    }
 }
 MainSceneComponent.ɵfac = function MainSceneComponent_Factory(t) { return new (t || MainSceneComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_communication_Communicator__WEBPACK_IMPORTED_MODULE_4__["Communicator"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_10__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_downloader_download_service__WEBPACK_IMPORTED_MODULE_11__["DownloadService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_cache_request_cache_service__WEBPACK_IMPORTED_MODULE_12__["RequestCacheService"])); };
 MainSceneComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: MainSceneComponent, selectors: [["app-main-scene"]], features: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵProvidersFeature"]([
@@ -2423,7 +3002,7 @@ MainSceneComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefin
             }
         ]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵInheritDefinitionFeature"]], decls: 1, vars: 0, template: function MainSceneComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](0, "app-game");
-    } }, styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NjZW5lcy9tYWluLXNjZW5lL21haW4tc2NlbmUuY29tcG9uZW50LmNzcyJ9 */"] });
+    } }, styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NjZW5lL21haW4tc2NlbmUuY29tcG9uZW50LmNzcyJ9 */"] });
 MainSceneComponent.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: MainSceneComponent, factory: MainSceneComponent.ɵfac, providedIn: 'root' });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](MainSceneComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
@@ -2458,11 +3037,18 @@ MainSceneComponent.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefi
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "environment", function() { return environment; });
-/* harmony import */ var _app_communication_websocket_websocket_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../app/communication/websocket/websocket.service */ "./src/app/communication/websocket/websocket.service.ts");
+/* harmony import */ var _app_communication_http2_http2_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../app/communication/http2/http2.service */ "./src/app/communication/http2/http2.service.ts");
+/* harmony import */ var _app_communication_format_JsonFormatter__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../app/communication/format/JsonFormatter */ "./src/app/communication/format/JsonFormatter.ts");
+
 
 const environment = {
     production: false,
-    serviceToCommunication: _app_communication_websocket_websocket_service__WEBPACK_IMPORTED_MODULE_0__["WebsocketService"]
+    serviceToCommunication: _app_communication_http2_http2_service__WEBPACK_IMPORTED_MODULE_0__["Http2Service"],
+    formatter: new _app_communication_format_JsonFormatter__WEBPACK_IMPORTED_MODULE_1__["JsonFormatter"](),
+    versionName: 'HTTP2 + SSE',
+    contentFormat: 'json',
+    vpsServerUrl: 'https://83.229.84.77:8080',
+    localServerUrl: 'https://localhost:8080'
 };
 
 

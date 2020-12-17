@@ -2,13 +2,13 @@ package com.szymon.websocket.sender;
 
 
 import com.szymon.websocket.dao.GameObject;
-import com.szymon.websocket.dao.HeaderStatus;
+import com.szymon.websocket.model.sprite.Monster;
+import com.szymon.websocket.model.sprite.Player;
 
 public interface ISender {
     void send(String destination, GameObject gameObject);
-    void sendWithTimestamp(String destination, GameObject object, HeaderStatus status, long requestTimestamp, int contentLength);
-    void sendToUser(String destination, GameObject gameObject, HeaderStatus status, String userSession, long requestTimestamp, int contentLength);
-    default void sendMonsters(String destination, GameObject[] gameObject) {
-
-    }
+    void send(String destination, GameObject[] gameObject);
+    void sendMonsters(String destination, Monster[] monsters);
+    void sendToOther(String destination, GameObject player, String nickname, long requestTimestamp, int contentLength);
 }
+

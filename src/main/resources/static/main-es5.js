@@ -61,7 +61,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     !*** ./global-config.ts ***!
     \**************************/
 
-  /*! exports provided: CSV_RESPONSE_HEADERS, HTTP_URL_MAIN, WEBSOCKET_URL_MAIN, RSOCKET_URL_MAIN, SERIALIZER_DATA, SERIALIZER_METADATA, DATA_MIME_TYPE */
+  /*! exports provided: CSV_RESPONSE_HEADERS_PLAYER, CSV_RESPONSE_HEADERS_MONSTER, SERIALIZER_DATA, SERIALIZER_METADATA, DATA_MIME_TYPE */
 
   /***/
   function globalConfigTs(module, __webpack_exports__, __webpack_require__) {
@@ -71,26 +71,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony export (binding) */
 
 
-    __webpack_require__.d(__webpack_exports__, "CSV_RESPONSE_HEADERS", function () {
-      return CSV_RESPONSE_HEADERS;
+    __webpack_require__.d(__webpack_exports__, "CSV_RESPONSE_HEADERS_PLAYER", function () {
+      return CSV_RESPONSE_HEADERS_PLAYER;
     });
     /* harmony export (binding) */
 
 
-    __webpack_require__.d(__webpack_exports__, "HTTP_URL_MAIN", function () {
-      return HTTP_URL_MAIN;
-    });
-    /* harmony export (binding) */
-
-
-    __webpack_require__.d(__webpack_exports__, "WEBSOCKET_URL_MAIN", function () {
-      return WEBSOCKET_URL_MAIN;
-    });
-    /* harmony export (binding) */
-
-
-    __webpack_require__.d(__webpack_exports__, "RSOCKET_URL_MAIN", function () {
-      return RSOCKET_URL_MAIN;
+    __webpack_require__.d(__webpack_exports__, "CSV_RESPONSE_HEADERS_MONSTER", function () {
+      return CSV_RESPONSE_HEADERS_MONSTER;
     });
     /* harmony export (binding) */
 
@@ -121,20 +109,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     var rsocket_core__WEBPACK_IMPORTED_MODULE_0___default =
     /*#__PURE__*/
-    __webpack_require__.n(rsocket_core__WEBPACK_IMPORTED_MODULE_0__); // Defined data which will be saved into response file (not modify)
+    __webpack_require__.n(rsocket_core__WEBPACK_IMPORTED_MODULE_0__); // Defined data which will be saved into response file for player (not modify)
 
 
-    var CSV_RESPONSE_HEADERS = ['id', 'response_time_in_millis', 'request_timestamp', 'version_response', 'size']; //-----------------------   Global options for application which you can modify    -------------------------
-    // 1) URLS
-    // domain for server (http2)
+    var CSV_RESPONSE_HEADERS_PLAYER = ['id', 'response_time_in_millis', 'specific_second_of_communication', 'version_response', 'size', 'request_timestamp']; // Defined data which will be saved into response file for monster (not modify)
 
-    var HTTP_URL_MAIN = 'https://localhost:8080'; // export const HTTP_URL_MAIN = 'https://http2-pacman.herokuapp.com';
-    // websocket(stomp) URL for connection
-
-    var WEBSOCKET_URL_MAIN = 'ws://localhost:8080/socket'; // export const WEBSOCKET_URL_MAIN = 'wss://pacman-websocket.herokuapp.com/socket';
-    // rsocket(websocket) URL for connection
-
-    var RSOCKET_URL_MAIN = 'ws://localhost:8080/rsocket'; // 3) Serializer for RSocket
+    var CSV_RESPONSE_HEADERS_MONSTER = ['id', 'specific_second_of_communication', 'request_timestamp', 'response_time_in_millis']; // 1) Serializer for RSocket
 
     var SERIALIZER_DATA = rsocket_core__WEBPACK_IMPORTED_MODULE_0__["JsonSerializer"];
     var SERIALIZER_METADATA = rsocket_core__WEBPACK_IMPORTED_MODULE_0__["IdentitySerializer"];
@@ -453,8 +433,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           id: jspb.Message.getFieldWithDefault(msg, 1, 0),
           positionX: jspb.Message.getFieldWithDefault(msg, 2, 0),
           positionY: jspb.Message.getFieldWithDefault(msg, 3, 0),
-          previousDirection: jspb.Message.getFieldWithDefault(msg, 4, ""),
-          timestamp: jspb.Message.getFieldWithDefault(msg, 5, 0)
+          previousDirection: jspb.Message.getFieldWithDefault(msg, 4, "")
         };
 
         if (includeInstance) {
@@ -522,13 +501,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             msg.setPreviousDirection(value);
             break;
 
-          case 5:
-            var value =
-            /** @type {number} */
-            reader.readInt32();
-            msg.setTimestamp(value);
-            break;
-
           default:
             reader.skipField();
             break;
@@ -581,12 +553,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
       if (f.length > 0) {
         writer.writeString(4, f);
-      }
-
-      f = message.getTimestamp();
-
-      if (f !== 0) {
-        writer.writeInt32(5, f);
       }
     };
     /**
@@ -673,27 +639,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     proto.MonsterProto.prototype.setPreviousDirection = function (value) {
       return jspb.Message.setProto3StringField(this, 4, value);
     };
-    /**
-     * optional int32 timestamp = 5;
-     * @return {number}
-     */
-
-
-    proto.MonsterProto.prototype.getTimestamp = function () {
-      return (
-        /** @type {number} */
-        jspb.Message.getFieldWithDefault(this, 5, 0)
-      );
-    };
-    /**
-     * @param {number} value
-     * @return {!proto.MonsterProto} returns this
-     */
-
-
-    proto.MonsterProto.prototype.setTimestamp = function (value) {
-      return jspb.Message.setProto3IntField(this, 5, value);
-    };
 
     goog.object.extend(exports, proto);
     /***/
@@ -726,6 +671,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var goog = jspb;
     var global = Function('return this')();
     goog.exportSymbol('proto.PlayerProto', null, global);
+    goog.exportSymbol('proto.PlayerProto.AdditionalData', null, global);
     /**
      * Generated by JsPbCodeGenerator.
      * @param {Array=} opt_data Optional initial data array, typically from a
@@ -738,7 +684,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
      */
 
     proto.PlayerProto = function (opt_data) {
-      jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+      jspb.Message.initialize(this, opt_data, 0, -1, proto.PlayerProto.repeatedFields_, null);
     };
 
     goog.inherits(proto.PlayerProto, jspb.Message);
@@ -750,6 +696,39 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
        */
       proto.PlayerProto.displayName = 'proto.PlayerProto';
     }
+    /**
+     * Generated by JsPbCodeGenerator.
+     * @param {Array=} opt_data Optional initial data array, typically from a
+     * server response, or constructed directly in Javascript. The array is used
+     * in place and becomes part of the constructed object. It is not cloned.
+     * If no data is provided, the constructed object will be empty, but still
+     * valid.
+     * @extends {jspb.Message}
+     * @constructor
+     */
+
+
+    proto.PlayerProto.AdditionalData = function (opt_data) {
+      jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+    };
+
+    goog.inherits(proto.PlayerProto.AdditionalData, jspb.Message);
+
+    if (goog.DEBUG && !COMPILED) {
+      /**
+       * @public
+       * @override
+       */
+      proto.PlayerProto.AdditionalData.displayName = 'proto.PlayerProto.AdditionalData';
+    }
+    /**
+     * List of repeated fields within this message type.
+     * @private {!Array<number>}
+     * @const
+     */
+
+
+    proto.PlayerProto.repeatedFields_ = [7];
 
     if (jspb.Message.GENERATE_TO_OBJECT) {
       /**
@@ -786,7 +765,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           positionY: jspb.Message.getFieldWithDefault(msg, 3, 0),
           score: jspb.Message.getFieldWithDefault(msg, 4, 0),
           stepDirection: jspb.Message.getFieldWithDefault(msg, 5, ""),
-          version: jspb.Message.getFieldWithDefault(msg, 6, 0)
+          version: jspb.Message.getFieldWithDefault(msg, 6, 0),
+          additionaldataList: jspb.Message.toObjectList(msg.getAdditionaldataList(), proto.PlayerProto.AdditionalData.toObject, includeInstance)
         };
 
         if (includeInstance) {
@@ -868,6 +848,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             msg.setVersion(value);
             break;
 
+          case 7:
+            var value = new proto.PlayerProto.AdditionalData();
+            reader.readMessage(value, proto.PlayerProto.AdditionalData.deserializeBinaryFromReader);
+            msg.addAdditionaldata(value);
+            break;
+
           default:
             reader.skipField();
             break;
@@ -933,6 +919,252 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       if (f !== 0) {
         writer.writeInt32(6, f);
       }
+
+      f = message.getAdditionaldataList();
+
+      if (f.length > 0) {
+        writer.writeRepeatedMessage(7, f, proto.PlayerProto.AdditionalData.serializeBinaryToWriter);
+      }
+    };
+
+    if (jspb.Message.GENERATE_TO_OBJECT) {
+      /**
+       * Creates an object representation of this proto.
+       * Field names that are reserved in JavaScript and will be renamed to pb_name.
+       * Optional fields that are not set will be set to undefined.
+       * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+       * For the list of reserved names please see:
+       *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+       * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+       *     JSPB instance for transitional soy proto support:
+       *     http://goto/soy-param-migration
+       * @return {!Object}
+       */
+      proto.PlayerProto.AdditionalData.prototype.toObject = function (opt_includeInstance) {
+        return proto.PlayerProto.AdditionalData.toObject(opt_includeInstance, this);
+      };
+      /**
+       * Static version of the {@see toObject} method.
+       * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+       *     the JSPB instance for transitional soy proto support:
+       *     http://goto/soy-param-migration
+       * @param {!proto.PlayerProto.AdditionalData} msg The msg instance to transform.
+       * @return {!Object}
+       * @suppress {unusedLocalVariables} f is only used for nested messages
+       */
+
+
+      proto.PlayerProto.AdditionalData.toObject = function (includeInstance, msg) {
+        var f,
+            obj = {
+          text: jspb.Message.getFieldWithDefault(msg, 1, ""),
+          number1: jspb.Message.getFieldWithDefault(msg, 2, 0),
+          number2: jspb.Message.getFieldWithDefault(msg, 3, 0),
+          number3: jspb.Message.getFieldWithDefault(msg, 4, 0)
+        };
+
+        if (includeInstance) {
+          obj.$jspbMessageInstance = msg;
+        }
+
+        return obj;
+      };
+    }
+    /**
+     * Deserializes binary data (in protobuf wire format).
+     * @param {jspb.ByteSource} bytes The bytes to deserialize.
+     * @return {!proto.PlayerProto.AdditionalData}
+     */
+
+
+    proto.PlayerProto.AdditionalData.deserializeBinary = function (bytes) {
+      var reader = new jspb.BinaryReader(bytes);
+      var msg = new proto.PlayerProto.AdditionalData();
+      return proto.PlayerProto.AdditionalData.deserializeBinaryFromReader(msg, reader);
+    };
+    /**
+     * Deserializes binary data (in protobuf wire format) from the
+     * given reader into the given message object.
+     * @param {!proto.PlayerProto.AdditionalData} msg The message object to deserialize into.
+     * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+     * @return {!proto.PlayerProto.AdditionalData}
+     */
+
+
+    proto.PlayerProto.AdditionalData.deserializeBinaryFromReader = function (msg, reader) {
+      while (reader.nextField()) {
+        if (reader.isEndGroup()) {
+          break;
+        }
+
+        var field = reader.getFieldNumber();
+
+        switch (field) {
+          case 1:
+            var value =
+            /** @type {string} */
+            reader.readString();
+            msg.setText(value);
+            break;
+
+          case 2:
+            var value =
+            /** @type {number} */
+            reader.readInt32();
+            msg.setNumber1(value);
+            break;
+
+          case 3:
+            var value =
+            /** @type {number} */
+            reader.readInt32();
+            msg.setNumber2(value);
+            break;
+
+          case 4:
+            var value =
+            /** @type {number} */
+            reader.readInt32();
+            msg.setNumber3(value);
+            break;
+
+          default:
+            reader.skipField();
+            break;
+        }
+      }
+
+      return msg;
+    };
+    /**
+     * Serializes the message to binary data (in protobuf wire format).
+     * @return {!Uint8Array}
+     */
+
+
+    proto.PlayerProto.AdditionalData.prototype.serializeBinary = function () {
+      var writer = new jspb.BinaryWriter();
+      proto.PlayerProto.AdditionalData.serializeBinaryToWriter(this, writer);
+      return writer.getResultBuffer();
+    };
+    /**
+     * Serializes the given message to binary data (in protobuf wire
+     * format), writing to the given BinaryWriter.
+     * @param {!proto.PlayerProto.AdditionalData} message
+     * @param {!jspb.BinaryWriter} writer
+     * @suppress {unusedLocalVariables} f is only used for nested messages
+     */
+
+
+    proto.PlayerProto.AdditionalData.serializeBinaryToWriter = function (message, writer) {
+      var f = undefined;
+      f = message.getText();
+
+      if (f.length > 0) {
+        writer.writeString(1, f);
+      }
+
+      f = message.getNumber1();
+
+      if (f !== 0) {
+        writer.writeInt32(2, f);
+      }
+
+      f = message.getNumber2();
+
+      if (f !== 0) {
+        writer.writeInt32(3, f);
+      }
+
+      f = message.getNumber3();
+
+      if (f !== 0) {
+        writer.writeInt32(4, f);
+      }
+    };
+    /**
+     * optional string text = 1;
+     * @return {string}
+     */
+
+
+    proto.PlayerProto.AdditionalData.prototype.getText = function () {
+      return (
+        /** @type {string} */
+        jspb.Message.getFieldWithDefault(this, 1, "")
+      );
+    };
+    /**
+     * @param {string} value
+     * @return {!proto.PlayerProto.AdditionalData} returns this
+     */
+
+
+    proto.PlayerProto.AdditionalData.prototype.setText = function (value) {
+      return jspb.Message.setProto3StringField(this, 1, value);
+    };
+    /**
+     * optional int32 number1 = 2;
+     * @return {number}
+     */
+
+
+    proto.PlayerProto.AdditionalData.prototype.getNumber1 = function () {
+      return (
+        /** @type {number} */
+        jspb.Message.getFieldWithDefault(this, 2, 0)
+      );
+    };
+    /**
+     * @param {number} value
+     * @return {!proto.PlayerProto.AdditionalData} returns this
+     */
+
+
+    proto.PlayerProto.AdditionalData.prototype.setNumber1 = function (value) {
+      return jspb.Message.setProto3IntField(this, 2, value);
+    };
+    /**
+     * optional int32 number2 = 3;
+     * @return {number}
+     */
+
+
+    proto.PlayerProto.AdditionalData.prototype.getNumber2 = function () {
+      return (
+        /** @type {number} */
+        jspb.Message.getFieldWithDefault(this, 3, 0)
+      );
+    };
+    /**
+     * @param {number} value
+     * @return {!proto.PlayerProto.AdditionalData} returns this
+     */
+
+
+    proto.PlayerProto.AdditionalData.prototype.setNumber2 = function (value) {
+      return jspb.Message.setProto3IntField(this, 3, value);
+    };
+    /**
+     * optional int32 number3 = 4;
+     * @return {number}
+     */
+
+
+    proto.PlayerProto.AdditionalData.prototype.getNumber3 = function () {
+      return (
+        /** @type {number} */
+        jspb.Message.getFieldWithDefault(this, 4, 0)
+      );
+    };
+    /**
+     * @param {number} value
+     * @return {!proto.PlayerProto.AdditionalData} returns this
+     */
+
+
+    proto.PlayerProto.AdditionalData.prototype.setNumber3 = function (value) {
+      return jspb.Message.setProto3IntField(this, 4, value);
     };
     /**
      * optional string nickname = 1;
@@ -1060,6 +1292,46 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     proto.PlayerProto.prototype.setVersion = function (value) {
       return jspb.Message.setProto3IntField(this, 6, value);
     };
+    /**
+     * repeated AdditionalData additionalData = 7;
+     * @return {!Array<!proto.PlayerProto.AdditionalData>}
+     */
+
+
+    proto.PlayerProto.prototype.getAdditionaldataList = function () {
+      return (
+        /** @type{!Array<!proto.PlayerProto.AdditionalData>} */
+        jspb.Message.getRepeatedWrapperField(this, proto.PlayerProto.AdditionalData, 7)
+      );
+    };
+    /**
+     * @param {!Array<!proto.PlayerProto.AdditionalData>} value
+     * @return {!proto.PlayerProto} returns this
+    */
+
+
+    proto.PlayerProto.prototype.setAdditionaldataList = function (value) {
+      return jspb.Message.setRepeatedWrapperField(this, 7, value);
+    };
+    /**
+     * @param {!proto.PlayerProto.AdditionalData=} opt_value
+     * @param {number=} opt_index
+     * @return {!proto.PlayerProto.AdditionalData}
+     */
+
+
+    proto.PlayerProto.prototype.addAdditionaldata = function (opt_value, opt_index) {
+      return jspb.Message.addToRepeatedWrapperField(this, 7, opt_value, proto.PlayerProto.AdditionalData, opt_index);
+    };
+    /**
+     * Clears the list making it empty but non-null.
+     * @return {!proto.PlayerProto} returns this
+     */
+
+
+    proto.PlayerProto.prototype.clearAdditionaldataList = function () {
+      return this.setAdditionaldataList([]);
+    };
 
     goog.object.extend(exports, proto);
     /***/
@@ -1099,9 +1371,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _scenes_main_scene_main_scene_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-    /*! ./scenes/main-scene/main-scene.component */
-    "./src/app/scenes/main-scene/main-scene.component.ts");
+    var _scene_main_scene_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! ./scene/main-scene.component */
+    "./src/app/scene/main-scene.component.ts");
     /* harmony import */
 
 
@@ -1114,7 +1386,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       component: _home_home_component__WEBPACK_IMPORTED_MODULE_3__["HomeComponent"]
     }, {
       path: 'game',
-      component: _scenes_main_scene_main_scene_component__WEBPACK_IMPORTED_MODULE_2__["MainSceneComponent"]
+      component: _scene_main_scene_component__WEBPACK_IMPORTED_MODULE_2__["MainSceneComponent"]
     }, {
       path: '**',
       redirectTo: 'home'
@@ -1273,9 +1545,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _scenes_main_scene_main_scene_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
-    /*! ./scenes/main-scene/main-scene.component */
-    "./src/app/scenes/main-scene/main-scene.component.ts");
+    var _scene_main_scene_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! ./scene/main-scene.component */
+    "./src/app/scene/main-scene.component.ts");
     /* harmony import */
 
 
@@ -1297,21 +1569,21 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var angular_oauth2_oidc__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
-    /*! angular-oauth2-oidc */
-    "./node_modules/angular-oauth2-oidc/__ivy_ngcc__/fesm2015/angular-oauth2-oidc.js");
-    /* harmony import */
-
-
-    var _home_home_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+    var _home_home_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
     /*! ./home/home.component */
     "./src/app/home/home.component.ts");
     /* harmony import */
 
 
-    var _angular_forms__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+    var _angular_forms__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
     /*! @angular/forms */
     "./node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js");
+    /* harmony import */
+
+
+    var _angular_material_radio__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+    /*! @angular/material/radio */
+    "./node_modules/@angular/material/__ivy_ngcc__/fesm2015/radio.js");
     /* harmony import */
 
 
@@ -1324,6 +1596,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var _angular_router__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
     /*! @angular/router */
     "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
+    /* harmony import */
+
+
+    var _angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
+    /*! @angular/cdk/bidi */
+    "./node_modules/@angular/cdk/__ivy_ngcc__/fesm2015/bidi.js"); // @ts-ignore
+    // @ts-ignore
+    // @ts-ignore
+    // @ts-ignore
+    // @ts-ignore
+
 
     var AppModule = function AppModule() {
       _classCallCheck(this, AppModule);
@@ -1338,13 +1621,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         return new (t || AppModule)();
       },
       providers: [_communication_websocket_websocket_service__WEBPACK_IMPORTED_MODULE_5__["WebsocketService"]],
-      imports: [[_angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HttpClientModule"], _app_routing_module__WEBPACK_IMPORTED_MODULE_7__["AppRoutingModule"], angular_oauth2_oidc__WEBPACK_IMPORTED_MODULE_8__["OAuthModule"].forRoot(), _angular_forms__WEBPACK_IMPORTED_MODULE_10__["FormsModule"]]]
+      imports: [[_angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HttpClientModule"], _app_routing_module__WEBPACK_IMPORTED_MODULE_7__["AppRoutingModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["FormsModule"], _angular_material_radio__WEBPACK_IMPORTED_MODULE_10__["MatRadioModule"]]]
     });
 
     (function () {
       (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵsetNgModuleScope"](AppModule, {
-        declarations: [_app_component__WEBPACK_IMPORTED_MODULE_2__["AppComponent"], _game_game_component__WEBPACK_IMPORTED_MODULE_3__["GameComponent"], _scenes_main_scene_main_scene_component__WEBPACK_IMPORTED_MODULE_4__["MainSceneComponent"], _home_home_component__WEBPACK_IMPORTED_MODULE_9__["HomeComponent"]],
-        imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HttpClientModule"], _app_routing_module__WEBPACK_IMPORTED_MODULE_7__["AppRoutingModule"], angular_oauth2_oidc__WEBPACK_IMPORTED_MODULE_8__["OAuthModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["FormsModule"]]
+        declarations: [_app_component__WEBPACK_IMPORTED_MODULE_2__["AppComponent"], _game_game_component__WEBPACK_IMPORTED_MODULE_3__["GameComponent"], _scene_main_scene_component__WEBPACK_IMPORTED_MODULE_4__["MainSceneComponent"], _home_home_component__WEBPACK_IMPORTED_MODULE_8__["HomeComponent"]],
+        imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HttpClientModule"], _app_routing_module__WEBPACK_IMPORTED_MODULE_7__["AppRoutingModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["FormsModule"], _angular_material_radio__WEBPACK_IMPORTED_MODULE_10__["MatRadioModule"]]
       });
     })();
     /*@__PURE__*/
@@ -1354,15 +1637,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵsetClassMetadata"](AppModule, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"],
         args: [{
-          declarations: [_app_component__WEBPACK_IMPORTED_MODULE_2__["AppComponent"], _game_game_component__WEBPACK_IMPORTED_MODULE_3__["GameComponent"], _scenes_main_scene_main_scene_component__WEBPACK_IMPORTED_MODULE_4__["MainSceneComponent"], _home_home_component__WEBPACK_IMPORTED_MODULE_9__["HomeComponent"]],
-          imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HttpClientModule"], _app_routing_module__WEBPACK_IMPORTED_MODULE_7__["AppRoutingModule"], angular_oauth2_oidc__WEBPACK_IMPORTED_MODULE_8__["OAuthModule"].forRoot(), _angular_forms__WEBPACK_IMPORTED_MODULE_10__["FormsModule"]],
+          declarations: [_app_component__WEBPACK_IMPORTED_MODULE_2__["AppComponent"], _game_game_component__WEBPACK_IMPORTED_MODULE_3__["GameComponent"], _scene_main_scene_component__WEBPACK_IMPORTED_MODULE_4__["MainSceneComponent"], _home_home_component__WEBPACK_IMPORTED_MODULE_8__["HomeComponent"]],
+          imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HttpClientModule"], _app_routing_module__WEBPACK_IMPORTED_MODULE_7__["AppRoutingModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["FormsModule"], _angular_material_radio__WEBPACK_IMPORTED_MODULE_10__["MatRadioModule"]],
           providers: [_communication_websocket_websocket_service__WEBPACK_IMPORTED_MODULE_5__["WebsocketService"]],
           bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_2__["AppComponent"]]
         }]
       }], null, null);
     })();
 
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵsetComponentScope"](_scenes_main_scene_main_scene_component__WEBPACK_IMPORTED_MODULE_4__["MainSceneComponent"], [_angular_common__WEBPACK_IMPORTED_MODULE_11__["NgClass"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgComponentOutlet"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgForOf"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgIf"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgTemplateOutlet"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgStyle"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgSwitch"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgSwitchCase"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgSwitchDefault"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgPlural"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgPluralCase"], _angular_router__WEBPACK_IMPORTED_MODULE_12__["RouterOutlet"], _angular_router__WEBPACK_IMPORTED_MODULE_12__["RouterLink"], _angular_router__WEBPACK_IMPORTED_MODULE_12__["RouterLinkWithHref"], _angular_router__WEBPACK_IMPORTED_MODULE_12__["RouterLinkActive"], _angular_router__WEBPACK_IMPORTED_MODULE_12__["ɵangular_packages_router_router_l"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["NgSelectOption"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["ɵangular_packages_forms_forms_x"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["NumberValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["RangeValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["CheckboxControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["SelectControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["SelectMultipleControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["RadioControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["RequiredValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["MinLengthValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["MaxLengthValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["PatternValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["CheckboxRequiredValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["EmailValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["NgModel"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["NgModelGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["NgForm"], _app_component__WEBPACK_IMPORTED_MODULE_2__["AppComponent"], _game_game_component__WEBPACK_IMPORTED_MODULE_3__["GameComponent"], _scenes_main_scene_main_scene_component__WEBPACK_IMPORTED_MODULE_4__["MainSceneComponent"], _home_home_component__WEBPACK_IMPORTED_MODULE_9__["HomeComponent"]], [_angular_common__WEBPACK_IMPORTED_MODULE_11__["AsyncPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["UpperCasePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["LowerCasePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["JsonPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["SlicePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["DecimalPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["PercentPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["TitleCasePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["CurrencyPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["DatePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["I18nPluralPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["I18nSelectPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["KeyValuePipe"]]);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵsetComponentScope"](_scene_main_scene_component__WEBPACK_IMPORTED_MODULE_4__["MainSceneComponent"], [_angular_common__WEBPACK_IMPORTED_MODULE_11__["NgClass"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgComponentOutlet"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgForOf"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgIf"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgTemplateOutlet"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgStyle"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgSwitch"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgSwitchCase"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgSwitchDefault"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgPlural"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgPluralCase"], _angular_router__WEBPACK_IMPORTED_MODULE_12__["RouterOutlet"], _angular_router__WEBPACK_IMPORTED_MODULE_12__["RouterLink"], _angular_router__WEBPACK_IMPORTED_MODULE_12__["RouterLinkWithHref"], _angular_router__WEBPACK_IMPORTED_MODULE_12__["RouterLinkActive"], _angular_router__WEBPACK_IMPORTED_MODULE_12__["ɵangular_packages_router_router_l"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["NgSelectOption"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["ɵangular_packages_forms_forms_x"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["NumberValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["RangeValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["CheckboxControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["SelectControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["SelectMultipleControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["RadioControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["RequiredValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["MinLengthValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["MaxLengthValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["PatternValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["CheckboxRequiredValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["EmailValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["NgModel"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["NgModelGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["NgForm"], _angular_material_radio__WEBPACK_IMPORTED_MODULE_10__["MatRadioGroup"], _angular_material_radio__WEBPACK_IMPORTED_MODULE_10__["MatRadioButton"], _angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_13__["Dir"], _app_component__WEBPACK_IMPORTED_MODULE_2__["AppComponent"], _game_game_component__WEBPACK_IMPORTED_MODULE_3__["GameComponent"], _scene_main_scene_component__WEBPACK_IMPORTED_MODULE_4__["MainSceneComponent"], _home_home_component__WEBPACK_IMPORTED_MODULE_8__["HomeComponent"]], [_angular_common__WEBPACK_IMPORTED_MODULE_11__["AsyncPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["UpperCasePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["LowerCasePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["JsonPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["SlicePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["DecimalPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["PercentPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["TitleCasePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["CurrencyPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["DatePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["I18nPluralPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["I18nSelectPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["KeyValuePipe"]]);
     /***/
 
   },
@@ -1398,6 +1681,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var _model_MeasurementResponse__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
     /*! ../model/MeasurementResponse */
     "./src/app/model/MeasurementResponse.ts");
+    /* harmony import */
+
+
+    var _model_MonsterMeasurement__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! ../model/MonsterMeasurement */
+    "./src/app/model/MonsterMeasurement.ts");
 
     var MeasurementService =
     /*#__PURE__*/
@@ -1406,20 +1695,42 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         _classCallCheck(this, MeasurementService);
 
         this.measurements = new Array();
+        this.monsterMeasurements = new Array();
       }
 
       _createClass(MeasurementService, [{
         key: "addMeasurementResponse",
-        value: function addMeasurementResponse(id, responseTimeInMillis, requestTimestamp, version, size) {
-          // if (this.measurements.length > 1999) {
-          //     this.measurements.splice(0, 1);
-          // }
-          this.measurements.push(new _model_MeasurementResponse__WEBPACK_IMPORTED_MODULE_1__["MeasurementResponse"](id, responseTimeInMillis, requestTimestamp, version, size));
+        value: function addMeasurementResponse(id, responseTimeInMillis, specificSecondOfCommunication, version, size, requestTimestamp) {
+          this.measurements.push(new _model_MeasurementResponse__WEBPACK_IMPORTED_MODULE_1__["MeasurementResponse"](id, responseTimeInMillis, specificSecondOfCommunication, version, size, requestTimestamp));
+        }
+      }, {
+        key: "addMonsterMeasurement",
+        value: function addMonsterMeasurement(id, requestTimestamp) {
+          if (this.monsterMeasurements.length === 0) {
+            this.firstMonsterTimestamp = requestTimestamp;
+          } // this.monsterMeasurements.push(new MonsterMeasurement(id,
+          //     Math.ceil((requestTimestamp - this.firstMonsterTimestamp) / 1000),
+          //     requestTimestamp));
+
+        }
+      }, {
+        key: "addMonsterMeasurementWithTime",
+        value: function addMonsterMeasurementWithTime(id, requestTimestamp, responseTimeInMillis) {
+          if (this.monsterMeasurements.length === 0) {
+            this.firstMonsterTimestamp = requestTimestamp;
+          }
+
+          this.monsterMeasurements.push(new _model_MonsterMeasurement__WEBPACK_IMPORTED_MODULE_2__["MonsterMeasurement"](id, Math.ceil((requestTimestamp - this.firstMonsterTimestamp) / 1000), requestTimestamp, responseTimeInMillis));
         }
       }, {
         key: "getResponseMeasurements",
         value: function getResponseMeasurements() {
           return this.measurements;
+        }
+      }, {
+        key: "getResponseMeasurementsForMonster",
+        value: function getResponseMeasurementsForMonster() {
+          return this.monsterMeasurements;
         }
       }]);
 
@@ -1562,6 +1873,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         set: function set(value) {
           this._lastCorrectRequest = value;
         }
+      }, {
+        key: "timeForStartCommunication",
+        get: function get() {
+          return this._timeForStartCommunication;
+        },
+        set: function set(value) {
+          this._timeForStartCommunication = value;
+        }
       }], [{
         key: "nickname",
         set: function set(value) {
@@ -1624,7 +1943,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var Communicator =
     /*#__PURE__*/
     function () {
-      function Communicator(serverUrl) {
+      function Communicator() {
         _classCallCheck(this, Communicator);
 
         this.playersToAdd = new rxjs__WEBPACK_IMPORTED_MODULE_0__["Subject"]();
@@ -1635,7 +1954,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         this.coinToGet = new rxjs__WEBPACK_IMPORTED_MODULE_0__["Subject"]();
         this.updateScore = new rxjs__WEBPACK_IMPORTED_MODULE_0__["Subject"]();
         this.refreshCoin = new rxjs__WEBPACK_IMPORTED_MODULE_0__["Subject"]();
-        this.serverUrl = serverUrl;
       }
 
       _createClass(Communicator, [{
@@ -1691,6 +2009,22 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         set: function set(value) {
           this._myNickname = value;
         }
+      }, {
+        key: "serverUrl",
+        get: function get() {
+          return this._serverUrl;
+        },
+        set: function set(value) {
+          this._serverUrl = value;
+        }
+      }, {
+        key: "formatter",
+        get: function get() {
+          return this._formatter;
+        },
+        set: function set(value) {
+          this._formatter = value;
+        }
       }]);
 
       return Communicator;
@@ -1722,8 +2056,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var Direction;
 
     (function (Direction) {
-      Direction["HORIZON"] = "HORIZON";
-      Direction["VERTICAL"] = "VERTICAL";
+      Direction["HORIZON"] = "HOR";
+      Direction["VERTICAL"] = "VER";
     })(Direction || (Direction = {}));
     /***/
 
@@ -1878,11 +2212,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /*#__PURE__*/
     __webpack_require__.n(_proto_generated_proto_monster_pb__WEBPACK_IMPORTED_MODULE_2__);
 
+    var AdditionalData = _proto_generated_proto_player_pb__WEBPACK_IMPORTED_MODULE_0__["PlayerProto"].AdditionalData;
+
     var ProtobufFormatter =
     /*#__PURE__*/
     function () {
       function ProtobufFormatter() {
         _classCallCheck(this, ProtobufFormatter);
+
+        this.newData = new Array();
       }
 
       _createClass(ProtobufFormatter, [{
@@ -1910,6 +2248,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           playerProto.setScore(data.score);
           playerProto.setStepDirection(data.stepDirection);
           playerProto.setVersion(data.version);
+
+          for (var i = this.newData.length; i < data.additionalData.length; i++) {
+            var object = new AdditionalData();
+            object.setText(data.additionalData[i].text);
+            object.setNumber1(data.additionalData[i].number1);
+            object.setNumber2(data.additionalData[i].number2);
+            object.setNumber3(data.additionalData[i].number3);
+            this.newData.push(object);
+          }
+
+          playerProto.setAdditionaldataList(this.newData);
           return playerProto;
         }
       }, {
@@ -1926,29 +2275,292 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   },
 
   /***/
-  "./src/app/communication/simulation/data/AdditionalObject.ts":
-  /*!*******************************************************************!*\
-    !*** ./src/app/communication/simulation/data/AdditionalObject.ts ***!
-    \*******************************************************************/
+  "./src/app/communication/http2/http2.service.ts":
+  /*!******************************************************!*\
+    !*** ./src/app/communication/http2/http2.service.ts ***!
+    \******************************************************/
 
-  /*! exports provided: AdditionalObject */
+  /*! exports provided: Http2Service */
 
   /***/
-  function srcAppCommunicationSimulationDataAdditionalObjectTs(module, __webpack_exports__, __webpack_require__) {
+  function srcAppCommunicationHttp2Http2ServiceTs(module, __webpack_exports__, __webpack_require__) {
     "use strict";
 
     __webpack_require__.r(__webpack_exports__);
     /* harmony export (binding) */
 
 
-    __webpack_require__.d(__webpack_exports__, "AdditionalObject", function () {
-      return AdditionalObject;
+    __webpack_require__.d(__webpack_exports__, "Http2Service", function () {
+      return Http2Service;
+    });
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+    /* harmony import */
+
+
+    var _Communicator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! ../Communicator */
+    "./src/app/communication/Communicator.ts");
+    /* harmony import */
+
+
+    var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! rxjs */
+    "./node_modules/rxjs/_esm2015/index.js");
+    /* harmony import */
+
+
+    var _SocketClientState__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! ../SocketClientState */
+    "./src/app/communication/SocketClientState.ts");
+    /* harmony import */
+
+
+    var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! @angular/common/http */
+    "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+    /* harmony import */
+
+
+    var _cache_measurement_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    /*! ../../cache/measurement.service */
+    "./src/app/cache/measurement.service.ts");
+    /* harmony import */
+
+
+    var _cache_request_cache_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+    /*! ../../cache/request-cache.service */
+    "./src/app/cache/request-cache.service.ts");
+
+    var Http2Service =
+    /*#__PURE__*/
+    function (_Communicator__WEBPAC) {
+      _inherits(Http2Service, _Communicator__WEBPAC);
+
+      var _super = _createSuper(Http2Service);
+
+      function Http2Service(measurementService, http, requestCache) {
+        var _this;
+
+        _classCallCheck(this, Http2Service);
+
+        _this = _super.call(this);
+        _this.measurementService = measurementService;
+        _this.http = http;
+        _this.requestCache = requestCache;
+        return _this;
+      }
+
+      _createClass(Http2Service, [{
+        key: "initializeConnection",
+        value: function initializeConnection() {
+          this.state = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"](_SocketClientState__WEBPACK_IMPORTED_MODULE_3__["SocketClientState"].CONNECTED);
+        }
+      }, {
+        key: "disconnect",
+        value: function disconnect() {
+          console.error('Zakonczono komunikacje z serverem');
+
+          if (this.eventSource.OPEN) {
+            this.eventSource.close();
+          }
+
+          this.http["delete"](this.serverUrl + "/emitter/" + this.nickname).subscribe(function (value) {
+            console.error('Usunalem gracza');
+          });
+        }
+      }, {
+        key: "joinToGame",
+        value: function joinToGame(nickname) {
+          var _this2 = this;
+
+          this.http.get(this.serverUrl + "/player/" + nickname).subscribe(function (ifExist) {
+            if (ifExist === false) {
+              _this2.nickname = nickname;
+              _this2.eventSource = new EventSource(_this2.serverUrl + "/emitter/" + _this2.nickname);
+
+              _this2.eventSource.addEventListener('/pacman/update/monster', function (monsterPositionEvent) {
+                var monsterParsed = JSON.parse(monsterPositionEvent.data);
+                var responseTimeInMillis = new Date().getTime() - monsterParsed.requestTimestamp;
+
+                _this2.measurementService.addMonsterMeasurementWithTime(monsterParsed.id, monsterParsed.requestTimestamp, responseTimeInMillis);
+
+                _this2.monsterToUpdate.next(monsterParsed);
+              });
+
+              _this2.eventSource.addEventListener('/pacman/get/coin', function (coinPositionEvent) {
+                console.error('Zbieram coina');
+
+                _this2.coinToGet.next(JSON.parse(coinPositionEvent.data));
+              });
+
+              _this2.eventSource.addEventListener('/pacman/refresh/coins', function (updateMapEvent) {
+                console.error('Odswierzenie mapy');
+
+                _this2.refreshCoin.next(JSON.parse(updateMapEvent.data));
+              });
+
+              _this2.eventSource.addEventListener('/pacman/remove/player', function (playerToRemoveEvent) {
+                console.error('Usuwam gracza!');
+
+                _this2.playerToRemove.next(JSON.parse(playerToRemoveEvent.data));
+              });
+
+              _this2.eventSource.addEventListener('/pacman/add/players', function (playerToAddEvent) {
+                console.error('Dodaje gracza!');
+
+                _this2.playersToAdd.next(JSON.parse(playerToAddEvent.data));
+              });
+
+              _this2.eventSource.addEventListener('/pacman/update/player', function (playerToUpdateEvent) {
+                var playersWithMeasurementInfo = JSON.parse(playerToUpdateEvent.data);
+
+                if (playersWithMeasurementInfo.player.nickname.match('local*') || playersWithMeasurementInfo.player.nickname === _this2.myNickname) {
+                  _this2.saveResponseTime(playersWithMeasurementInfo.player.nickname, playersWithMeasurementInfo.requestTimestamp, playersWithMeasurementInfo.player.version, playersWithMeasurementInfo.contentLength);
+                }
+
+                _this2.playerToUpdate.next(playersWithMeasurementInfo.player);
+              });
+
+              _this2.http.get(_this2.serverUrl + "/coins").subscribe(function (coinsPosition) {
+                _this2.ifJoinGame.next(coinsPosition);
+              });
+            } else {
+              _this2.ifJoinGame.next(new Array(0));
+            }
+          });
+        }
+      }, {
+        key: "addPlayer",
+        value: function addPlayer(nickname) {
+          var _this3 = this;
+
+          var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpHeaders"]().set('Content-Type', 'application/json');
+          this.http.post(this.serverUrl + "/players", JSON.stringify(nickname), {
+            headers: headers,
+            observe: "response"
+          }).subscribe(function (playerToAdd) {
+            if (playerToAdd.status === 201) {
+              _this3.playersToAdd.next(playerToAdd.body);
+            } else {
+              console.error('Nie udalo sie dodac uzytkownika');
+            }
+          });
+        }
+      }, {
+        key: "sendPosition",
+        value: function sendPosition(data) {
+          var _this4 = this;
+
+          this.http.put(this.serverUrl + "/player", JSON.stringify(data), {
+            headers: {
+              'Content-Type': 'application/json',
+              'requestTimestamp': new Date().getTime().toString()
+            },
+            observe: 'response'
+          }).subscribe(function (player) {
+            var responseTimeInMillis = new Date().getTime() - Number(player.headers.get('requestTimestamp'));
+            console.error("Odpowiedz serwera " + responseTimeInMillis + " milliseconds");
+
+            if (player.body.nickname.match('local*') || player.body.nickname === _this4.myNickname) {
+              _this4.saveResponseTime(player.body.nickname, Number(player.headers.get('requestTimestamp')), player.body.version, Number(player.headers.get('contentLength')));
+            }
+
+            if (player.status === 202) {
+              var request = _this4.requestCache.getCorrectedPosition(player.body.version);
+
+              if (request !== null) {
+                player.body.positionX = request.x;
+                player.body.positionY = request.y;
+
+                _this4.playerToUpdate.next(player.body);
+              }
+            } else if (player.status === 201) {
+              var _request3 = _this4.requestCache.getRequest(player.body.version);
+
+              _this4.updateScore.next(player.body.score);
+
+              if (_request3 !== null && (_request3.x !== player.body.positionX || _request3.y !== player.body.positionY)) {
+                _this4.playerToUpdate.next(player.body);
+              }
+            } else if (player.status === 200) {
+              _this4.playerToRemove.next(player.body);
+            }
+          });
+        }
+      }, {
+        key: "saveResponseTime",
+        value: function saveResponseTime(id, timestampFromServer, version, size) {
+          var responseTimeInMillis = new Date().getTime() - timestampFromServer; // console.error("Odpowiedz serwera " + responseTimeInMillis + " milliseconds");
+
+          this.measurementService.addMeasurementResponse(id, responseTimeInMillis, Math.ceil((timestampFromServer - this.requestCache.timeForStartCommunication) / 1000), version, size, timestampFromServer);
+        }
+      }]);
+
+      return Http2Service;
+    }(_Communicator__WEBPACK_IMPORTED_MODULE_1__["Communicator"]);
+
+    Http2Service.ɵfac = function Http2Service_Factory(t) {
+      return new (t || Http2Service)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_cache_measurement_service__WEBPACK_IMPORTED_MODULE_5__["MeasurementService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClient"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_cache_request_cache_service__WEBPACK_IMPORTED_MODULE_6__["RequestCacheService"]));
+    };
+
+    Http2Service.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({
+      token: Http2Service,
+      factory: Http2Service.ɵfac,
+      providedIn: 'root'
+    });
+    /*@__PURE__*/
+
+    (function () {
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](Http2Service, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"],
+        args: [{
+          providedIn: 'root'
+        }]
+      }], function () {
+        return [{
+          type: _cache_measurement_service__WEBPACK_IMPORTED_MODULE_5__["MeasurementService"]
+        }, {
+          type: _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClient"]
+        }, {
+          type: _cache_request_cache_service__WEBPACK_IMPORTED_MODULE_6__["RequestCacheService"]
+        }];
+      }, null);
+    })();
+    /***/
+
+  },
+
+  /***/
+  "./src/app/communication/simulation/data/AdditionalData.ts":
+  /*!*****************************************************************!*\
+    !*** ./src/app/communication/simulation/data/AdditionalData.ts ***!
+    \*****************************************************************/
+
+  /*! exports provided: AdditionalData */
+
+  /***/
+  function srcAppCommunicationSimulationDataAdditionalDataTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "AdditionalData", function () {
+      return AdditionalData;
     });
 
-    var AdditionalObject = function AdditionalObject(number, text) {
-      _classCallCheck(this, AdditionalObject);
+    var AdditionalData = function AdditionalData(number1, number2, number3, text) {
+      _classCallCheck(this, AdditionalData);
 
-      this.number = number;
+      this.number1 = number1;
+      this.number2 = number2;
+      this.number3 = number3;
       this.text = text;
     };
     /***/
@@ -2025,60 +2637,46 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _global_config__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
-    /*! ../../../../global-config */
-    "./global-config.ts");
-    /* harmony import */
-
-
-    var _cache_measurement_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+    var _cache_measurement_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
     /*! ../../cache/measurement.service */
     "./src/app/cache/measurement.service.ts");
     /* harmony import */
 
 
-    var _cache_request_cache_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+    var _cache_request_cache_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
     /*! ../../cache/request-cache.service */
     "./src/app/cache/request-cache.service.ts");
 
     var WebsocketService =
     /*#__PURE__*/
-    function (_Communicator__WEBPAC) {
-      _inherits(WebsocketService, _Communicator__WEBPAC);
+    function (_Communicator__WEBPAC2) {
+      _inherits(WebsocketService, _Communicator__WEBPAC2);
 
-      var _super = _createSuper(WebsocketService);
+      var _super2 = _createSuper(WebsocketService);
 
       function WebsocketService(measurementService, requestCache) {
-        var _this;
+        var _this5;
 
         _classCallCheck(this, WebsocketService);
 
-        _this = _super.call(this, _global_config__WEBPACK_IMPORTED_MODULE_7__["WEBSOCKET_URL_MAIN"]);
-        _this.measurementService = measurementService;
-        _this.requestCache = requestCache;
-        _this.variable = _this.makeid(30000);
-
-        _this.setFormatter(new _format_JsonFormatter__WEBPACK_IMPORTED_MODULE_5__["JsonFormatter"]());
-
-        return _this;
+        _this5 = _super2.call(this);
+        _this5.measurementService = measurementService;
+        _this5.requestCache = requestCache;
+        _this5.playersOnTheSameSystemTime = 'local*';
+        _this5.variable = _this5.makeid(30000);
+        return _this5;
       }
 
       _createClass(WebsocketService, [{
         key: "initializeConnection",
         value: function initializeConnection() {
-          var _this2 = this;
+          var _this6 = this;
 
-          // const ws = new SockJS(this.serverUrl);
-          // this.stompClient = Stomp.over(ws);
           this.state = new rxjs__WEBPACK_IMPORTED_MODULE_1__["BehaviorSubject"](_SocketClientState__WEBPACK_IMPORTED_MODULE_3__["SocketClientState"].ATTEMPTING);
           this.stompClient = new _stomp_stompjs__WEBPACK_IMPORTED_MODULE_4__["Client"]({
             brokerURL: this.serverUrl,
-            debug: function debug(str) {
-              console.log(str);
-            },
-            // maxWebSocketChunkSize: 5000,
             splitLargeFrames: true,
-            reconnectDelay: 5000,
+            reconnectDelay: 3000,
             heartbeatIncoming: 4000,
             heartbeatOutgoing: 4000
           });
@@ -2086,85 +2684,97 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           this.stompClient.debug = function () {};
 
           this.stompClient.onConnect = function (frame) {
-            console.error(frame);
-
-            _this2.stompClient.subscribe('/pacman/add/players', function (gameToAddPlayer) {
-              _this2.playersToAdd.next(JSON.parse(gameToAddPlayer.body));
+            _this6.stompClient.subscribe('/pacman/add/players', function (gameToAddPlayer) {
+              _this6.playersToAdd.next(JSON.parse(gameToAddPlayer.body));
 
               console.error('Zaktualizowano gre, dodano gracza');
             });
 
-            _this2.stompClient.subscribe('/pacman/remove/player', function (playerToRemove) {
-              _this2.playerToRemove.next(_this2.formatter.decodePlayer(playerToRemove));
+            _this6.stompClient.subscribe('/pacman/remove/player', function (playerToRemove) {
+              _this6.playerToRemove.next(_this6.formatter.decodePlayer(playerToRemove));
 
               console.error('Zaktualizowano gre, usunieto gracza');
             });
 
-            _this2.stompClient.subscribe('/pacman/update/player', function (playerToUpdate) {
-              var parsedPlayer = _this2.formatter.decodePlayer(playerToUpdate);
+            _this6.stompClient.subscribe('/pacman/update/player', function (playerToUpdate) {
+              var parsedPlayer = _this6.formatter.decodePlayer(playerToUpdate);
 
-              var responseTimeInMillis = new Date().getTime() - Number(playerToUpdate.headers.requestTimestamp); // console.error("Odpowiedz serwera " + responseTimeInMillis + " milliseconds")
+              _this6.saveMeasurement(parsedPlayer.nickname, parsedPlayer.version, playerToUpdate.headers.requestTimestamp, playerToUpdate.headers['content-length']);
 
-              _this2.measurementService.addMeasurementResponse(parsedPlayer.nickname, responseTimeInMillis, playerToUpdate.headers.requestTimestamp, parsedPlayer.version, playerToUpdate.headers.contentLength);
+              if (parsedPlayer.nickname === _this6.myNickname) {
+                var request = _this6.requestCache.getRequest(parsedPlayer.version);
 
-              if (parsedPlayer.nickname === _this2.myNickname) {
-                var request = _this2.requestCache.getRequest(parsedPlayer.version);
-
-                _this2.updateScore.next(parsedPlayer.score);
+                _this6.updateScore.next(parsedPlayer.score);
 
                 if (request !== null && (request.x !== parsedPlayer.positionX || request.y !== parsedPlayer.positionY)) {
-                  _this2.playerToUpdate.next(parsedPlayer);
+                  _this6.playerToUpdate.next(parsedPlayer);
                 }
               } else {
-                _this2.playerToUpdate.next(parsedPlayer);
+                _this6.playerToUpdate.next(parsedPlayer);
               }
             });
 
-            _this2.stompClient.subscribe('/pacman/update/monster', function (monster) {
-              var monsterParsed = _this2.formatter.decodeMonster(monster);
+            _this6.stompClient.subscribe('/pacman/update/monster', function (monster) {
+              var monsterParsed = _this6.formatter.decodeMonster(monster);
 
-              _this2.measurementService.addMeasurementResponse(monsterParsed.id, 0, 0, 0, 0);
+              var responseTimeInMillis = new Date().getTime() - Number(monster.headers.requestTimestamp);
 
-              _this2.monsterToUpdate.next(monsterParsed);
+              _this6.measurementService.addMonsterMeasurementWithTime(monsterParsed.id, Number(monster.headers.requestTimestamp), responseTimeInMillis);
+
+              _this6.monsterToUpdate.next(monsterParsed);
             });
 
-            _this2.stompClient.subscribe('/pacman/refresh/coins', function () {
-              _this2.refreshCoin.next();
+            _this6.stompClient.subscribe('/pacman/refresh/coins', function () {
+              _this6.refreshCoin.next();
             });
 
-            _this2.stompClient.subscribe('/pacman/get/coin', function (coinPosition) {
-              _this2.coinToGet.next(_this2.formatter.decodeCoin(coinPosition));
+            _this6.stompClient.subscribe('/pacman/get/coin', function (coinPosition) {
+              _this6.coinToGet.next(_this6.formatter.decodeCoin(coinPosition));
             });
 
-            _this2.stompClient.subscribe('/user/queue/reply', function (currentCoinPosition) {
-              _this2.ifJoinGame.next(JSON.parse(currentCoinPosition.body));
+            _this6.stompClient.subscribe('/user/queue/reply', function (currentCoinPosition) {
+              _this6.ifJoinGame.next(JSON.parse(currentCoinPosition.body));
             });
 
-            _this2.stompClient.subscribe('/user/queue/player', function (playerToUpdate) {
-              var parsedPlayer = _this2.formatter.decodePlayer(playerToUpdate);
+            _this6.stompClient.subscribe('/user/queue/correct/player', function (playerToUpdate) {
+              var parsedPlayer = _this6.formatter.decodePlayer(playerToUpdate);
 
-              var responseTimeInMillis = new Date().getTime() - Number(playerToUpdate.headers.requestTimestamp);
+              console.error(parsedPlayer);
 
-              _this2.measurementService.addMeasurementResponse(parsedPlayer.nickname, responseTimeInMillis, playerToUpdate.headers.requestTimestamp, parsedPlayer.version, playerToUpdate.headers.contentLength);
+              _this6.saveMeasurement(parsedPlayer.nickname, parsedPlayer.version, playerToUpdate.headers.requestTimestamp, playerToUpdate.headers['content-length']);
 
-              var request = _this2.requestCache.getCorrectedPosition(parsedPlayer.version);
+              var request = _this6.requestCache.getCorrectedPosition(parsedPlayer.version);
 
               if (request !== null) {
                 parsedPlayer.positionX = request.x;
                 parsedPlayer.positionY = request.y;
 
-                _this2.playerToUpdate.next(parsedPlayer);
+                _this6.playerToUpdate.next(parsedPlayer);
               }
             });
 
-            _this2.stompClient.subscribe('/pacman/collision/update', function (allCoinPosition) {});
+            _this6.stompClient.subscribe('/pacman/collision/update', function (allCoinPosition) {});
 
-            _this2.state.next(_SocketClientState__WEBPACK_IMPORTED_MODULE_3__["SocketClientState"].CONNECTED);
+            _this6.state.next(_SocketClientState__WEBPACK_IMPORTED_MODULE_3__["SocketClientState"].CONNECTED);
           };
 
           this.stompClient.onStompError = function (frame) {
             console.log('Broker reported error: ' + frame.headers['message']);
             console.log('Additional details: ' + frame.body);
+
+            _this6.state.next(_SocketClientState__WEBPACK_IMPORTED_MODULE_3__["SocketClientState"].ERROR);
+          };
+
+          this.stompClient.onWebSocketClose = function (frame) {
+            console.error(frame);
+          };
+
+          this.stompClient.onWebSocketError = function (frame) {
+            console.error(frame);
+
+            _this6.state.next(_SocketClientState__WEBPACK_IMPORTED_MODULE_3__["SocketClientState"].ERROR);
+
+            _this6.stompClient.deactivate();
           };
 
           this.stompClient.activate();
@@ -2173,8 +2783,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "disconnect",
         value: function disconnect() {
-          console.error('Disconnected');
           this.stompClient.deactivate();
+        }
+      }, {
+        key: "saveMeasurement",
+        value: function saveMeasurement(nickname, version, requestTimestampHeader, contentLengthHeader) {
+          if (nickname.match(this.playersOnTheSameSystemTime) || nickname === this.myNickname) {
+            var responseTimeInMillis = new Date().getTime() - Number(requestTimestampHeader);
+            this.measurementService.addMeasurementResponse(nickname, responseTimeInMillis, Math.ceil((Number(requestTimestampHeader) - this.requestCache.timeForStartCommunication) / 1000), version, Number(contentLengthHeader), Number(requestTimestampHeader));
+          }
         }
       }, {
         key: "sendPosition",
@@ -2253,7 +2870,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }(_Communicator__WEBPACK_IMPORTED_MODULE_2__["Communicator"]);
 
     WebsocketService.ɵfac = function WebsocketService_Factory(t) {
-      return new (t || WebsocketService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_cache_measurement_service__WEBPACK_IMPORTED_MODULE_8__["MeasurementService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_cache_request_cache_service__WEBPACK_IMPORTED_MODULE_9__["RequestCacheService"]));
+      return new (t || WebsocketService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_cache_measurement_service__WEBPACK_IMPORTED_MODULE_7__["MeasurementService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_cache_request_cache_service__WEBPACK_IMPORTED_MODULE_8__["RequestCacheService"]));
     };
 
     WebsocketService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({
@@ -2267,9 +2884,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"]
       }], function () {
         return [{
-          type: _cache_measurement_service__WEBPACK_IMPORTED_MODULE_8__["MeasurementService"]
+          type: _cache_measurement_service__WEBPACK_IMPORTED_MODULE_7__["MeasurementService"]
         }, {
-          type: _cache_request_cache_service__WEBPACK_IMPORTED_MODULE_9__["RequestCacheService"]
+          type: _cache_request_cache_service__WEBPACK_IMPORTED_MODULE_8__["RequestCacheService"]
         }];
       }, null);
     })();
@@ -2334,36 +2951,37 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         _classCallCheck(this, DownloadService);
 
         this.cacheMeasurement = cacheMeasurement;
-        this.RESPONSE_FILE = "response_measurement.csv";
+        this.RESPONSE_FILE_PLAYER = "response_measurement_player.csv";
+        this.RESPONSE_FILE_MONSTER = "response_measurement_monster.csv";
       }
 
       _createClass(DownloadService, [{
         key: "downloadResponseMeasurements",
         value: function downloadResponseMeasurements() {
-          this.downloadResponseFile(this.cacheMeasurement.getResponseMeasurements());
+          this.downloadResponseFile(this.cacheMeasurement.getResponseMeasurements(), _global_config__WEBPACK_IMPORTED_MODULE_2__["CSV_RESPONSE_HEADERS_PLAYER"], this.RESPONSE_FILE_PLAYER);
+          this.downloadResponseFile(this.cacheMeasurement.getResponseMeasurementsForMonster(), _global_config__WEBPACK_IMPORTED_MODULE_2__["CSV_RESPONSE_HEADERS_MONSTER"], this.RESPONSE_FILE_MONSTER);
         }
       }, {
         key: "downloadResponseFile",
-        value: function downloadResponseFile(data) {
+        value: function downloadResponseFile(data, headers, fileName) {
           var replacer = function replacer(key, value) {
             return value === null ? '' : value;
           }; // specify how you want to handle null values here
 
 
-          var header = _global_config__WEBPACK_IMPORTED_MODULE_2__["CSV_RESPONSE_HEADERS"];
           var csv = data.map(function (row) {
-            return header.map(function (fieldName) {
+            return headers.map(function (fieldName) {
               return JSON.stringify(row[fieldName], replacer);
             }).join(',');
           });
-          header = header.map(function (x) {
+          headers = headers.map(function (x) {
             return x.toUpperCase();
           });
-          csv.unshift(header.join(','));
+          csv.unshift(headers.join(','));
           var csvArray = csv.join('\r\n');
           Object(file_saver__WEBPACK_IMPORTED_MODULE_1__["saveAs"])(new Blob([csvArray], {
             type: 'text/csv'
-          }), this.RESPONSE_FILE);
+          }), fileName);
         }
       }]);
 
@@ -2427,7 +3045,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     var phaser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
     /*! phaser */
-    "./node_modules/phaser/src/phaser.js");
+    "./node_modules/phaser/dist/phaser.js");
     /* harmony import */
 
 
@@ -2437,9 +3055,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _scenes_main_scene_main_scene_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-    /*! ../scenes/main-scene/main-scene.component */
-    "./src/app/scenes/main-scene/main-scene.component.ts");
+    var _scene_main_scene_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! ../scene/main-scene.component */
+    "./src/app/scene/main-scene.component.ts");
 
     var GameComponent =
     /*#__PURE__*/
@@ -2488,7 +3106,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }();
 
     GameComponent.ɵfac = function GameComponent_Factory(t) {
-      return new (t || GameComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_scenes_main_scene_main_scene_component__WEBPACK_IMPORTED_MODULE_2__["MainSceneComponent"]));
+      return new (t || GameComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_scene_main_scene_component__WEBPACK_IMPORTED_MODULE_2__["MainSceneComponent"]));
     };
 
     GameComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -2511,7 +3129,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         }]
       }], function () {
         return [{
-          type: _scenes_main_scene_main_scene_component__WEBPACK_IMPORTED_MODULE_2__["MainSceneComponent"]
+          type: _scene_main_scene_component__WEBPACK_IMPORTED_MODULE_2__["MainSceneComponent"]
         }];
       }, null);
     })();
@@ -2547,23 +3165,35 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    var _environments_environment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! ../../environments/environment */
+    "./src/environments/environment.ts");
+    /* harmony import */
+
+
+    var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
     /*! @angular/router */
     "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
     /* harmony import */
 
 
-    var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
     /*! @angular/forms */
     "./node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js");
     /* harmony import */
 
 
-    var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    var _angular_material_radio__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! @angular/material/radio */
+    "./node_modules/@angular/material/__ivy_ngcc__/fesm2015/radio.js");
+    /* harmony import */
+
+
+    var _angular_common__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
     /*! @angular/common */
     "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
 
-    function HomeComponent_h4_15_Template(rf, ctx) {
+    function HomeComponent_h4_38_Template(rf, ctx) {
       if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "h4");
 
@@ -2577,7 +3207,25 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("You can't start game because other player has the same nickname: ", ctx_r0.answer, "");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("You can't start game because other player has the same nickname: '", ctx_r0.answer, "'");
+      }
+    }
+
+    function HomeComponent_h4_39_Template(rf, ctx) {
+      if (rf & 1) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "h4");
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+      }
+
+      if (rf & 2) {
+        var ctx_r1 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](ctx_r1.message);
       }
     }
 
@@ -2588,9 +3236,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         _classCallCheck(this, HomeComponent);
 
         this.router = router;
+        this.versionName = _environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].versionName;
+        this.contentFormat = _environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].contentFormat;
+        this.vpsServer = _environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].vpsServerUrl;
+        this.localServerUrl = _environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].localServerUrl;
+        this.speed = 21;
+        this.additionalObjects = 0;
+        this.serverUrl = _environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].vpsServerUrl;
 
         if (this.router.getCurrentNavigation().extras.state) {
           this.answer = this.router.getCurrentNavigation().extras.state.nick;
+          this.message = this.router.getCurrentNavigation().extras.state.message;
         }
       }
 
@@ -2599,7 +3255,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function startGame(nickname) {
           this.router.navigate(['game'], {
             state: {
-              nick: nickname
+              nick: nickname,
+              speed: this.speed,
+              additionalObjects: this.additionalObjects,
+              serverUrl: this.serverUrl,
+              formatter: _environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].formatter
             }
           });
         }
@@ -2609,70 +3269,196 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }();
 
     HomeComponent.ɵfac = function HomeComponent_Factory(t) {
-      return new (t || HomeComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]));
+      return new (t || HomeComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]));
     };
 
     HomeComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
       type: HomeComponent,
       selectors: [["app-home"]],
-      decls: 16,
-      vars: 3,
-      consts: [["id", "background"], [3, "ngModel", "ngModelChange"], [3, "disabled", "click"], [4, "ngIf"]],
+      decls: 40,
+      vars: 14,
+      consts: [["id", "container"], ["id", "settings"], [3, "ngModel", "ngModelChange"], ["aria-label", "Where to connect", 3, "ngModel", "ngModelChange"], [3, "value"], ["id", "background"], [3, "disabled", "click"], [4, "ngIf"]],
       template: function HomeComponent_Template(rf, ctx) {
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "h1");
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 1);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, "Welcome in multiplayer Pacman Game");
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "h3");
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](3, "br");
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](4, "br");
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](5, "br");
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](6, "h2");
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](7, "Set nickname and click 'START'");
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](3, "Settings:");
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](8, "input", 1);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "h5");
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ngModelChange", function HomeComponent_Template_input_ngModelChange_8_listener($event) {
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](5);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](6, "h5");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](7);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](8, "h5");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](9);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](10, "h5");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](11);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](12, "h5");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](13);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](14, " Sending speed (ms): ");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](15, "input", 2);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ngModelChange", function HomeComponent_Template_input_ngModelChange_15_listener($event) {
+            return ctx.speed = $event;
+          });
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](16, " Additional objects per second: ");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](17, "input", 2);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ngModelChange", function HomeComponent_Template_input_ngModelChange_17_listener($event) {
+            return ctx.additionalObjects = $event;
+          });
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](18, "mat-radio-group", 3);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ngModelChange", function HomeComponent_Template_mat_radio_group_ngModelChange_18_listener($event) {
+            return ctx.serverUrl = $event;
+          });
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](19, "mat-radio-button", 4);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](20, "VPS");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](21, "mat-radio-button", 4);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](22, "LOCAL");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](23, "div", 5);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](24, "h1");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](25, "Welcome in multiplayer Pacman Game");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](26, "br");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](27, "br");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](28, "br");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](29, "h2");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](30, "Set nickname and click 'START'");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](31, "input", 2);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ngModelChange", function HomeComponent_Template_input_ngModelChange_31_listener($event) {
             return ctx.nickname = $event;
           });
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](9, "button", 2);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](32, "button", 6);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function HomeComponent_Template_button_click_9_listener() {
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function HomeComponent_Template_button_click_32_listener() {
             return ctx.startGame(ctx.nickname);
           });
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](10, "Start");
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](33, "Start");
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](11, "br");
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](34, "br");
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](12, "br");
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](35, "br");
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](13, "br");
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](36, "br");
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](14, "br");
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](37, "br");
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](15, HomeComponent_h4_15_Template, 2, 1, "h4", 3);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](38, HomeComponent_h4_38_Template, 2, 1, "h4", 7);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](39, HomeComponent_h4_39_Template, 2, 1, "h4", 7);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         }
 
         if (rf & 2) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](8);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("Version: ", ctx.versionName, "");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("Content Format: ", ctx.contentFormat, "");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("Sending speed: ", ctx.speed, "");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("Additional objects: ", ctx.additionalObjects, "");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("URL: ", ctx.serverUrl, "");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngModel", ctx.speed);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngModel", ctx.additionalObjects);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngModel", ctx.serverUrl);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpropertyInterpolate"]("value", ctx.vpsServer);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpropertyInterpolate"]("value", ctx.localServerUrl);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](10);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngModel", ctx.nickname);
 
@@ -2683,10 +3469,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](6);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.answer);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.message);
         }
       },
-      directives: [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NgModel"], _angular_common__WEBPACK_IMPORTED_MODULE_3__["NgIf"]],
-      styles: ["#background[_ngcontent-%COMP%] {\r\n    text-align: center;\r\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvaG9tZS9ob21lLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxrQkFBa0I7QUFDdEIiLCJmaWxlIjoic3JjL2FwcC9ob21lL2hvbWUuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIiNiYWNrZ3JvdW5kIHtcclxuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcclxufVxyXG4iXX0= */"]
+      directives: [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["NgModel"], _angular_material_radio__WEBPACK_IMPORTED_MODULE_4__["MatRadioGroup"], _angular_material_radio__WEBPACK_IMPORTED_MODULE_4__["MatRadioButton"], _angular_common__WEBPACK_IMPORTED_MODULE_5__["NgIf"]],
+      styles: ["#container[_ngcontent-%COMP%] {\r\n    display: flex;\r\n}\r\n\r\n#background[_ngcontent-%COMP%] {\r\n    text-align: center;\r\n    flex-basis: 100rem;\r\n}\r\n\r\n#settings[_ngcontent-%COMP%] {\r\n    flex-basis: 15rem;\r\n}\r\n\r\nh4[_ngcontent-%COMP%] {\r\n    color: red;\r\n}\r\n\r\nh4[_ngcontent-%COMP%] {\r\n    color: red;\r\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvaG9tZS9ob21lLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxhQUFhO0FBQ2pCOztBQUVBO0lBQ0ksa0JBQWtCO0lBQ2xCLGtCQUFrQjtBQUN0Qjs7QUFFQTtJQUNJLGlCQUFpQjtBQUNyQjs7QUFFQTtJQUNJLFVBQVU7QUFDZDs7QUFFQTtJQUNJLFVBQVU7QUFDZCIsImZpbGUiOiJzcmMvYXBwL2hvbWUvaG9tZS5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiI2NvbnRhaW5lciB7XHJcbiAgICBkaXNwbGF5OiBmbGV4O1xyXG59XHJcblxyXG4jYmFja2dyb3VuZCB7XHJcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgICBmbGV4LWJhc2lzOiAxMDByZW07XHJcbn1cclxuXHJcbiNzZXR0aW5ncyB7XHJcbiAgICBmbGV4LWJhc2lzOiAxNXJlbTtcclxufVxyXG5cclxuaDQge1xyXG4gICAgY29sb3I6IHJlZDtcclxufVxyXG5cclxuaDQge1xyXG4gICAgY29sb3I6IHJlZDtcclxufVxyXG4iXX0= */"]
     });
     /*@__PURE__*/
 
@@ -2700,7 +3490,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         }]
       }], function () {
         return [{
-          type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]
+          type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]
         }];
       }, null);
     })();
@@ -2731,14 +3521,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var MeasurementResponse =
     /*#__PURE__*/
     function () {
-      function MeasurementResponse(id, response_time_in_millis, request_timestamp, version_response, size) {
+      function MeasurementResponse(id, response_time_in_millis, specific_second_of_communication, version_response, size, request_timestamp) {
         _classCallCheck(this, MeasurementResponse);
 
         this._id = id;
         this._response_time_in_millis = response_time_in_millis;
-        this._request_timestamp = request_timestamp;
+        this._specific_second_of_communication = specific_second_of_communication;
         this._version_response = version_response;
         this._size = size;
+        this._request_timestamp = request_timestamp;
       }
 
       _createClass(MeasurementResponse, [{
@@ -2750,12 +3541,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           this._response_time_in_millis = value;
         }
       }, {
-        key: "request_timestamp",
+        key: "specific_second_of_communication",
         get: function get() {
-          return this._request_timestamp;
+          return this._specific_second_of_communication;
         },
         set: function set(value) {
-          this._request_timestamp = value;
+          this._specific_second_of_communication = value;
         }
       }, {
         key: "version_response",
@@ -2781,9 +3572,89 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         set: function set(value) {
           this._size = value;
         }
+      }, {
+        key: "request_timestamp",
+        get: function get() {
+          return this._request_timestamp;
+        },
+        set: function set(value) {
+          this._request_timestamp = value;
+        }
       }]);
 
       return MeasurementResponse;
+    }();
+    /***/
+
+  },
+
+  /***/
+  "./src/app/model/MonsterMeasurement.ts":
+  /*!*********************************************!*\
+    !*** ./src/app/model/MonsterMeasurement.ts ***!
+    \*********************************************/
+
+  /*! exports provided: MonsterMeasurement */
+
+  /***/
+  function srcAppModelMonsterMeasurementTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "MonsterMeasurement", function () {
+      return MonsterMeasurement;
+    });
+
+    var MonsterMeasurement =
+    /*#__PURE__*/
+    function () {
+      function MonsterMeasurement(id, specific_second_of_communication, request_timestamp, response_time_in_millis) {
+        _classCallCheck(this, MonsterMeasurement);
+
+        this._id = id;
+        this._specific_second_of_communication = specific_second_of_communication;
+        this._request_timestamp = request_timestamp;
+        this._response_time_in_millis = response_time_in_millis;
+      }
+
+      _createClass(MonsterMeasurement, [{
+        key: "id",
+        get: function get() {
+          return this._id;
+        },
+        set: function set(value) {
+          this._id = value;
+        }
+      }, {
+        key: "specific_second_of_communication",
+        get: function get() {
+          return this._specific_second_of_communication;
+        },
+        set: function set(value) {
+          this._specific_second_of_communication = value;
+        }
+      }, {
+        key: "request_timestamp",
+        get: function get() {
+          return this._request_timestamp;
+        },
+        set: function set(value) {
+          this._request_timestamp = value;
+        }
+      }, {
+        key: "response_time_in_millis",
+        get: function get() {
+          return this._response_time_in_millis;
+        },
+        set: function set(value) {
+          this._response_time_in_millis = value;
+        }
+      }]);
+
+      return MonsterMeasurement;
     }();
     /***/
 
@@ -2813,7 +3684,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     var phaser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
     /*! phaser */
-    "./node_modules/phaser/src/phaser.js");
+    "./node_modules/phaser/dist/phaser.js");
     /* harmony import */
 
 
@@ -2826,23 +3697,24 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     function (_phaser__WEBPACK_IMPO) {
       _inherits(Player, _phaser__WEBPACK_IMPO);
 
-      var _super2 = _createSuper(Player);
+      var _super3 = _createSuper(Player);
 
-      function Player(scene, x, y, texture, score) {
-        var _this3;
+      function Player(scene, x, y, texture, score, version) {
+        var _this7;
 
         _classCallCheck(this, Player);
 
-        _this3 = _super2.call(this, scene, x, y, texture); // Dodanie gracza do sceny (zeby w ogole byl widoczny)
+        _this7 = _super3.call(this, scene, x, y, texture); // Dodanie gracza do sceny (zeby w ogole byl widoczny)
 
-        scene.add.existing(_assertThisInitialized(_this3)); // Dodanie gracza do fizyki co pozwala na ustawianie interakcji
+        scene.add.existing(_assertThisInitialized(_this7)); // Dodanie gracza do fizyki co pozwala na ustawianie interakcji
 
-        scene.physics.add.existing(_assertThisInitialized(_this3)); // Dodanie kolidera na graczu oraz warstwie
+        scene.physics.add.existing(_assertThisInitialized(_this7)); // Dodanie kolidera na graczu oraz warstwie
 
-        scene.physics.add.collider(_assertThisInitialized(_this3), scene.backgroundLayer); // scene.anims.play('myUp');
+        scene.physics.add.collider(_assertThisInitialized(_this7), scene.backgroundLayer); // scene.anims.play('myUp');
 
-        _this3._score = score;
-        return _this3;
+        _this7._score = score;
+        _this7._version = version;
+        return _this7;
       }
 
       _createClass(Player, [{
@@ -2950,15 +3822,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   },
 
   /***/
-  "./src/app/scenes/main-scene/main-scene.component.ts":
-  /*!***********************************************************!*\
-    !*** ./src/app/scenes/main-scene/main-scene.component.ts ***!
-    \***********************************************************/
+  "./src/app/scene/main-scene.component.ts":
+  /*!***********************************************!*\
+    !*** ./src/app/scene/main-scene.component.ts ***!
+    \***********************************************/
 
   /*! exports provided: MainSceneComponent */
 
   /***/
-  function srcAppScenesMainSceneMainSceneComponentTs(module, __webpack_exports__, __webpack_require__) {
+  function srcAppSceneMainSceneComponentTs(module, __webpack_exports__, __webpack_require__) {
     "use strict";
 
     __webpack_require__.r(__webpack_exports__);
@@ -2979,7 +3851,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     var phaser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
     /*! phaser */
-    "./node_modules/phaser/src/phaser.js");
+    "./node_modules/phaser/dist/phaser.js");
     /* harmony import */
 
 
@@ -2990,7 +3862,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
     var _model_Player__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-    /*! ../../model/Player */
+    /*! ../model/Player */
     "./src/app/model/Player.ts");
     /* harmony import */
 
@@ -3002,37 +3874,37 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
     var _communication_Communicator__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
-    /*! ../../communication/Communicator */
+    /*! ../communication/Communicator */
     "./src/app/communication/Communicator.ts");
     /* harmony import */
 
 
     var _communication_Direction__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
-    /*! ../../communication/Direction */
+    /*! ../communication/Direction */
     "./src/app/communication/Direction.ts");
     /* harmony import */
 
 
     var _communication_SocketClientState__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
-    /*! ../../communication/SocketClientState */
+    /*! ../communication/SocketClientState */
     "./src/app/communication/SocketClientState.ts");
     /* harmony import */
 
 
     var _model_Request__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
-    /*! ../../model/Request */
+    /*! ../model/Request */
     "./src/app/model/Request.ts");
     /* harmony import */
 
 
-    var _communication_simulation_data_AdditionalObject__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
-    /*! ../../communication/simulation/data/AdditionalObject */
-    "./src/app/communication/simulation/data/AdditionalObject.ts");
+    var _communication_simulation_data_AdditionalData__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+    /*! ../communication/simulation/data/AdditionalData */
+    "./src/app/communication/simulation/data/AdditionalData.ts");
     /* harmony import */
 
 
     var _environments_environment__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
-    /*! ../../../environments/environment */
+    /*! ../../environments/environment */
     "./src/environments/environment.ts");
     /* harmony import */
 
@@ -3044,13 +3916,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
     var _downloader_download_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
-    /*! ../../downloader/download.service */
+    /*! ../downloader/download.service */
     "./src/app/downloader/download.service.ts");
     /* harmony import */
 
 
     var _cache_request_cache_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
-    /*! ../../cache/request-cache.service */
+    /*! ../cache/request-cache.service */
     "./src/app/cache/request-cache.service.ts");
 
     var MainSceneComponent =
@@ -3058,65 +3930,58 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     function (_phaser__WEBPACK_IMPO2) {
       _inherits(MainSceneComponent, _phaser__WEBPACK_IMPO2);
 
-      var _super3 = _createSuper(MainSceneComponent);
+      var _super4 = _createSuper(MainSceneComponent);
 
       function MainSceneComponent(websocketService, router, renderer, downloadService, requestCache) {
-        var _this4;
+        var _this8;
 
         _classCallCheck(this, MainSceneComponent);
 
-        _this4 = _super3.call(this, {
+        _this8 = _super4.call(this, {
           key: 'main'
         });
-        _this4.websocketService = websocketService;
-        _this4.router = router;
-        _this4.renderer = renderer;
-        _this4.downloadService = downloadService;
-        _this4.requestCache = requestCache; // Additional data for testing changing data size
+        _this8.websocketService = websocketService;
+        _this8.router = router;
+        _this8.renderer = renderer;
+        _this8.downloadService = downloadService;
+        _this8.requestCache = requestCache; // Game objects
 
-        _this4.additionalData = _this4.randomString(50, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
-        _this4.arrayWithAdditionalData = new Array(20); // Game objects
+        _this8.players = new Map();
+        _this8.monsters = new Map();
+        _this8.rank = new Array(); // Sending objects
 
-        _this4.players = new Map();
-        _this4.monsters = new Map();
-        _this4.rank = new Array(); // Sending objects
+        _this8.startSendingPlayerPosition = false;
+        _this8.counterRequest = 0;
+        _this8.scoreRanking = new Map();
 
-        _this4.startSendingPlayerPosition = false;
-        _this4.counterRequest = 0;
-        _this4.scoreRanking = new Map();
-
-        if (_this4.router.getCurrentNavigation().extras.state) {
-          _this4.myPlayerName = _this4.router.getCurrentNavigation().extras.state.nick;
-          _this4.websocketService.myNickname = _this4.myPlayerName;
+        if (_this8.router.getCurrentNavigation().extras.state) {
+          _this8.myPlayerName = _this8.router.getCurrentNavigation().extras.state.nick;
+          _this8.SENDING_SPEED = _this8.router.getCurrentNavigation().extras.state.speed;
+          _this8.websocketService.myNickname = _this8.myPlayerName;
+          _this8.websocketService.serverUrl = _this8.router.getCurrentNavigation().extras.state.serverUrl;
+          _this8.websocketService.formatter = _this8.router.getCurrentNavigation().extras.state.formatter;
+          _this8.numberOfAdditionalObjectsPerSecond = Number(_this8.router.getCurrentNavigation().extras.state.additionalObjects);
+          _this8.arrayWithAdditionalData = new Array(Number(_this8.router.getCurrentNavigation().extras.state.additionalObjects));
         } else {
-          _this4.router.navigate(['home']);
+          _this8.router.navigate(['home']);
         }
 
-        return _this4;
+        return _this8;
       }
 
       _createClass(MainSceneComponent, [{
         key: "startGame",
         value: function startGame() {
-          var _this5 = this;
+          var _this9 = this;
 
-          this.websocketService.initializeConnection(); // const tab = (data as any).default;
-          //
-
-          for (var i = 0; i < this.arrayWithAdditionalData.length; i++) {
-            this.arrayWithAdditionalData[i] = new _communication_simulation_data_AdditionalObject__WEBPACK_IMPORTED_MODULE_8__["AdditionalObject"](5555, this.additionalData);
-          } // setTimeout(() => {
-          //         for (let i = 0; i < tab.length; i++) {
-          //             this.simulationConnection[i] = new WebsocketSimulationConnection(tab[i].nickname);
-          //             this.simulationConnection[i].initializeConnection(tab[i],4000 + 500 * i);
-          //         }
-          //     }, 5000
-          // )
-
+          this.websocketService.initializeConnection(); // for (let i = 0; i < this.arrayWithAdditionalData.length; i++) {
+          //     this.arrayWithAdditionalData[i] = new AdditionalData(this.getRandomInt(20000, 99999), this.getRandomInt(20000, 99999), this.getRandomInt(20000, 99999),
+          //         this.randomString(20, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'));
+          // }
 
           this.stateSubscription = this.websocketService.getState().subscribe(function (state) {
             if (state === _communication_SocketClientState__WEBPACK_IMPORTED_MODULE_6__["SocketClientState"].CONNECTED) {
-              _this5.ifJoinToGameSubscription = _this5.websocketService.getIfJoinGame().subscribe(function (currentCoinPosition) {
+              _this9.ifJoinToGameSubscription = _this9.websocketService.getIfJoinGame().subscribe(function (currentCoinPosition) {
                 if (currentCoinPosition.length > 0) {
                   var _iterator = _createForOfIteratorHelper(currentCoinPosition),
                       _step;
@@ -3125,7 +3990,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     for (_iterator.s(); !(_step = _iterator.n()).done;) {
                       var coinPosition = _step.value;
 
-                      _this5.coins.create(coinPosition.positionX * 32 + 16, coinPosition.positionY * 32 - 16, "coin", null, true, true);
+                      _this9.coins.create(coinPosition.positionX * 32 + 16, coinPosition.positionY * 32 - 16, "coin", null, true, true);
                     }
                   } catch (err) {
                     _iterator.e(err);
@@ -3133,13 +3998,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     _iterator.f();
                   }
 
-                  _this5.websocketService.addPlayer(_this5.myPlayerName);
+                  _this9.websocketService.addPlayer(_this9.myPlayerName);
                 } else if (currentCoinPosition.length === 0) {
                   document.getElementsByTagName('canvas').item(0).remove();
 
-                  _this5.router.navigate(['home'], {
+                  _this9.router.navigate(['home'], {
                     state: {
-                      nick: _this5.myPlayerName
+                      nick: _this9.myPlayerName
                     }
                   });
 
@@ -3147,13 +4012,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 }
               });
 
-              _this5.websocketService.joinToGame(_this5.myPlayerName);
+              _this9.websocketService.joinToGame(_this9.myPlayerName);
 
               console.error('Nawiazalem polaczenie websocket i dodalem uzytkownika!');
             } else if (state === _communication_SocketClientState__WEBPACK_IMPORTED_MODULE_6__["SocketClientState"].ERROR) {
-              console.error('Brak polaczenia websocket z serwerem');
-
-              _this5.cleanAndBackToHomePage();
+              _this9.notifyAboutError('Błąd: Brak połaczenia z serwerem');
             } else {
               console.error('Probuje nawiazac polaczenie!');
             }
@@ -3162,24 +4025,23 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "create",
         value: function create() {
-          var _this6 = this;
+          var _this10 = this;
 
           this.startGame();
           var updateTop3 = Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["interval"])(1000);
           this.subscriptionUpdateTop3 = updateTop3.subscribe(function () {
-            _this6.checkRanking();
+            _this10.checkRanking();
           }); // Jeszcze trzeba zaimplementowac
 
           this.coinToGetSubscription = this.websocketService.getCoinToGet().subscribe(function (coinToCollect) {});
           this.updateScoreSubscription = this.websocketService.getUpdateScore().subscribe(function (myScore) {
-            _this6.players.get(_this6.myPlayerName).score = myScore;
+            _this10.players.get(_this10.myPlayerName).score = myScore;
 
-            _this6.yourScore.setText(_this6.myPlayerName + " score: " + myScore);
-          }); // Jeszcze trzeba zaimplementowac
-
+            _this10.yourScore.setText(_this10.myPlayerName + " score: " + myScore);
+          });
           this.refreshCoinsSubscription = this.websocketService.getRefreshCoins().subscribe(function () {
-            _this6.coinLayer.forEach(function (object) {
-              var obj = _this6.coins.create(object.x + 16, object.y - 16, "coin");
+            _this10.coinLayer.forEach(function (object) {
+              var obj = _this10.coins.create(object.x + 16, object.y - 16, "coin");
 
               obj.setScale(object.width / 32, object.height / 32);
               obj.body.width = object.width;
@@ -3214,13 +4076,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           this.exitButton = this.add.image(this.game.canvas.width - 48, 48, 'exit-button');
           this.exitButton.setInteractive();
           this.exitButton.on('pointerup', function () {
-            _this6.switchScene();
+            _this10.switchScene();
           });
           this.downloadButton = this.add.image(this.game.canvas.width - 208, 48, 'download-button');
           this.downloadButton.setInteractive();
           this.downloadButton.on('pointerup', function () {
-            // this.downloadService.downloadRequestMeasurements();
-            _this6.downloadService.downloadResponseMeasurements();
+            _this10.downloadService.downloadResponseMeasurements();
           }); // Dodanie kolizji dla elementow warstwy background o id od 150 do 250 (te id znajduja sie w tileset ktory sklada sie na te warstwe)
 
           this._backgroundLayer.setCollisionBetween(140, 250);
@@ -3242,9 +4103,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             fill: "#0022ff",
             align: "center"
           });
-
-          this.coins.removeCallback = function () {};
-
           console.error('Completed Board');
         }
       }, {
@@ -3271,7 +4129,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "update",
         value: function update() {
-          // console.log('PETLA GRA');
           if (this.startSendingPlayerPosition) {
             this.movePlayerManager();
           }
@@ -3285,19 +4142,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "managePlayersInGame",
         value: function managePlayersInGame() {
-          var _this7 = this;
+          var _this11 = this;
 
           this.playersToAddSubscription = this.websocketService.getPlayersToAdd().subscribe(function (playersToAdd) {
             playersToAdd.sort(function (a, b) {
               return b.score - a.score;
             });
-            _this7.rank.length = 4;
+            _this11.rank.length = 4;
 
-            _this7.scoreNumber1.setText("NO_ONE");
+            _this11.scoreNumber1.setText("NO_ONE");
 
-            _this7.scoreNumber2.setText("NO_ONE");
+            _this11.scoreNumber2.setText("NO_ONE");
 
-            _this7.scoreNumber3.setText("NO_ONE");
+            _this11.scoreNumber3.setText("NO_ONE");
 
             var counter = 0;
 
@@ -3310,36 +4167,37 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 counter++;
 
                 if (counter < 4) {
-                  _this7.rank[counter - 1] = player;
+                  _this11.rank[counter - 1] = player;
 
-                  _this7.setScoreText(counter, player);
+                  _this11.setScoreText(counter, player);
                 }
 
-                if (!_this7.players.has(player.nickname)) {
-                  if (player.nickname !== _this7.myPlayerName) {
-                    _this7.players.set(player.nickname, new _model_Player__WEBPACK_IMPORTED_MODULE_2__["Player"](_this7, player.positionX, player.positionY, 'other-player', player.score));
+                if (!_this11.players.has(player.nickname)) {
+                  if (player.nickname !== _this11.myPlayerName) {
+                    _this11.players.set(player.nickname, new _model_Player__WEBPACK_IMPORTED_MODULE_2__["Player"](_this11, player.positionX, player.positionY, 'other-player', player.score, -1));
 
                     console.error('Dodaje gracza ' + player.nickname);
 
-                    _this7.players.get(player.nickname).anims.play('enemyAnim');
+                    _this11.players.get(player.nickname).anims.play('enemyAnim');
                   } else {
-                    _this7.players.set(player.nickname, new _model_Player__WEBPACK_IMPORTED_MODULE_2__["Player"](_this7, player.positionX, player.positionY, 'my-player', player.score));
+                    _this11.players.set(player.nickname, new _model_Player__WEBPACK_IMPORTED_MODULE_2__["Player"](_this11, player.positionX, player.positionY, 'my-player', player.score, -1));
 
-                    _this7.startSendingPlayerPosition = true;
-                    _this7.yourScore = _this7.add.text(32, 32, _this7.myPlayerName + " score: " + player.score, {
+                    _this11.startSendingPlayerPosition = true;
+                    _this11.yourScore = _this11.add.text(32, 32, _this11.myPlayerName + " score: " + player.score, {
                       font: "30px Arial",
                       fill: "#ff0044",
                       align: "center"
                     }); // Uruchomienie animacji wczesniej przygotowanej
 
-                    _this7.players.get(player.nickname).anims.play('myAnim');
+                    _this11.players.get(player.nickname).anims.play('myAnim');
 
-                    _this7.requestCache.lastCorrectRequest = new _model_Request__WEBPACK_IMPORTED_MODULE_7__["Request"](0, player.positionX, player.positionY);
+                    _this11.requestCache.lastCorrectRequest = new _model_Request__WEBPACK_IMPORTED_MODULE_7__["Request"](0, player.positionX, player.positionY);
+                    _this11.requestCache.timeForStartCommunication = new Date().getTime();
 
-                    _this7.sendPlayerPosition();
+                    _this11.sendPlayerPosition();
                   }
 
-                  _this7.physics.add.overlap(_this7.players.get(player.nickname), _this7.coins, _this7.collectCoin, null, _this7);
+                  _this11.physics.add.overlap(_this11.players.get(player.nickname), _this11.coins, _this11.collectCoin, null, _this11);
                 }
               }
             } catch (err) {
@@ -3349,110 +4207,72 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             }
           });
           this.playerToRemoveSubscription = this.websocketService.getPlayerToRemove().subscribe(function (playerToRemove) {
-            _this7.rank = _this7.rank.filter(function (item) {
+            _this11.rank = _this11.rank.filter(function (item) {
               return item.nickname !== playerToRemove.nickname;
             });
-            console.error("Po srpawdzeniu rankingu");
 
-            if (playerToRemove.nickname === _this7.myPlayerName) {
-              _this7.cleanAndBackToHomePage();
+            if (playerToRemove.nickname === _this11.myPlayerName) {
+              _this11.cleanAndBackToHomePage();
             }
 
-            _this7.players.get(playerToRemove.nickname).destroy(true);
+            _this11.players.get(playerToRemove.nickname).destroy(true);
 
-            _this7.players["delete"](playerToRemove.nickname);
+            _this11.players["delete"](playerToRemove.nickname);
           });
           this.playerToUpdateSubscription = this.websocketService.getPlayerToUpdate().subscribe(function (player) {
-            var currentPlayer = _this7.players.get(player.nickname);
+            var currentPlayer = _this11.players.get(player.nickname);
 
             if (currentPlayer) {
-              _this7.changeAnimationFrameForOtherPlayers(player, currentPlayer);
+              _this11.changeAnimationFrameForOtherPlayers(player, currentPlayer);
 
-              currentPlayer.x = player.positionX;
-              currentPlayer.y = player.positionY;
-              currentPlayer.score = player.score;
-              console.error('current player');
-            }
-          });
-        } // 50 FPS dla 20 milis
-
-      }, {
-        key: "sendPlayerPosition",
-        value: function sendPlayerPosition() {
-          var _this8 = this;
-
-          var player = this.players.get(this.myPlayerName); // this.lastAngle = player.angle;
-          //
-          // this.setDeceleratingTimeout(()=> {
-          //     const player: Player = this.players.get(this.myPlayerName);
-          //     this.requestCache.addRequest(++this.counterRequest, player.x, player.y);
-          //     if(this.arrayWithAdditionalData.length < 2000) {
-          //         this.arrayWithAdditionalData.push(new AdditionalObject(5555,this.additionalData));
-          //     }
-          //
-          //     this.websocketService.sendPosition({
-          //         "nickname": this.myPlayerName,
-          //         "positionX": player.x,
-          //         "positionY": player.y,
-          //         "score": player.score,
-          //         "stepDirection": this.getDirection(),
-          //         "version": this.counterRequest,
-          //         "requestTimestamp": new Date().getTime(),
-          //         // "additionalData": this.arrayWithAdditionalData
-          //     });
-          //
-          //     }, 1, 10000);
-
-          this.lastX = player.x;
-          this.lastY = player.y;
-          this.lastAngle = player.angle;
-          var dataProvider = Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["interval"])(1000);
-          var subscriptionDataProvider = dataProvider.subscribe(function () {
-            for (var i = 0; i < 10; i++) {
-              _this8.arrayWithAdditionalData.push(new _communication_simulation_data_AdditionalObject__WEBPACK_IMPORTED_MODULE_8__["AdditionalObject"](5555, _this8.additionalData));
-            }
-
-            if (_this8.arrayWithAdditionalData.length > 300) {
-              subscriptionDataProvider.unsubscribe();
-            }
-          });
-          this.positionSender = Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["interval"])(20);
-          this.positionSenderSubscription = this.positionSender.subscribe(function () {
-            var player = _this8.players.get(_this8.myPlayerName);
-
-            if (_this8.lastX !== player.x || _this8.lastY !== player.y || _this8.lastAngle !== player.angle) {
-              _this8.lastX = player.x;
-              _this8.lastY = player.y;
-              _this8.lastAngle = player.angle;
-
-              _this8.requestCache.addRequest(++_this8.counterRequest, player.x, player.y);
-
-              _this8.websocketService.sendPosition({
-                "nickname": _this8.myPlayerName,
-                "positionX": player.x,
-                "positionY": player.y,
-                "score": player.score,
-                "stepDirection": _this8.getDirection(),
-                "version": _this8.counterRequest,
-                "requestTimestamp": new Date().getTime(),
-                "additionalData": _this8.arrayWithAdditionalData
-              });
+              if (currentPlayer.version <= player.version) {
+                currentPlayer.x = player.positionX;
+                currentPlayer.y = player.positionY;
+                currentPlayer.score = player.score;
+                currentPlayer.version = player.version;
+              }
             }
           });
         }
       }, {
-        key: "setDeceleratingTimeout",
-        value: function setDeceleratingTimeout(callback, factor, times) {
-          var internalCallback = function (tick, counter) {
-            return function () {
-              if (--tick >= 0) {
-                window.setTimeout(internalCallback, (20000 - ++counter * factor) / 1000);
-                callback();
-              }
-            };
-          }(times, 0);
+        key: "sendPlayerPosition",
+        value: function sendPlayerPosition() {
+          var _this12 = this;
 
-          window.setTimeout(internalCallback, factor);
+          // const player = this.players.get(this.myPlayerName);
+          // this.lastX = player.x;
+          // this.lastY = player.y;
+          // this.lastAngle = player.angle;
+          var supplier = Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["interval"])(1000);
+          supplier.subscribe(function () {
+            for (var i = 0; i < _this12.numberOfAdditionalObjectsPerSecond; i++) {
+              _this12.arrayWithAdditionalData.push(new _communication_simulation_data_AdditionalData__WEBPACK_IMPORTED_MODULE_8__["AdditionalData"](_this12.getRandomInt(20000, 99999), _this12.getRandomInt(20000, 99999), _this12.getRandomInt(20000, 99999), _this12.randomString(20, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')));
+            }
+          });
+          this.positionSender = Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["interval"])(this.SENDING_SPEED);
+          this.positionSenderSubscription = this.positionSender.subscribe(function () {
+            var player = _this12.players.get(_this12.myPlayerName); // if ((this.lastX !== player.x) ||
+            //     (this.lastY !== player.y) ||
+            //     (this.lastAngle !== player.angle)) {
+            //
+            //     this.lastX = player.x;
+            //     this.lastY = player.y;
+            //     this.lastAngle = player.angle;
+
+
+            _this12.requestCache.addRequest(++_this12.counterRequest, player.x, player.y);
+
+            _this12.websocketService.sendPosition({
+              "nickname": _this12.myPlayerName,
+              "positionX": player.x,
+              "positionY": player.y,
+              "score": player.score,
+              "stepDirection": _this12.getDirection(),
+              "version": _this12.counterRequest,
+              "additionalData": _this12.arrayWithAdditionalData
+            }); // }
+
+          });
         }
       }, {
         key: "randomString",
@@ -3464,6 +4284,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           }
 
           return result;
+        }
+      }, {
+        key: "getRandomInt",
+        value: function getRandomInt(min, max) {
+          min = Math.ceil(min);
+          max = Math.floor(max);
+          return Math.floor(Math.random() * (max - min)) + min;
         }
       }, {
         key: "setScoreText",
@@ -3497,7 +4324,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "checkRanking",
         value: function checkRanking() {
-          var _this9 = this;
+          var _this13 = this;
 
           var playersArray = new Array();
           this.players.forEach(function (value, key) {
@@ -3509,7 +4336,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           });
           var counter = 1;
           playersArray.forEach(function (element) {
-            _this9.setScoreText(counter, element);
+            _this13.setScoreText(counter, element);
 
             counter++;
 
@@ -3538,64 +4365,20 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "manageMonstersInGame",
         value: function manageMonstersInGame() {
-          var _this10 = this;
+          var _this14 = this;
 
           this.monsterToUpdateSubscription = this.websocketService.getMonsterToUpdate().subscribe(function (monsterToUpdate) {
-            if (_this10.monsters.has(monsterToUpdate.id)) {
-              _this10.monsters.get(monsterToUpdate.id).x = monsterToUpdate.positionX;
-              _this10.monsters.get(monsterToUpdate.id).y = monsterToUpdate.positionY;
+            if (_this14.monsters.has(monsterToUpdate.id)) {
+              _this14.monsters.get(monsterToUpdate.id).x = monsterToUpdate.positionX;
+              _this14.monsters.get(monsterToUpdate.id).y = monsterToUpdate.positionY;
             } else {
-              _this10.monsters.set(monsterToUpdate.id, _this10.physics.add.sprite(monsterToUpdate.positionX, monsterToUpdate.positionY, 'monster'));
+              _this14.monsters.set(monsterToUpdate.id, _this14.physics.add.sprite(monsterToUpdate.positionX, monsterToUpdate.positionY, 'monster'));
 
-              _this10.monsters.get(monsterToUpdate.id).anims.play('animation');
+              _this14.monsters.get(monsterToUpdate.id).anims.play('animation');
             }
           });
         } ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-      }, {
-        key: "switchScene",
-        value: function switchScene() {
-          this.cleanAndBackToHomePage();
-        }
-      }, {
-        key: "cleanAndBackToHomePage",
-        value: function cleanAndBackToHomePage() {
-          this.startSendingPlayerPosition = false;
-          this.myPlayerName = '';
-          this.router.navigate(['home']);
-        }
-      }, {
-        key: "ngOnDestroy",
-        value: function ngOnDestroy() {
-          if (this.ifJoinToGameSubscription && this.stateSubscription && this.playersToAddSubscription && this.playerToRemoveSubscription && this.playerToUpdateSubscription && this.monsterToUpdateSubscription && this.positionSenderSubscription && this.coinToGetSubscription && this.updateScoreSubscription && this.refreshCoinsSubscription && this.subscriptionUpdateTop3) {
-            console.error('OnDestory');
-            this.counterRequest = 0;
-            this.ifJoinToGameSubscription.unsubscribe();
-            this.stateSubscription.unsubscribe();
-            this.playersToAddSubscription.unsubscribe();
-            this.playerToRemoveSubscription.unsubscribe();
-            this.playerToUpdateSubscription.unsubscribe();
-            this.monsterToUpdateSubscription.unsubscribe();
-            this.positionSenderSubscription.unsubscribe();
-            this.coinToGetSubscription.unsubscribe();
-            this.updateScoreSubscription.unsubscribe();
-            this.refreshCoinsSubscription.unsubscribe();
-            this.subscriptionUpdateTop3.unsubscribe();
-            this.websocketService.disconnect(); // for (let i = 0; i < this.simulationConnection.length; i++) {
-            //     this.simulationConnection[i].disconnect();
-            // }
-          }
-
-          if (this.game) {
-            this.game.destroy(true);
-            this.game.scene.remove('main');
-          }
-
-          if (document.getElementsByTagName('canvas')) {
-            console.error(this.renderer);
-            document.getElementsByTagName('canvas').item(0).remove();
-          }
-        }
       }, {
         key: "createAnimationsBySpriteKey",
         value: function createAnimationsBySpriteKey(figureKey, animKey) {
@@ -3604,7 +4387,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             frames: this.anims.generateFrameNumbers(figureKey, {
               frames: [3, 1]
             }),
-            frameRate: 10,
+            frameRate: 5,
             repeat: -1
           });
         }
@@ -3621,11 +4404,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             }
 
             if (currentPlayer.y < playerToUpdate.positionY) {
-              currentPlayer.setAngle(180);
+              currentPlayer.setAngle(0);
             }
 
             if (currentPlayer.y > playerToUpdate.positionY) {
-              currentPlayer.setAngle(0);
+              currentPlayer.setAngle(180);
             }
           }
         }
@@ -3652,6 +4435,53 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               {
                 return _communication_Direction__WEBPACK_IMPORTED_MODULE_5__["Direction"].VERTICAL;
               }
+          }
+        }
+      }, {
+        key: "switchScene",
+        ////////////////////////////////////            Cleaning operations             ////////////////////////////////////////////////
+        value: function switchScene() {
+          this.cleanAndBackToHomePage();
+        }
+      }, {
+        key: "cleanAndBackToHomePage",
+        value: function cleanAndBackToHomePage() {
+          this.startSendingPlayerPosition = false;
+          this.myPlayerName = '';
+          this.router.navigate(['home'], {});
+        }
+      }, {
+        key: "notifyAboutError",
+        value: function notifyAboutError(errorMessage) {
+          this.router.navigate(['home'], {
+            state: {
+              message: errorMessage
+            }
+          });
+        }
+      }, {
+        key: "ngOnDestroy",
+        value: function ngOnDestroy() {
+          if (this.ifJoinToGameSubscription && this.stateSubscription && this.playersToAddSubscription && this.playerToRemoveSubscription && this.playerToUpdateSubscription && this.monsterToUpdateSubscription && this.positionSenderSubscription && this.coinToGetSubscription && this.updateScoreSubscription && this.refreshCoinsSubscription && this.subscriptionUpdateTop3) {
+            console.error('OnDestory');
+            this.counterRequest = 0;
+            this.ifJoinToGameSubscription.unsubscribe();
+            this.stateSubscription.unsubscribe();
+            this.playersToAddSubscription.unsubscribe();
+            this.playerToRemoveSubscription.unsubscribe();
+            this.playerToUpdateSubscription.unsubscribe();
+            this.monsterToUpdateSubscription.unsubscribe();
+            this.positionSenderSubscription.unsubscribe();
+            this.coinToGetSubscription.unsubscribe();
+            this.updateScoreSubscription.unsubscribe();
+            this.refreshCoinsSubscription.unsubscribe();
+            this.subscriptionUpdateTop3.unsubscribe();
+            this.websocketService.disconnect();
+          }
+
+          if (this.game) {
+            this.game.destroy(true);
+            this.game.scene.remove('main');
           }
         }
       }, {
@@ -3682,7 +4512,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](0, "app-game");
         }
       },
-      styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NjZW5lcy9tYWluLXNjZW5lL21haW4tc2NlbmUuY29tcG9uZW50LmNzcyJ9 */"]
+      styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NjZW5lL21haW4tc2NlbmUuY29tcG9uZW50LmNzcyJ9 */"]
     });
     MainSceneComponent.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({
       token: MainSceneComponent,
@@ -3748,13 +4578,24 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _app_communication_websocket_websocket_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
-    /*! ../app/communication/websocket/websocket.service */
-    "./src/app/communication/websocket/websocket.service.ts");
+    var _app_communication_http2_http2_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! ../app/communication/http2/http2.service */
+    "./src/app/communication/http2/http2.service.ts");
+    /* harmony import */
+
+
+    var _app_communication_format_JsonFormatter__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! ../app/communication/format/JsonFormatter */
+    "./src/app/communication/format/JsonFormatter.ts");
 
     var environment = {
       production: false,
-      serviceToCommunication: _app_communication_websocket_websocket_service__WEBPACK_IMPORTED_MODULE_0__["WebsocketService"]
+      serviceToCommunication: _app_communication_http2_http2_service__WEBPACK_IMPORTED_MODULE_0__["Http2Service"],
+      formatter: new _app_communication_format_JsonFormatter__WEBPACK_IMPORTED_MODULE_1__["JsonFormatter"](),
+      versionName: 'HTTP2 + SSE',
+      contentFormat: 'json',
+      vpsServerUrl: 'https://83.229.84.77:8080',
+      localServerUrl: 'https://localhost:8080'
     };
     /***/
   },
