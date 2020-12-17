@@ -64,7 +64,7 @@ public class MapCollisionService {
         int y = player.getPositionY();
 
         switch (player.getStepDirection()) {
-            case VERTICAL: {
+            case VER: {
                 if (x % 32 == 16) {
                     return check(x, y);
                 } else {
@@ -81,7 +81,7 @@ public class MapCollisionService {
                     return true;
                 }
             }
-            case HORIZON: {
+            case HOR: {
                 if (y % 32 == 16) {
                     return check(x, y);
                 } else {

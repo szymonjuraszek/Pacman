@@ -35,14 +35,14 @@ public class PlayerService {
 
     public Optional<PlayerWithOperation> move(Player player) {
         if (mapCollisionService.checkPositionForPlayer(player)) {
-//            if (spriteCollisionService.checkCollisionWithMonsters(player.getPositionX(), player.getPositionY())) {
-//                logger.info("Gracz wpada na potwora i ginie");
-//
-//                if (Game.getGame().getPlayers().remove(player)) {
-//                    return Optional.of(new PlayerWithOperation(player, Operation.REMOVE));
-//                }
-//
-//            } else
+            if (spriteCollisionService.checkCollisionWithMonsters(player.getPositionX(), player.getPositionY())) {
+                logger.info("Gracz wpada na potwora i ginie");
+
+                if (Game.getGame().getPlayers().remove(player)) {
+                    return Optional.of(new PlayerWithOperation(player, Operation.REMOVE));
+                }
+
+            } else
             if (spriteCollisionService.checkCollisionWithPlayers(player.getPositionX(), player.getPositionY())) {
                 synchronized (Game.getGame().getPlayers()) {
                     boolean getCoin = this.coinService.collectCoin(player);

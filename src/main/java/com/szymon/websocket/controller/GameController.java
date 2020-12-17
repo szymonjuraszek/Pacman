@@ -3,12 +3,9 @@ package com.szymon.websocket.controller;
 import com.szymon.websocket.config.WebsocketSessionService;
 import com.szymon.websocket.dao.HeaderStatus;
 import com.szymon.websocket.dao.PlayerWithOperation;
-import com.szymon.websocket.dao.Wrapper;
 import com.szymon.websocket.model.coin.Coin;
 import com.szymon.websocket.model.coin.CoinsSet;
 import com.szymon.websocket.model.game.Game;
-import com.szymon.websocket.model.measurement.Measurement;
-import com.szymon.websocket.model.measurement.writer.MeasurementWriter;
 import com.szymon.websocket.model.sprite.Player;
 import com.szymon.websocket.sender.ISender;
 import com.szymon.websocket.service.CoinService;
@@ -66,12 +63,11 @@ public class GameController {
 
     //    JSON
     @MessageMapping("/send/position")
-    public void updatePositionForPlayer(Player player, Principal user, @Header("requestTimestamp") Long requestTimestamp, @Header("content-length") Integer contentLength, Wrapper wrapper) {
+    public void updatePositionForPlayer(Player player, Principal user, @Header("requestTimestamp") Long requestTimestamp) {
 //        logger.info("Request time: " + measurement.getRequestTimeInMillis() + " milliseconds");
 //        logger.info("Player: " + player.getNickname() + "x: " + player.getPositionX() + " y: " + player.getPositionY());
 
         Optional<PlayerWithOperation> playerWithOperation = playerService.move(player);
-        player.setSomeData(wrapper.getAdditionalData());
 
         if (playerWithOperation.isPresent()) {
             switch (playerWithOperation.get().getOperation()) {
@@ -80,12 +76,12 @@ public class GameController {
                     break;
                 }
                 case UPDATE: {
-                    this.spriteSender.sendWithTimestamp("/pacman/update/player", playerWithOperation.get().getPlayer(), HeaderStatus.OK, requestTimestamp,contentLength);
+                    this.spriteSender.sendWithTimestamp("/pacman/update/player", playerWithOperation.get().getPlayer(), HeaderStatus.OK, requestTimestamp);
                     break;
                 }
             }
         } else {
-            this.spriteSender.sendToUser("/queue/player", player, HeaderStatus.UPDATE, user.getName(), requestTimestamp,contentLength);
+            this.spriteSender.sendToUser("/queue/player", player, HeaderStatus.UPDATE, user.getName(), requestTimestamp);
         }
     }
 

@@ -24,10 +24,9 @@ public class CustomBinarySender implements ISender {
 
     @Override
     public void sendWithTimestamp(String destination, GameObject gameObject, HeaderStatus status,
-                                  long requestTimestamp,int contentLength) {
+                                  long requestTimestamp) {
         this.template.convertAndSend(destination, gameObject.convertObjectIntoBytes(), Map.of(
                 "requestTimestamp", requestTimestamp,
-                "contentLength", contentLength,
                 "status", status
         ));
 
@@ -35,10 +34,9 @@ public class CustomBinarySender implements ISender {
 
     @Override
     public void sendToUser(String destination, GameObject gameObject, HeaderStatus status, String userSession,
-                           long requestTimestamp,int contentLength) {
+                           long requestTimestamp) {
         this.template.convertAndSendToUser(userSession, destination, gameObject.convertObjectIntoBytes(), Map.of(
                 "requestTimestamp", requestTimestamp,
-                "contentLength", contentLength,
                 "status", status
         ));
     }
@@ -47,7 +45,8 @@ public class CustomBinarySender implements ISender {
     public void sendMonsters(String destination, GameObject[] gameObject) {
         for (int i = 0; i < 5; i++) {
             if (gameObject[i] != null) {
-                this.template.convertAndSend(destination, gameObject[i].convertObjectIntoBytes(), Map.of("timestamp", System.currentTimeMillis()));
+                this.template.convertAndSend(destination, gameObject[i].convertObjectIntoBytes(), Map.of(
+                        "requestTimestamp", System.currentTimeMillis()));
             }
         }
     }

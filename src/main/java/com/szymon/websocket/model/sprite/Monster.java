@@ -1,9 +1,9 @@
 package com.szymon.websocket.model.sprite;
 
 
-import com.szymon.generated.MonsterGenerated;
 import com.szymon.websocket.converter.StringDirectionConverter;
 import com.szymon.websocket.dao.GameObject;
+import com.szymon.websocket.generated.MonsterGenerated;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import net.badata.protobuf.converter.Converter;

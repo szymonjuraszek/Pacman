@@ -1,16 +1,18 @@
 package com.szymon.websocket.model.sprite;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.szymon.generated.PlayerGenerated;
+import com.szymon.websocket.converter.AdditionalDataConverter;
 import com.szymon.websocket.converter.StringDirectionConverter;
-import com.szymon.websocket.dao.AdditionalObject;
+import com.szymon.websocket.dao.AdditionalData;
 import com.szymon.websocket.dao.GameObject;
+import com.szymon.websocket.generated.PlayerGenerated;
 import lombok.Data;
 import net.badata.protobuf.converter.Converter;
 import net.badata.protobuf.converter.annotation.ProtoClass;
 import net.badata.protobuf.converter.annotation.ProtoField;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.List;
 import java.util.Objects;
 
 @Data
@@ -18,8 +20,6 @@ import java.util.Objects;
 public class Player extends GameObject {
     @JsonIgnore
     private final StringBuilder stringBuilder = new StringBuilder(20);
-
-    private AdditionalObject[] someData;
 
     @ProtoField
     private String nickname;
@@ -33,6 +33,8 @@ public class Player extends GameObject {
     private Direction stepDirection;
     @ProtoField
     private int version;
+    @ProtoField(converter = AdditionalDataConverter.class)
+    private List<AdditionalData> additionalData;
 
     public Player() {
     }
@@ -75,17 +77,18 @@ public class Player extends GameObject {
 
     @Override
     public byte[] convertObjectIntoBytes() {
-        String textData = stringBuilder
+        String nicknameToSend = stringBuilder
                 .append(nickname)
                 .insert(stringBuilder.length(), StringUtils.repeat(" ", 10-stringBuilder.length()))
                 .toString();
 
         return joinArray(
-                textData.getBytes(),
+                nicknameToSend.getBytes(),
                 toBytes((short) positionX),
                 toBytes((short) positionY),
                 toBytes((short) score),
-                toBytes((short) version)
+                toBytes((short) version),
+                stepDirection.toString().getBytes()
         );
     }
 
