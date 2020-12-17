@@ -1,8 +1,8 @@
 package com.szymon.websocket.model.sprite;
 
 public enum Direction {
-    HORIZON,
-    VERTICAL,
+    HOR,
+    VER,
     LEFT,
     RIGHT,
     BOT,

@@ -1,5 +1,6 @@
 package com.szymon.websocket.loader;
 
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
@@ -10,13 +11,22 @@ import java.util.stream.Collectors;
 
 @Service
 public class CSVLoader implements ILoaderCollision {
-    private static final String ABSOLUTE_PATH_TO_RESOURCE = new File("").getAbsolutePath() + "/src/main/resources/";
+
+    private final ResourceLoader resourceLoader;
+
+    public CSVLoader(ResourceLoader resourceLoader) {
+        this.resourceLoader = resourceLoader;
+    }
 
     @Override
     public List<List<Boolean>> loadCollision(String csvFileName) {
         List<List<Boolean>> records = new ArrayList<>();
 
-        try (BufferedReader br = new BufferedReader(new FileReader(ABSOLUTE_PATH_TO_RESOURCE + csvFileName))) {
+        try (BufferedReader br = new BufferedReader(
+                new InputStreamReader(resourceLoader
+                        .getResource("classpath:game/" + csvFileName)
+                        .getInputStream(), "UTF-8"))) {
+
             String line;
             while ((line = br.readLine()) != null) {
                 records.add(Arrays.stream(line.split(COMMA_DELIMITER))

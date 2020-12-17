@@ -1,8 +1,8 @@
 package com.szymon.websocket.model.coin;
 
 
-import com.szymon.generated.CoinGenerated;
 import com.szymon.websocket.dao.GameObject;
+import com.szymon.websocket.generated.CoinGenerated;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import net.badata.protobuf.converter.Converter;

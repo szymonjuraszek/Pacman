@@ -18,15 +18,16 @@ public class BinaryConverter {
         ByteBuffer wrapped = ByteBuffer.wrap(arr); // big-endian by default
         wrapped.order(ByteOrder.LITTLE_ENDIAN);
 
-        String[] stringData = new String(arr).substring(0, 19).split("[|]");
-        int x = wrapped.getShort(19);
-        int y = wrapped.getShort(21);
-        int score = wrapped.getShort(23);
-        int counter = wrapped.getShort(25);
+        String nickname = new String(arr).substring(0, 10).trim();
+        int x = wrapped.getShort(10);
+        int y = wrapped.getShort(12);
+        int score = wrapped.getShort(14);
+        int counter = wrapped.getShort(16);
+        String stepDirection = new String(arr).substring(18, 21);
 
-        logger.debug(" nickname: "+ stringData[0] + " requestNumber: " + counter + " x: " + x + " y: " + y + " score: "+
-                score + " direction: " + stringData[1].trim());
+        logger.debug(" nickname: "+ nickname + " requestNumber: " + counter + " x: " + x + " y: " + y + " score: "+
+                score + " direction: " + stepDirection);
 
-        return new Player(stringData[0], x, y, score, Enum.valueOf(Direction.class, stringData[1].trim()), counter);
+        return new Player(nickname, x, y, score, Enum.valueOf(Direction.class, stepDirection), counter);
     }
 }

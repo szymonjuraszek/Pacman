@@ -9,8 +9,8 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.szymon</groupId>
-    <artifactId>websocket</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>websocket-json-size</artifactId>
+    <version>1</version>
     <name>websocket</name>
     <description>Demo project for Spring Boot</description>
 
@@ -59,8 +59,6 @@
             </exclusions>
         </dependency>
 
-
-
         <dependency>
             <groupId>com.opencsv</groupId>
             <artifactId>opencsv</artifactId>
@@ -77,19 +75,10 @@
             <artifactId>jackson-annotations</artifactId>
         </dependency>
 
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
-
-
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

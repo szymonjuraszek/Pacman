@@ -7,6 +7,7 @@ public class StringDirectionConverter implements TypeConverter<Direction, String
 
     @Override
     public Direction toDomainValue(Object o) {
+
         return Direction.valueOf((String) o);
     }
 

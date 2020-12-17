@@ -4,17 +4,22 @@ import com.szymon.websocket.model.coin.Coin;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.io.FileReader;
+import java.io.InputStreamReader;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 public class JSONLoader implements ICoinLoader {
 
-    private static final String ABSOLUTE_PATH_TO_RESOURCE = new File("").getAbsolutePath() + "/src/main/resources/";
+    private final ResourceLoader resourceLoader;
+
+    public JSONLoader(ResourceLoader resourceLoader) {
+        this.resourceLoader = resourceLoader;
+    }
 
     @Override
     public Set<Coin> loadCoins(String jsonFileName) {
@@ -22,7 +27,11 @@ public class JSONLoader implements ICoinLoader {
 
         JSONParser parser = new JSONParser();
         try {
-            Object gameObjects = parser.parse(new FileReader(ABSOLUTE_PATH_TO_RESOURCE + jsonFileName));
+            Object gameObjects = parser.parse(new InputStreamReader(
+                    resourceLoader
+                            .getResource("classpath:game/" + jsonFileName)
+                            .getInputStream(), "UTF-8"));
+
             JSONObject jsonObject = (JSONObject) gameObjects;
 
             JSONArray subjects = (JSONArray) jsonObject.get("layers");

@@ -2,6 +2,7 @@ package com.szymon.websocket.sender;
 
 import com.szymon.websocket.dao.GameObject;
 import com.szymon.websocket.dao.HeaderStatus;
+import com.szymon.websocket.model.game.Game;
 import org.springframework.context.annotation.Profile;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
@@ -24,30 +25,27 @@ public class JsonSender implements ISender {
     }
 
     @Override
-    public void sendWithTimestamp(String destination, GameObject gameObject, HeaderStatus status,
-                                  long requestTimestamp,int contentLength) {
+    public void sendWithTimestamp(String destination, GameObject gameObject,
+                                  long requestTimestamp) {
         this.template.convertAndSend(destination, gameObject, Map.of(
-                "requestTimestamp", requestTimestamp,
-                "contentLength", contentLength,
-                "status", status
+                "requestTimestamp", requestTimestamp
         ));
     }
 
     @Override
-    public void sendToUser(String destination, GameObject gameObject, HeaderStatus status,
-                           String userSession, long requestTimestamp, int contentLength) {
+    public void sendToUser(String destination, GameObject gameObject,
+                           String userSession, long requestTimestamp) {
         this.template.convertAndSendToUser(userSession, destination, gameObject, Map.of(
-                "requestTimestamp", requestTimestamp,
-                "contentLength", contentLength,
-                "status", status
+                "requestTimestamp", requestTimestamp
         ));
     }
 
     @Override
     public void sendMonsters(String destination, GameObject[] gameObject) {
-        for(int i=0;i<5;i++) {
+        for(int i = 0; i< Game.NUMBER_OF_MONSTERS; i++) {
             if(gameObject[i]!= null) {
-                this.template.convertAndSend(destination, gameObject[i], Map.of("timestamp", System.currentTimeMillis()));
+                this.template.convertAndSend(destination, gameObject[i], Map.of(
+                        "requestTimestamp", System.currentTimeMillis()));
             }
         } }
 }
